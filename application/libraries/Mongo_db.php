@@ -1909,7 +1909,7 @@ class Mongo_db
 		$this->_query_safety = trim($this->_config_data['mongo_query_safety']);
 		$dbhostflag = (bool) $this->_config_data['mongo_host_db_flag'];
 		
-		$connection_string = 'mongodb://';
+		$connection_string = '';
 				
 		if (empty($this->_host))
 		{
@@ -1937,6 +1937,7 @@ class Mongo_db
 		{
 			$this->_connection_string = trim($connection_string);
 		}
+
 	}
 	
 	/**
