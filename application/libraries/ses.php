@@ -45,7 +45,7 @@
 * version 0.8.2
 *
 */
-class SimpleEmailService
+class Ses
 {
 	protected $__accessKey; // AWS Access key
 	protected $__secretKey; // AWS Secret key
