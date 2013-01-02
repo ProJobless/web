@@ -9,7 +9,8 @@ class Test extends CI_Controller {
 	
 	function index() {
 
-		$this->User_model->update(array("username" => "john"), array("profile_pic" => "images/profile_pic.jpg"));
+		$ses = new SimpleEmailService(AWS_SES_KEY, AWS_SES_SECRET);
+		print_r($ses->listVerifiedEmailAddresses());
 
 	}
 }

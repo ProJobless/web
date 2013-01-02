@@ -1,3 +1,4 @@
 *.log
 config.php
 log*.php
+secret.php
