@@ -2,7 +2,7 @@
 
 
 
-class Slasht_globals extends CI_Session {
+class Mashtagg_globals extends CI_Session {
 
 
 	public function __construct() {

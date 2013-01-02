@@ -16,7 +16,7 @@ if ( ! function_exists('email_validation')) {
 
 	function email_validation($data) {
 		
-		$ses = new SimpleEmailService(AWS_SES_KEY, AWS_SES_SECRET)
+		$ses = new SimpleEmailService(AWS_SES_KEY, AWS_SES_SECRET);
 
 	}
 }
