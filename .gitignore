@@ -1,3 +1,4 @@
+*.DS_Stores
 *.log
 config.php
 log*.php
