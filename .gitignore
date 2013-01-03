@@ -2,4 +2,4 @@
 *.log
 config.php
 log*.php
-secret.php
+secret_helper.php

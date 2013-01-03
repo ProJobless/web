@@ -11,7 +11,7 @@ class Test extends CI_Controller {
 
 		$this->load->helper('secret');
 
-		$ses = new SimpleEmailService(AWS_SES_KEY, AWS_SES_SECRET);
+		$ses = new Ses(AWS_SES_KEY, AWS_SES_SECRET);
 		print_r($ses->listVerifiedEmailAddresses());
 
 	}
