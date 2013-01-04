@@ -1449,3 +1449,51 @@ ul {
 	width:32px;
 	background:url(../images/loading.gif);
 }
+
+.validate-email-container {
+	margin:50px auto;
+	padding:5px;
+	width:400px;
+	background-color: rgba(0,0,0,.2);
+}
+
+.validate-email-container .inner-container {
+	background-color:#FFF;
+	padding:20px;
+	color:#000;
+}
+
+.validate-email-container .inner-container p {
+	margin:0px;
+}
+
+.validate-email-container .inner-container .validate-button {
+	margin:20px auto 0px auto;
+	cursor:pointer;
+	text-decoration:none;
+	background:#C967BB;
+	background:-moz-linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#C967BB),color-stop(100%,#9C468F));
+	background:-webkit-linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	background:-o-linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	background:-ms-linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	background:linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#C967BB',endColorstr='#9C468F',GradientType=0);
+	padding:6px 7px;
+	color:#fff;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:12px;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border:1px solid #C21FA9;
+	width:46px;
+}
+
+.validate-email-container .inner-container .validate-button:hover {
+	border:1px solid #000;
+}
+
+.validate-email-container .inner-container .validate-button a {
+	color:#FFF;
+}

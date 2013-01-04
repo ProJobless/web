@@ -60,6 +60,7 @@ $route['settings'] = 'settings';
 $route['signup'] = 'signup';
 $route['test'] = 'test';
 $route['settings'] = 'settings';
+$route['validate_email'] = 'validate_email';
 $route['unit_test'] = 'unit_test';
 $route['users'] = 'users';
 
@@ -84,7 +85,7 @@ $route['t/(:any)'] = 'tags/$1';
 $route['test/(:any)'] = 'test/$1';
 $route['unit_test/(:any)'] = 'unit_test/$1';
 $route['users/(:any)'] = 'users/display_by_username/$1';
-$route['create_stuff/(:any)'] = 'create_stuff/$1';
+$route['validate_email/(:any)'] = 'validate_email/$1';
 
 $route['(:any)'] = '';
 

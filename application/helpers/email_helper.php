@@ -15,8 +15,22 @@ if ( ! function_exists('email_validation')) {
 	// }
 
 	function email_validation($data) {
+
+		$CI = get_instance();
+		$CI->load->helper('secret_helper');
 		
-		$ses = new SimpleEmailService(AWS_SES_KEY, AWS_SES_SECRET);
+		$ses = new Ses(AWS_SES_KEY, AWS_SES_SECRET);
+
+		$m = new SimpleEmailServiceMessage();
+		$m->addTo('johnspar1@gmail.com');
+		$m->setFrom('johnspar1@gmail.com');
+		$m->setSubject('Email verification from mashtagg.com');
+		$m->setMessageFromString('Follow this link to validate your email with slasht.com: \n '.base_url().'validate?code='.$data['validation_code'].' ');
+
+		$ses->sendEmail($m);
+	}
+
+	function email_password_reset($data) {
 
 	}
 }

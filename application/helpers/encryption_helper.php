@@ -20,15 +20,15 @@ if ( ! function_exists('encrypt_pw')) {
     }   
 }
 
-if ( ! function_exists('get_email_validation_string')) {
-	function get_email_validation_string() {
+if ( ! function_exists('get_email_validation_code')) {
+	function get_email_validation_code() {
 		$index = 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$validation_string = '';
+		$validation_code = '';
 		
-		for ($i = 1; $i <= 40; $i++) {
-			$validation_string = $validation_string . $index[rand(0,61)];
+		for ($i = 1; $i <= 64; $i++) {
+			$validation_code = $validation_code . $index[rand(0,61)];
 		}
-		return $validation_string;
+		return $validation_code;
 	}
 }
 

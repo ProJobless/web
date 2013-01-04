@@ -27,6 +27,7 @@
 			<p>Profile views: <?php echo $user_info['profile_views']; ?></p>
 			<p><a href="<?php echo base_url() . $this->uri->uri_string . '?tab=following';?>">Following: <?php echo $following_count; ?></a></p>
 			<p><a href="<?php echo base_url() . $this->uri->uri_string . '?tab=followers';?>">Followers: <?php echo $followers_count; ?></a></p>
+			
 		</div>
 		<div class="about">
 			<p><?php echo $user_info['blurb']; ?></p>
