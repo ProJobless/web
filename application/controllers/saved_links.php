@@ -18,8 +18,17 @@ class Saved_links extends CI_Controller {
 	}
 	
 	function new_link() {
-		$data = array('main_content' => 'new_link');
-		$this->load->view('includes/template', $data);
+
+		if($u = Current_User::user()) {
+
+			$data = array('main_content' => 'new_link');
+			$this->load->view('includes/template', $data);
+
+		} else {
+
+			redirect('/');
+			
+		}
 	}
 	
 	function add() {

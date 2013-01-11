@@ -539,6 +539,100 @@ input, textarea, select {
 	font-style: italic;
 }
 
+#signup_form .forgot-password-form {
+	color:#FFF;
+	font-size:12px;
+}
+
+#signup_form .info-container {
+	margin-top:10px;
+	padding-top:10px;
+	border-top:1px dashed #FFF;
+
+}
+
+#signup_form .info-container p {
+	margin:0px;
+}
+
+#signup_form .button-container .cancel-forgot-password {
+	width:41px;
+	cursor:pointer;
+	text-decoration:none;
+	background:#C967BB;
+	background:-moz-linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#C967BB),color-stop(100%,#9C468F));
+	background:-webkit-linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	background:-o-linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	background:-ms-linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	background:linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#C967BB',endColorstr='#9C468F',GradientType=0);
+	padding:6px 7px;
+	color:#fff;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:12px;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border:1px solid #C21FA9
+}
+
+#signup_form .button-container .cancel-forgot-password:hover {
+	border-color: #000;
+}
+
+#signup_form .button-container .cancel-forgot-password:active {
+	border-color: #FFF;
+}
+
+#signup_form .forgot-password-success {
+	background-color: rgba(0,0,0,.5);
+	padding: 30px;
+	color:#FFF;
+	font-size:12px;
+}
+
+#signup_form .forgot-password-success .return-to-login {
+	text-decoration:underline;
+	cursor:pointer;
+}
+
+#signup_form .forgot-password-failure {
+	background-color: rgba(0,0,0,.5);
+	padding: 30px;
+	color:#FFF;
+	font-size:12px;
+}
+
+#submit-forgot-password {
+	cursor:pointer;
+	float:right;
+	background:#FF5DB1;
+	background:-moz-linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#FF5DB1),color-stop(100%,#E94A86));
+	background:-webkit-linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
+	background:-o-linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
+	background:-ms-linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
+	background:linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF5DB1',endColorstr='#E94A86',GradientType=0);
+	padding:6px 7px;
+	color:#fff;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:12px;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border:1px solid #E8124F
+}
+
+#submit-forgot-password:hover {
+	border-color: #000;
+}
+
+#submit-forgot-password:active {
+	border-color: #FFF;
+}
+
 #blog-outer-container {
 	margin:50px auto;
 	width:765px;
@@ -1448,4 +1542,109 @@ ul {
 	height:32px;
 	width:32px;
 	background:url(../images/loading.gif);
+}
+
+.validate-email-container {
+	margin:50px auto;
+	padding:5px;
+	width:400px;
+	background-color: rgba(0,0,0,.2);
+}
+
+.validate-email-container .inner-container {
+	background-color:#FFF;
+	padding:20px;
+	color:#000;
+}
+
+.validate-email-container .inner-container p {
+	margin:0px;
+}
+
+.validate-email-container .inner-container .validate-button {
+	margin:20px auto 0px auto;
+	cursor:pointer;
+	text-decoration:none;
+	background:#C967BB;
+	background:-moz-linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#C967BB),color-stop(100%,#9C468F));
+	background:-webkit-linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	background:-o-linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	background:-ms-linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	background:linear-gradient(top,#C967BB 0%,#9C468F 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#C967BB',endColorstr='#9C468F',GradientType=0);
+	padding:6px 7px;
+	color:#fff;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:12px;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border:1px solid #C21FA9;
+	width:46px;
+}
+
+.validate-email-container .inner-container .validate-button:hover {
+	border:1px solid #000;
+}
+
+.validate-email-container .inner-container .validate-button a {
+	color:#FFF;
+}
+
+.change_password_container {
+	background-color:rgba(0,0,0,0.5);
+	padding:10px 30px;
+	margin:50px auto;
+	width:258px;
+}
+
+.change_password_container p {
+	color:#FFF;
+}
+
+.change_password_container p a {
+	color:#FFF;
+	text-decoration:underline;
+}
+
+.change_password_container form input[type=text], .change_password_container form input[type=password] {
+	font-size:12px;
+	height:20px;
+	width: 250px;
+	padding: 3px;
+	border: 1px solid #CCC;
+	background-color:#FFF;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+.change_password_container form input[type=submit] {
+	cursor:pointer;
+	float:right;
+	background:#FF5DB1;
+	background:-moz-linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#FF5DB1),color-stop(100%,#E94A86));
+	background:-webkit-linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
+	background:-o-linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
+	background:-ms-linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
+	background:linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF5DB1',endColorstr='#E94A86',GradientType=0);
+	padding:6px 7px;
+	color:#fff;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:12px;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border:1px solid #E8124F
+}
+
+.change_password_container form input[type=submit]:hover {
+	border-color: #000;
+}
+
+.change_password_container form input[type=submit]:active {
+	border-color: #FFF;
 }

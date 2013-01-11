@@ -15,7 +15,22 @@ class Login extends CI_Controller {
     	if ($u = Current_User::user()) {
     		redirect('/blog');
     	} else {
-    		$this->load->view('welcome_page');
+    		$signup_code = $this->input->get('signup_code');
+    		if($signup_code) {
+    			$data = array(
+    				'signup_code' => $signup_code,
+    				'login' => 'hidden',
+    				'signup' => '',
+    			);
+    			$this->load->view('welcome_page', $data);
+    		} else {
+    			$data = array(
+    				'login' => '',
+    				'signup' => 'hidden',
+    			);
+    			$this->load->view('welcome_page', $data);
+    		}
+    		
     	}
         
     }

@@ -54,7 +54,7 @@ $autoload['packages'] = array(APPPATH.'third_party');
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database', 'session', 'Mongo_db', 'slasht_globals');
+$autoload['libraries'] = array('database', 'session', 'Mongo_db', 'mashtagg_globals', 'ses');
 
 
 /*

@@ -2,11 +2,9 @@
 
 class Home extends CI_Controller {
 
-	
-
 	public function index() {
 		
-		if($u = Current_User::user()){		
+		if($u = Current_User::user()) {
 		
 			$s = $this->Post_model->get(array('author' => $u['username']));
 			$data = array('main_content' => 'spool',

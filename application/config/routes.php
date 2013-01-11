@@ -48,6 +48,7 @@ $route['create_stuff'] = 'create_stuff';
 $route['cron'] = 'cron';
 $route['debug'] = 'debug';
 $route['feed'] = 'feed';
+$route['forgot_password'] = 'forgot_password';
 $route['home'] = 'home';
 $route['login'] = 'login';
 $route['logout'] = 'logout';
@@ -60,6 +61,7 @@ $route['settings'] = 'settings';
 $route['signup'] = 'signup';
 $route['test'] = 'test';
 $route['settings'] = 'settings';
+$route['validate_email'] = 'validate_email';
 $route['unit_test'] = 'unit_test';
 $route['users'] = 'users';
 
@@ -70,6 +72,7 @@ $route['c/(:any)'] = 'comment/$1';
 $route['cron/(:any)'] = 'cron/$1';
 $route['debug/(:any)'] = 'debug/$1';
 $route['feed/(:any)'] = 'feed/$1';
+$route['forgot_password/(:any)'] = 'forgot_password/$1';
 $route['home/(:any)'] = 'home/$1';
 $route['i/(:any)'] = 'images/1$';
 $route['login/(:any)'] = 'login/$1';
@@ -84,7 +87,7 @@ $route['t/(:any)'] = 'tags/$1';
 $route['test/(:any)'] = 'test/$1';
 $route['unit_test/(:any)'] = 'unit_test/$1';
 $route['users/(:any)'] = 'users/display_by_username/$1';
-$route['create_stuff/(:any)'] = 'create_stuff/$1';
+$route['validate_email/(:any)'] = 'validate_email/$1';
 
 $route['(:any)'] = '';
 

@@ -1,7 +1,3 @@
-home_vars = {
-	url : "http://localhost/spindlous/" 
-};
-
 function positionPopup(e) {
 	
 	
@@ -38,7 +34,7 @@ function username_check() {
 		
 		$.ajax({
 			type: "POST",
-			url: "http://localhost/spindlous/ajax/username_check",
+			url: Mashtagg.base_url + "ajax/username_check",
 			data: postData,
 			success: function(data) {
 				if (data == "exists") {
@@ -72,7 +68,7 @@ function email_check() {
 		
 		$.ajax({
 			type: "POST",
-			url: "http://localhost/spindlous/ajax/email_check",
+			url: Mashtagg.base_url + "ajax/email_check",
 			data: postData,
 			success: function(data) {
 				if (data == "exists") {
@@ -154,7 +150,7 @@ function tab_change(event, _this) {
 
 var invalid_usernames = new Array( "admin", "administrator", "ajax", "api", "home", "login", "logout", "profile", "saved_links", "signup", "spool", "test", "iphone", "android" );
 
-var invalid_passwords = new Array( "password", "test", "testing", "stupid", "spindlous", "123456", "secret" );
+var invalid_passwords = new Array( "password", "test", "testing", "stupid", "slasht", "123456", "secret" );
 
 $(document).ready(function() {
 
@@ -171,6 +167,7 @@ $(document).ready(function() {
 	});
 	
 	$(".upvote").click(function() {
+
 		$(this).addClass("clicked_upvote");
 		$(this).removeClass("upvote");
 		$(this).next(".clicked_downvote").addClass("downvote");
@@ -178,7 +175,7 @@ $(document).ready(function() {
 		var sid = $(this).closest(".outer-comment-container").attr("id");
 		$.ajax({
 			type: "POST",
-			url: "http://localhost/spindlous/ajax/upvote",
+			url: Mashtagg.base_url + "ajax/upvote",
 			data: { "sid" : sid },
 			success: function(data) {
 				
@@ -187,6 +184,7 @@ $(document).ready(function() {
 	});
 	
 	$(".downvote").click(function() {
+
 		$(this).addClass("clicked_downvote");
 		$(this).removeClass("downvote");
 		$(this).prev(".clicked_upvote").addClass("upvote");
@@ -194,7 +192,7 @@ $(document).ready(function() {
 		var sid = $(this).closest(".outer-comment-container").attr("id");
 		$.ajax({
 			type: "POST",
-			url: "http://localhost/spindlous/ajax/downvote",
+			url: Mashtagg.base_url + "ajax/downvote",
 			data: { "sid" : sid },
 			success: function(data) {
 				
@@ -204,14 +202,24 @@ $(document).ready(function() {
 
 	$('.new_comment').click(function() {
 	
-		$('.input_container').hide();	
-		$(this).parent(".add_comment").prev('.input_container').show();
+		var button = $(this);
+
+		if ( button.val() === "Save" ) {
 		
-		if ( $(this).val() === "Save" ) {
-		
-			var body = $(this).closest(".add_comment_container").children('.input_container').children(".new_comment_input").val();
+			var body = button.closest(".add_comment_container").children('.input_container').children(".new_comment_input").val();
 			
 			if (body != "") {
+
+				button.hide();
+				button.siblings(".loading-gif").show();
+				
+				if(button.attr("id") == "first_new_comment") {
+					button.val("New Comment");
+					button.parent(".add_comment").prev('.input_container').hide();
+				} else {
+					button.parent().siblings(".new_comment_input").hide();
+					button.closest(".input_container").siblings(".reply").hide();
+				}
 				
 				var postData = {
 					
@@ -221,15 +229,27 @@ $(document).ready(function() {
 					"parent"    : $("#parent_comment").val(),
 					"root"      : $("#root_comment").val()
 				
-				}
+				};
 			
 				$.ajax({
 					type: "POST",
-					url: "http://localhost/spindlous/ajax/add_comment",
+					url: Mashtagg.base_url + "ajax/add_comment",
 					data: postData,
 					success: function(data) {
-						$(this).closest('.new-comment-container').hide();
-						
+
+						button.siblings(".loading-gif").hide();
+						button.show();
+						$(".new_comment_input").val("");
+						if(button.attr("id") == "first_new_comment") {
+							button.closest('.new-comment-container').siblings('.new-comment-holder').prepend(data);
+						} else {
+							button.parent().siblings(".new_comment_input").show();
+							button.closest('.input_container').hide();
+							button.closest(".input_container").siblings(".reply").show();
+							button.closest('.comment-body-container').siblings('.new-comment-holder').prepend(data);
+
+						}
+							
 					}
 				});
 
@@ -237,16 +257,23 @@ $(document).ready(function() {
 		
 		} else {
 			$(this).val("Save");
+			$("#parent_comment").val($("#root_comment").val());
+			$('.input_container').hide();
+			button.parent(".add_comment").prev('.input_container').show();
 		}
 	
 	});
 	
 	$('.reply').click(function(event) {
 		$("#first_new_comment").val("New Comment");
-		$('.input_container').hide();	
-		$(this).prev('.input_container').show();
+		var is_hidden = $(this).prev(".input_container").is(":hidden")
+		$('.input_container').hide();
+		console.log(is_hidden);
+		if (is_hidden) {
+			$(this).prev('.input_container').show();
+			$("#parent_comment").val($(this).closest(".outer-comment-container").attr("id"));
+		}
 		event.preventDefault();
-		$("#parent_comment").val($(this).closest(".outer-comment-container").attr("id"));
 	});
 	
 	$('#body').focus(function() {
@@ -255,12 +282,12 @@ $(document).ready(function() {
 	
 	});
 	
-	$('.post-container').mouseover(function() {
+	$('.outer-post-container').mouseover(function() {
 	
 		$(this).find(".comments").show();	
 	});
 	
-	$('.post-container').mouseout(function() {
+	$('.outer-post-container').mouseout(function() {
 		
 		$(this).find(".comments").hide();
 		
@@ -311,7 +338,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "POST",
-			url: "http://localhost/spindlous/ajax/add_post",
+			url: Mashtagg.base_url + "ajax/add_post",
 			data: postData,
 			success: function(data) {
 				$('#post-form-container').hide();
@@ -343,7 +370,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "POST",
-			url: "http://localhost/spindlous/ajax/website_scrape",
+			url: Mashtagg.base_url + "ajax/website_scrape",
 			data: postData,
 			success: function(json) {
 				var images = JSON.parse(json);
@@ -408,5 +435,84 @@ $(document).ready(function() {
 			window.location = url;
 		}
 	});
-	
+
+	/******************* Profile Page ********************/
+
+	$("#follow-button").click(function(){
+		if($(this).val() == "Follow") {
+			var postData = {
+				"username" : $("#username").val()
+			};
+			$.ajax({
+				type: "POST",
+				url: Mashtagg.base_url + "ajax/follow",
+				data: postData
+			});
+			$(this).val("Unfollow");
+		} else {
+			var postData = {
+				"username" : $("#username").val()
+			};
+			$.ajax({
+				type: "POST",
+				url: Mashtagg.base_url + "ajax/unfollow",
+				data: postData
+			});	
+			$(this).val("Follow");		
+		}
+	})
+
+	/******************* Login / signup page **********************/
+
+	$(".signup-button").click(function(){
+		$(".login-form").fadeOut(250, function() {
+			$(".signup-form").fadeIn(250);
+		});
+		
+	});
+
+	$(".cancel-signup").click(function(){
+		$(".signup-form").fadeOut(250, function(){
+			$(".login-form").fadeIn(250);
+		});
+	});
+
+	$(".forgot_password").click(function(event){
+		event.preventDefault();
+		$(".login-form").fadeOut(250, function() {
+			$(".forgot-password-form").fadeIn(250);
+		});
+	});
+
+	$(".cancel-forgot-password").click(function(){
+		$(".forgot-password-form").fadeOut(250, function(){
+			$("#forgot_password_email").val("");
+			$(".login-form").fadeIn(250);
+		});
+	});
+
+	$("#submit-forgot-password").click(function() {
+		var post_data = {
+			"email" : $("#forgot_password_email").val(),
+		};
+		$(".forgot-password-form").hide();
+		$(".forgot-password-loading").show();
+		$.ajax({
+			type: "POST",
+			url: Mashtagg.base_url + "forgot_password/submit",
+			data: post_data,
+			success: function(data) {
+				$("#forgot_password_email").val("");
+				$(".forgot-password-loading").hide();
+				$(".forgot-password-success").show();
+			}
+		});
+	});
+
+	$(".return-to-login").click(function() {
+		$(".forgot-password-success").fadeOut(250, function(){
+			$(".login-form").fadeIn(250);
+		});
+	});
+
 });

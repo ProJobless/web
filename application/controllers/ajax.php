@@ -94,64 +94,65 @@ class Ajax extends CI_Controller {
 	}
 	
 	public function website_scrape() {
+		if($u = Current_User::user()) {
 		
-		$url = $this->input->post('url');
-		
-		if  ( preg_match( '/^http:\/\//', $url) == 0) {
-		
-			$url = "http://" . $url;
-		
-		}
-		
-		$ch = curl_init();
-		$timeout = 5;
-  		curl_setopt($ch,CURLOPT_URL,$url);
-		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
-	 	$data = curl_exec($ch);
-		curl_close($ch);
-		
-		if(@$doc = DOMDocument::loadHTML($data)) {
-	
+			$url = $this->input->post('url');
 			
-			$images = $doc->getElementsByTagName("img");
+			if  ( preg_match( '/^http:\/\//', $url) == 0) {
 			
-			$json = array();
+				$url = "http://" . $url;
 			
-			for ( $i = 0; $i < $images->length; $i++ ) {
-			
-				$image_src = $images->item($i)->attributes->getNamedItem("src")->nodeValue;
-				
-				
-				if ( ( preg_match( '/^http:/', $image_src) == 1) ){ 
-				
-					$size = getimagesize($image_src);					
-					
-				} else if ( preg_match( '/^www\./', $image_src) == 1) {
-					
-					$image_src = "http://" . $image_src;
-					$size = getimagesize($image_src);					
-					
-				} else {
-					
-					$image_src = $url . $image_src;
-					$size = getimagesize($image_src);					
-				
-				}
-				
-				$json[$i] = array("src" => $image_src, "width" => $size[0], "height" => $size[1]);
-				
 			}
 			
-			$json = json_encode($json);
-			echo $json;
+			$ch = curl_init();
+			$timeout = 5;
+	  		curl_setopt($ch,CURLOPT_URL,$url);
+			curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+			curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+		 	$data = curl_exec($ch);
+			curl_close($ch);
 			
-		} else {
-			
-			echo "FAIL";
-			
-		}
+			if(@$doc = DOMDocument::loadHTML($data)) {
 		
+				
+				$images = $doc->getElementsByTagName("img");
+				
+				$json = array();
+				
+				for ( $i = 0; $i < $images->length; $i++ ) {
+				
+					$image_src = $images->item($i)->attributes->getNamedItem("src")->nodeValue;
+					
+					
+					if ( ( preg_match( '/^http:/', $image_src) == 1) ){ 
+					
+						$size = getimagesize($image_src);					
+						
+					} else if ( preg_match( '/^www\./', $image_src) == 1) {
+						
+						$image_src = "http://" . $image_src;
+						$size = getimagesize($image_src);					
+						
+					} else {
+						
+						$image_src = $url . $image_src;
+						$size = getimagesize($image_src);					
+					
+					}
+					
+					$json[$i] = array("src" => $image_src, "width" => $size[0], "height" => $size[1]);
+					
+				}
+				
+				$json = json_encode($json);
+				echo $json;
+				
+			} else {
+				
+				echo "FAIL";
+				
+			}
+		}
 		
 	}
 }
