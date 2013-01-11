@@ -10,7 +10,7 @@ class Blog extends CI_Controller {
 	
 	public function index() {
 	
-		if($u = Current_User::user()) {		
+		if($u = Current_User::user()) {
 		
 			$s = $this->Post_model->get(array('author' => $u['username'], 'published' => 'true'));
 			$data = array('main_content'  => 'blog',
@@ -20,8 +20,7 @@ class Blog extends CI_Controller {
 
 			$this->load->view('includes/template', $data);
 			
-		}
-		else {
+		} else {
 			
 			redirect('/');
 			
@@ -31,12 +30,20 @@ class Blog extends CI_Controller {
 	}
 	
 	public function display_by_username($username) {
+
+		if($u = Current_User::user()) {
 	
-		$s = $this->Post_model->get(array('author' => $username, 'published' => 'true'));
-			$data = array('main_content'  => 'blog',
-						         'spool'  => $s,
-								 'type'   => 'other');
-		$this->load->view('includes/tempalte', $data);
+			$s = $this->Post_model->get(array('author' => $username, 'published' => 'true'));
+				$data = array('main_content'  => 'blog',
+							         'spool'  => $s,
+									 'type'   => 'other');
+			$this->load->view('includes/tempalte', $data);
+
+		} else {
+			
+			redirect('/');
+			
+		}
 	
 	
 	}

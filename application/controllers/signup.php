@@ -25,9 +25,8 @@ class Signup extends CI_Controller {
 			              'email' => $this->input->post('email'),
 			              'password' => $this->input->post('password'));						
 			$this->User_model->signup($data);
-			//$this->Email_Validation->add($data);
 
-			$this->load->view('submit_success');
+			redirect('/');
 		}
 
 	}
@@ -42,12 +41,11 @@ class Signup extends CI_Controller {
 		
  
         $this->form_validation->set_rules('password', 'Password',
-            'required|min_length[6]|max_length[12]');
+            'required|min_length[6]|max_length[20]');
  
         $this->form_validation->set_rules('passconf', 'Confirm Password',
             'required|matches[password]');
  
-        
  
         return $this->form_validation->run();
  

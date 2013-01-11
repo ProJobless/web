@@ -20,8 +20,8 @@ if ( ! function_exists('encrypt_pw')) {
     }   
 }
 
-if ( ! function_exists('get_email_validation_code')) {
-	function get_email_validation_code() {
+if ( ! function_exists('get_validation_code')) {
+	function get_validation_code() {
 		$index = 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		$validation_code = '';
 		

@@ -8,6 +8,8 @@ class Debug extends CI_Controller {
 	}
 	
 	function index() {
-		echo "Sup G";	
+		
+		redirect("/");
+
 	}
 }

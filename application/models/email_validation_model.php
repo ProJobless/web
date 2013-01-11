@@ -9,7 +9,7 @@ class Email_validation_model extends CI_Model {
 	
 	function add($data) {
 		$this->load->helper('encryption_helper');
-		$data['validation_code'] = get_email_validation_code();
+		$data['validation_code'] = get_validation_code();
 		$data['created'] = time();
 		$this->mongo_db->where(array('email' => $data['email']))->delete_all('email_validation');
 		$this->mongo_db->insert('email_validation', $data);

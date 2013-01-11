@@ -65,6 +65,26 @@ class User_model extends CI_Model {
 		return FALSE;
 	
 	}
+
+	public function change_password_with_hash($data) {
+
+		if (isset($data['username']) && isset($data['old_password_hash']) && isset($data['new_password'])) {
+
+			if ($u = $this->User_model->get_by_username($data['username'])) {
+
+				if ($u['password'] === $data['old_password_hash']) {
+					$this->load->helper('encryption_helper');
+					$new_pw = encrypt_pw($data['new_password'], $u['salt']);
+					$this->update(array('username' => $data['username']), array('password' => $new_pw));
+					return TRUE;
+				}
+				return FALSE;
+			}
+			return FALSE;
+		}
+		return FALSE;
+
+	}
 	
 	public function get_by_username($username) {
 		
@@ -85,6 +105,16 @@ class User_model extends CI_Model {
 			return FALSE;
 		}
 	
+	}
+
+	public function get_by_email($email) {
+		
+		$u = $this->mongo_db->where(array('email'=>$email))->limit(1)->get('users');
+		if(sizeof($u) == 1) {
+			return $u[0];
+		} else {
+			return FALSE;
+		}
 	}
 	
 	public function update($where, $data) {
