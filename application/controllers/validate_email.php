@@ -54,6 +54,7 @@ class Validate_email extends CI_Controller {
 
 					$email_data = array(
 						'validation_code' => $this->Email_validation_model->add(array('email' => $u['email'])),
+						'email' => $u['email'],
 					);
 
 					email_validation($email_data);
@@ -62,8 +63,6 @@ class Validate_email extends CI_Controller {
 					$this->load->view('includes/template', $data);
 
 				}
-
-				
 
 			} else {
 
