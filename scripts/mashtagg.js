@@ -466,6 +466,7 @@ $(document).ready(function() {
 
 	$(".signup-button").click(function(){
 		$(".login-form").fadeOut(250, function() {
+			$(".error").remove();
 			$(".signup-form").fadeIn(250);
 		});
 		
@@ -473,6 +474,7 @@ $(document).ready(function() {
 
 	$(".cancel-signup").click(function(){
 		$(".signup-form").fadeOut(250, function(){
+			$(".error").remove();
 			$(".login-form").fadeIn(250);
 		});
 	});
@@ -480,6 +482,7 @@ $(document).ready(function() {
 	$(".forgot_password").click(function(event){
 		event.preventDefault();
 		$(".login-form").fadeOut(250, function() {
+			$(".error").remove();
 			$(".forgot-password-form").fadeIn(250);
 		});
 	});
@@ -515,4 +518,92 @@ $(document).ready(function() {
 		});
 	});
 
+	/******************* Referral page **********************/
+
+	$(".referral-button").click(function(){
+		$(".inner-container .header").hide();
+		$(".email-container").show();
+	});
+
+	$("#cancel_referral").click(function(){
+		$(".email-container").hide();
+		$(".inner-container .header").show();
+		$("#referral_email").val("");
+		$(".validation-errors").hide();
+		$("#referral_email").css({"border" : "1px solid #AAA"});
+	});
+
+	$("#submit_referral").click(function(){
+		var email = $("#referral_email").val();
+		var referrer = $("#referrer").val();
+		if (email != "") {
+			if (isRFC822ValidEmail(email)) {
+				$(".validation-errors").hide();
+				$("#referral_email").css({"border" : "1px solid #AAA"});
+				var referral_amount = $("#referral_amount").val();
+				if (referral_amount < 5) {
+					referral_amount++;
+					$("#referral_amount").val(referral_amount);
+					$(".email-container").hide();
+					$(".inner-container .header").show();
+					$("#referral_email").val("");
+					if (referral_amount == 5) {
+						$(".referral-header").html("<p>You have used up all 5 of your invites.<p>");
+					} else {
+						$(".referral-header").html("<p>You have sent " + referral_amount + " referrals out, and have " + (5 - referral_amount) + " left to send.</p>");
+					}
+					var postData = {
+						"referrer" : referrer,
+						"email" : email
+					};
+					$.ajax({
+						type: "POST",
+						url: Mashtagg.base_url + "refer/create",
+						data: postData,
+						success: function() {
+
+							$(".referrals").append(
+								"<div class='referral-container'>" +
+									"<p class='referral'>" + email + "</p>" + 
+								"</div>"
+							);
+						}
+					});
+				}
+			} else {
+				$(".validation-errors").show();
+				$("#referral_email").css({"border" : "1px solid red"});
+			}
+			
+		}
+		
+	});
+
 });
+
+
+//From http://rosskendall.com/blog/web/javascript-function-to-check-an-email-address-conforms-to-rfc822
+function isRFC822ValidEmail(sEmail) {
+
+  var sQtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]';
+  var sDtext = '[^\\x0d\\x5b-\\x5d\\x80-\\xff]';
+  var sAtom = '[^\\x00-\\x20\\x22\\x28\\x29\\x2c\\x2e\\x3a-\\x3c\\x3e\\x40\\x5b-\\x5d\\x7f-\\xff]+';
+  var sQuotedPair = '\\x5c[\\x00-\\x7f]';
+  var sDomainLiteral = '\\x5b(' + sDtext + '|' + sQuotedPair + ')*\\x5d';
+  var sQuotedString = '\\x22(' + sQtext + '|' + sQuotedPair + ')*\\x22';
+  var sDomain_ref = sAtom;
+  var sSubDomain = '(' + sDomain_ref + '|' + sDomainLiteral + ')';
+  var sWord = '(' + sAtom + '|' + sQuotedString + ')';
+  var sDomain = sSubDomain + '(\\x2e' + sSubDomain + ')*';
+  var sLocalPart = sWord + '(\\x2e' + sWord + ')*';
+  var sAddrSpec = sLocalPart + '\\x40' + sDomain; // complete RFC822 email address spec
+  var sValidEmail = '^' + sAddrSpec + '$'; // as whole string
+  
+  var reValidEmail = new RegExp(sValidEmail);
+  
+  if (reValidEmail.test(sEmail)) {
+    return true;
+  }
+  
+  return false;
+}

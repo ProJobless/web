@@ -8,36 +8,32 @@
 </head>
 <body>
 
-<div id="signup_form">
+<div id="lone_signup_form">
 
-	<p class="heading">New User Signup</p>
-
-	<?php echo form_open('signup/submit'); ?>
+	<?php echo form_open('signup/submit', array("autocomplete" => "off")); ?>
 
 	<?php echo validation_errors('<p class="error">','</p>'); ?>
 	
 	<p>
-		<label for="username">Username: </label>
-		<input type="text" id="username" name="username" />
+		<input type="text" id="username" name="username" placeholder="Username" />
 	</p>
 	<p>
-		<label for="email">E-mail: </label>
-		<input type="text" id="email" name="email" />
+		<input type="text" id="email" name="email" placeholder="Email address" />
 	</p>	
 	<p>
-		<label for="password">Password: </label>
-		<input type="password" id="password" name="password" />
+		<input type="password" id="password" name="password" placeholder="Password" />
 	</p>
 	<p>
-		<label for="passconf">Confirm Password: </label>
-		<input type="password" id="passconf" name="passconf" />
-	</p>	
+		<input type="password" id="passconf" name="passconf" placeholder="Confirm password" />
+	</p>
 	<p>
+		<input type="text" name="signup_code" placeholder="Invite code" />
+	</p>
+	<div class="button-container">
 		<?php echo form_submit('submit','Create my account'); ?>
-	</p>
+		<p><a href="<?php echo base_url(); ?>" class="cancel-signup">Cancel</a></p>
+		<div style="clear:both"></div>
+	</div>
 	<?php echo form_close(); ?>
-	<p class="new_user">
-		<?php echo anchor('login','Login Form'); ?>
-	</p>
 
 </div>

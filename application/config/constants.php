@@ -36,6 +36,18 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+/*
+|--------------------------------------------------------------------------
+| Mashtagg centric globals
+|--------------------------------------------------------------------------
+*/
+
+define('MT_VALIDATION_EMAIL',        'email-validation@mashtagg.com');
+define('MT_PASSWORD_RESET_EMAIL',    'password-reset@mashtagg.com');
+define('MT_REFERRAL_EMAIL',          'referral@mashtagg.com');
+define('MAX_REFERRAL_AMOUNT',        5);
+
+
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

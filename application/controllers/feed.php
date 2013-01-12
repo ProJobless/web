@@ -15,8 +15,11 @@ class Feed extends CI_Controller {
 			$data = array('main_content' => 'spool',
 						  'spool' => $s);
 			$this->load->view('includes/template', $data);
+			
 		} else {
-			$this->load->view('welcome_page');
+			
+			redirect('/');
+
 		}
 	}
 

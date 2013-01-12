@@ -11,7 +11,7 @@ class Signup extends CI_Controller {
 	
     public function index() {
         $data['main_content'] = 'signup_form';
-		$this->load->view('includes/template', $data);
+		$this->load->view('includes/empty_template', $data);
     }
 	
 	public function submit() {
@@ -19,14 +19,49 @@ class Signup extends CI_Controller {
 		if ($this->_submit_validate() === FALSE) {
 			$this->index();
 			return false;
-		} else { 
-					
-			$data = array('username' => $this->input->post('username'),
-			              'email' => $this->input->post('email'),
-			              'password' => $this->input->post('password'));						
-			$this->User_model->signup($data);
+		} else {
 
-			redirect('/');
+			$code = $this->input->post('signup_code');
+
+			if($code) {
+
+				$this->load->model('Referral_model');
+
+				$referral = $this->Referral_model->redeem($code);
+
+				if(count($referral) == 1) {
+					$data = array(
+						'username' => $this->input->post('username'),
+					    'email' => $this->input->post('email'),
+					    'password' => $this->input->post('password'),
+					    'referrer' => $referral[0]['referrer'],
+					);
+
+					$this->User_model->signup($data);
+
+				}
+
+				redirect('/');
+					
+			}
+
+			//For when site is out of invite only mode:
+
+			//else {
+
+			// 	$data = array(
+			// 		'username' => $this->input->post('username'),
+			// 	    'email' => $this->input->post('email'),
+			// 	    'password' => $this->input->post('password'),
+			// 	);
+
+			// 	$this->User_model->signup($data);
+
+			// 	redirect('/');
+
+			// }
+
+			
 		}
 
 	}
@@ -45,6 +80,9 @@ class Signup extends CI_Controller {
  
         $this->form_validation->set_rules('passconf', 'Confirm Password',
             'required|matches[password]');
+
+        $this->form_validation->set_rules('signup_code', 'invite code',
+            'required|exists[referrals.code]');
  
  
         return $this->form_validation->run();

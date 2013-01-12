@@ -24,6 +24,7 @@
 			<?php else: ?>
 				<p><a href="<?php echo base_url() . 'validate_email/'; ?>">Validate your email</a></p>
 			<?php endif; ?>
+			<p><a href="<?php echo base_url() . 'refer'; ?>">Refer your friends</a></p>
 		</div>
 		<div class="about">
 			<p><?php echo $user_info['blurb']; ?></p>
