@@ -55,7 +55,7 @@ if ( ! function_exists('email_referral')) {
 		$m->addTo($data['email']);
 		$m->setFrom(MT_REFERRAL_EMAIL);
 		$m->setSubject('Your friend, ' . $data['referral_name'] . ' has sent you a referral from mashtagg.com');
-		$m->setMessageFromString('Hello! Your friend, ' . $data['referral_name'] . ' has sent you a referral from mashtagg.com. Mashtagg is currently invite only so this is your chance to sign up! Follow this link to create your account: '.base_url().'/login?signup_code='.$data['signup_code'].' ');
+		$m->setMessageFromString('Hello! Your friend, ' . $data['referral_name'] . ' has sent you a referral from mashtagg.com. Mashtagg is currently invite only so this is your chance to sign up! Follow this link to create your account: '.base_url().'login?signup_code='.$data['signup_code'].' ');
 
 		$ses->sendEmail($m);
 

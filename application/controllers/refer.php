@@ -82,7 +82,7 @@ class Refer extends CI_Controller {
 							'email' => $data['email'],
 						);
 
-						email_referral($data);
+						email_referral($email);
 
 					}
 
