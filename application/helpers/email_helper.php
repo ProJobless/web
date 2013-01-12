@@ -14,7 +14,7 @@ if ( ! function_exists('email_validation')) {
 		$m->addTo($data['email']);
 		$m->setFrom(MT_VALIDATION_EMAIL);
 		$m->setSubject('Email verification from mashtagg.com');
-		$m->setMessageFromString('Follow this link to validate your email with mashtagg: '.base_url().'/validate_email/validate?code='.$data['validation_code'].' ');
+		$m->setMessageFromString('Follow this link to validate your email with mashtagg: '.base_url().'validate_email/validate?code='.$data['validation_code'].' ');
 
 		$ses->sendEmail($m);
 	}
@@ -34,7 +34,7 @@ if ( ! function_exists('email_password_reset')) {
 		$m->addTo($data['email']);
 		$m->setFrom(MT_PASSWORD_RESET_EMAIL);
 		$m->setSubject('Password reset from mashtagg.com');
-		$m->setMessageFromString('Follow this link to reset your password with mashtagg: '.base_url().'/forgot_password/reset?code='.$data['pw_reset_code'].' ');
+		$m->setMessageFromString('Follow this link to reset your password with mashtagg: '.base_url().'forgot_password/reset?code='.$data['pw_reset_code'].' ');
 
 		$ses->sendEmail($m);
 
