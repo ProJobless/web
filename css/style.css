@@ -1,7 +1,13 @@
+html {
+	height:100%;
+	margin:0;
+   	padding:0;
+}
+
 body {
+	
 	font-family:Arial;
 	font-size: 12px;
-	/*background-color: #E6E8FA;*/
 	background: url(../images/wallpaper-1908939.jpg);
 	color: #aaaaaa;
 	margin:0;
@@ -9,15 +15,10 @@ body {
    	height:100%;
 }
 
+
 #body {
 	min-height:100%;
 	position:relative;
-	padding-bottom:20px;
-}
-
-span.time {
-	font-size: 10px;
-	color: #090909;
 }
 
 .left {
@@ -26,6 +27,116 @@ span.time {
 
 .right {
 	float:right;
+}
+
+/************** HEADER ***************/
+
+#header {
+	width: 100%;
+	margin: 0px;
+	position:absolute;
+	top: 0;
+	left: 0;
+	padding: 0px;
+	height: 14px;
+	display: block;
+	text-align: center;
+	background-color: rgba(0,0,0,.2);
+
+}
+
+#header a{
+	color: #FFF;
+}
+
+#header p{
+	color: #FFF;
+	margin:0px;
+	padding:0px;
+	margin-top:-1px;
+}
+#container1 {
+	float: left;
+	width: 75%;
+}
+
+#container2 {
+	float: right;
+	width: 25%;
+}
+
+#container3 {
+	float: right;
+	width: 67%;
+}
+
+#container4 {
+	margin:0px auto;
+	width:440px;
+}
+
+
+#container3 .link-box {
+	height:14px;
+	width:55px;
+	padding:0px;
+	margin:0px;
+	font-family: 'Anaheim', sans-serif;
+	float:right;
+
+}
+
+#container3 .link-box p a {
+	padding:0px 6px;
+	font-weight:normal;
+}
+
+#container3 .feed-link {
+	background-color:#282A2E;
+}
+#container3 .blog-link {
+	background-color:#A54242;
+}
+#container3 .profile-link {
+	background-color:#DE935F;
+}
+#container3 .tags-link {
+	background-color:#8C9440;
+}
+#container3 .users-link {
+	background-color:#5E8D87;
+}
+#container3 .saved-link {
+	background-color:#5F819D;
+}
+#container3 .settings-link {
+	background-color:#85678F;
+}
+#container3 .about-link {
+	background-color:#969896;
+}
+
+/************** CONTENT ***************/
+
+#content {
+	padding-top:50px;
+}
+
+/************** FOOTER ***************/
+
+#footer {
+	position:absolute;
+	width:100%;
+	color:rgba(255,255,255,0.5);
+}
+
+#footer p {
+	text-align:center;
+}
+
+span.time {
+	font-size: 10px;
+	color: #090909;
 }
 
 #new_link_form {
@@ -129,95 +240,6 @@ span.time {
 	
 }
 
-#top-bar {
-	width: 100%;
-	margin: 0px;
-	position:absolute;
-	top: 0;
-	left: 0;
-	padding: 0px;
-	height: 14px;
-	display: block;
-	text-align: center;
-	background-color: rgba(0,0,0,.2);
-
-}
-
-#top-bar a{
-	color: #FFF;
-}
-
-#top-bar p{
-	color: #FFF;
-	margin:0px;
-	padding:0px;
-}
-#container1 {
-	float: left;
-	width: 75%;
-}
-
-#container2 {
-	float: right;
-	width: 25%;
-}
-
-#container3 {
-	float: right;
-	width: 67%;
-}
-
-#container4 {
-	margin:0px auto;
-	width:440px;
-}
-
-
-#container3 .link-box {
-	height:14px;
-	width:55px;
-	padding:0px;
-	margin:0px;
-	font-family: 'Anaheim', sans-serif;
-	float:right;
-
-}
-
-#top-bar p {
-	margin-top:-1px;
-}
-
-#container3 .link-box p a {
-	padding:0px 6px;
-	font-weight:normal;
-}
-
-#container3 .feed-link {
-	background-color:#282A2E;
-}
-#container3 .blog-link {
-	background-color:#A54242;
-}
-#container3 .profile-link {
-	background-color:#DE935F;
-}
-#container3 .tags-link {
-	background-color:#8C9440;
-}
-#container3 .users-link {
-	background-color:#5E8D87;
-}
-#container3 .saved-link {
-	background-color:#5F819D;
-}
-#container3 .settings-link {
-	background-color:#85678F;
-}
-#container3 .about-link {
-	background-color:#969896;
-}
-
-
 #user_control_box{
 	float: left;
 	width: 50%;
@@ -275,10 +297,7 @@ span.time {
 
 
 #spool {
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 50px;
-	margin-bottom: 100px;
+	margin:0px auto;
 	padding: 10px 10px 10px 10px;
 	width: 700px;
 	background-color: #FFFFFF;
@@ -310,10 +329,7 @@ span.time {
 }
 
 #settings-container {
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 75px;
-	margin-bottom: 100px;
+	margin:0px auto;
 	padding: 0;
 	width: 850px;
 	background-color: #FFFFFF;
@@ -346,7 +362,6 @@ span.time {
 
 #tab-container {
 	height:30px;
-	margin-top:20px;
 	background-color:rgba(0,0,0,.2);
 }
 
@@ -758,7 +773,7 @@ input, textarea, select {
 }
 
 #blog-outer-container {
-	margin:50px auto;
+	margin:0px auto;
 	width:765px;
 }
 
@@ -1402,7 +1417,7 @@ ul {
 /********************** Users page *****************************/
 
 .content-container {
-	margin:50px auto;
+	margin:0px auto;
 	padding:5px;
 	width:900px;
 	background-color: rgba(0,0,0,.2);
@@ -1539,7 +1554,7 @@ ul {
 /********************** User Profile styles ********************/
 
 .profile-container {
-	margin:50px auto;
+	margin:0px auto;
 	padding:5px;
 	width:1000px;
 	background-color: rgba(0,0,0,.2);
@@ -1917,16 +1932,4 @@ ul {
 
 .referral-outer-container .inner-container .referrals .no-referrals {
 	text-align:center;
-}
-
-#copyright-container {
-	position:absolute;
-	bottom:0px;
-	width:100%;
-	color:rgba(0,0,0,0.5);
-}
-
-#copyright-container p {
-	text-align:center;
-	margin-bottom:5px;
 }
