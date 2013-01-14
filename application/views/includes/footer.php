@@ -1,3 +1,7 @@
+<div class="copyright-container">
+	<p>© 2013 John Sparwasser</p>
+</div>
+
 </body>
 
 <script type="text/javascript" src="<?php echo base_url();?>scripts/jquery.js"></script>
