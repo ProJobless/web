@@ -72,13 +72,13 @@ body {
 
 #container4 {
 	margin:0px auto;
-	width:440px;
+	width:570px;
 }
 
 
 #container3 .link-box {
 	height:14px;
-	width:55px;
+	width:75px;
 	padding:0px;
 	margin:0px;
 	font-family: 'Anaheim', sans-serif;
@@ -934,13 +934,14 @@ input, textarea, select {
 
 .outer-post-container {
 	background-color:white;
-	margin:5px 0px 0px 0px;
 }
 
 .post-container h2 {
+	font-family:Anaheim, Helvetica, Arial;
 	color: #BD2031;
 	margin: 0px 0px 0px 0px;
-	font-size: 14px;
+	font-size: 22px;
+	font-weight:normal;
 }
 
 p.author {
@@ -951,8 +952,9 @@ p.author {
 
 .post-container {
 	min-height: 60px;
-	padding: 5px 5px 0px 5px;
+	padding: 5px;
 	margin: 0px 0px 0px 0px;
+	color:#000;
 }
 
 .little-post-container {
@@ -1932,4 +1934,54 @@ ul {
 
 .referral-outer-container .inner-container .referrals .no-referrals {
 	text-align:center;
+}
+
+
+/********************* COMPOSE PAGE **************************/
+
+.compose-content-container {
+	margin:0px auto;
+	padding:5px 0px;
+	width:100%;
+	background-color: rgba(0,0,0,.2);
+	height:800px;
+
+}
+
+.compose-content-container .compose-outer-container {
+	width:100%;
+	height:100%;
+}
+
+.compose-content-container .compose-outer-container .navigation-outline{
+	float:left;
+	height:100%;
+	width:250px;
+	background-color: rgba(0,0,0,.2);
+}
+
+.compose-content-container .compose-outer-container .input-container {
+	min-width:850px;
+	height:100%;
+	float:left;
+	background-color:#FFF;
+}
+
+.compose-content-container .compose-outer-container .input-container .title-input-container {
+	height:50px;
+	border-bottom:1px dashed #C7C7C7;
+	margin-bottom:10px;
+	padding:5px 5px 5px 20px;
+}
+
+.compose-content-container .compose-outer-container .input-container .title-input-container #post-title {
+	width:100%;
+	height:50px;
+	border:none;
+	font-size:24px;
+	font-family:Anaheim, Helvetica, Arial;
+}
+
+#post-title:focus {
+	outline-width:0;
 }
