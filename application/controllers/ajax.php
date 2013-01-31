@@ -29,13 +29,17 @@ class Ajax extends CI_Controller {
 			$data['published'] = $this->input->post('published');
 			$data['type'] = $this->input->post('type');
 			$data['parent'] = $this->input->post('parent');
+			$data['odd'] = $this->input->post('odd');
 			$data['children'] = array();
 			$this->Post_model->increment($data['parent'], 'comments_count');
 			if ($data['parent'] != $data['root']) {
 				$this->Post_model->increment($data['root'], 'comments_count');
 			}
 			$data['sid'] = $this->Post_model->create($data);
-			$this->Post_model->generate_comment_html($data);
+			$comment = $this->Post_model->get_by_sid($data['sid']);
+			$comment['odd'] = $data['odd'];
+
+			$this->Post_model->generate_comment_html($comment);
 		}
 	}
 	

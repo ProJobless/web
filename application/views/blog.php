@@ -23,37 +23,94 @@
 
 	<div id="blog-content-container">
 
+		<?php if ($type == "self"): ?>
+
+			<div class="compose-container">
+
+				<div class="compose-inner-container">
+
+					<a href="<?php echo base_url() . 'compose'; ?>">
+						<div class="compose-button new_post">
+							<img src="<?php echo base_url() . 'images/new_post.png';?>" />
+							<p>Post</p>
+						</div>
+					</a>
+					<a href="<?php echo base_url() . 'compose?type=image'; ?>">
+						<div class="compose-button new_image">
+							<img src="<?php echo base_url() . 'images/new_picture.png';?>" />
+							<p>Image</p>
+						</div>
+						</a>
+					<a href="<?php echo base_url() . 'compose?type=link'; ?>">
+						<div class="compose-button new_link">
+							<img src="<?php echo base_url() . 'images/new_share.png';?>" />
+							<p>Link</p>
+						</div>
+						</a>
+					<a href="<?php echo base_url() . 'compose?type=quote'; ?>">
+						<div class="compose-button new_quote">
+							<img src="<?php echo base_url() . 'images/new_quote.png';?>" />
+							<p>Quote</p>
+						</div>
+					</a>
+					<div style="clear:both"></div>
+				</div>
+
+			</div>
+
+		<?php endif; ?>
+
 		<?php if (sizeof($spool) > 0) { ?>
 
-			<?php $first_post = "first-post"; ?>
-			
-			<?php foreach ($spool as $row) { ?>
+			<div class="posts-container">
+
+				<?php $first_post = "first-post"; ?>
 				
-				<?php if ($row['type'] != 'comment') { ?>
-					<div class="outer-post-container <?php echo $first_post; ?>">
-						 <?php $first_post = ""; ?>
-						<?php if ($row['title'] != '') { ?>
-							<div id="<?php echo $row['sid']; ?>"class="post-container">
-								<h2><a href="<?php echo $row['url']; ?>" class="post-title"><?php echo $row['title']; ?></a></h2>
-								<div class="post-body-container">
-									<p class="body"><?php echo $row['body']; ?></p>
-									<p class="comments"><a href="<?php echo $row['url']; ?>" >Comments[<?php echo $row['comments_count'];?>]</a> <a href="<?php echo $row['url'] . '?tab=shares'; ?>" >Shares[<?php echo $row['shares_count'];?>]</a></p>
+				<?php foreach ($spool as $row) { ?>
+					
+					<?php if ($row['type'] != 'comment') { ?>
+						<div class="outer-post-container <?php echo $first_post; ?>">
+							<?php $first_post = ""; ?>
+							<?php if ($row['title'] != '') { ?>
+								<div id="<?php echo $row['sid']; ?>"class="post-container">
+									<div class="post-author-vote-container">
+										<img src="<?php echo base_url() . $row['profile_pic']; ?>" />
+									</div>
+									<div class="post-body-container">
+										<h2><a href="<?php echo $row['url']; ?>" class="post-title"><?php echo $row['title']; ?></a></h2>
+										<div class="post-body">
+											<?php echo $row['body']; ?>
+										</div>
+										<div class="post-links">
+											<p><span class="expand">Expand</span>&nbsp;&nbsp;&nbsp;<span class="comments"><a href="<?php echo $row['url']; ?>" >Comments[<?php echo $row['comments_count'];?>]</a>&nbsp;&nbsp;&nbsp;<a href="<?php echo $row['url'] . '?tab=shares'; ?>" >Shares[<?php echo $row['shares_count'];?>]</a></p>
+										</div>
+									</div>
+									<div style="clear:both"></div>
 								</div>
-							</div>
-						<?php } else { ?>
-							<div id="<?php echo $row['sid']; ?>"class="little-post-container">
-								<div class="post-body-container">
-									<p class="little-body"><?php echo $row['body']; ?></p>
-									<p class="little-comments"><a href="<?php echo $row['url']; ?>" >Comments[<?php echo $row['comments_count'];?>]</a> <a href="<?php echo $row['url'] . '?tab=shares'; ?>" >Shares[<?php echo $row['shares_count'];?>]</a></p>
+							<?php } else { ?>
+								<div id="<?php echo $row['sid']; ?>"class="little-post-container">
+									<div class="post-author-vote-container">
+										<img src="<?php echo base_url() . $row['profile_pic']; ?>" />
+									</div>
+									<div class="post-body-container">
+										<div class="post-body">
+											<?php echo $row['body']; ?>
+										</div>
+										<div class="post-links">
+											<p><span class="expand">Expand</span>&nbsp;&nbsp;&nbsp;<span class="little-comments"><a href="<?php echo $row['url']; ?>" >Comments[<?php echo $row['comments_count'];?>]</a>&nbsp;&nbsp;&nbsp;<a href="<?php echo $row['url'] . '?tab=shares'; ?>" >Shares[<?php echo $row['shares_count'];?>]</a></p>
+										</div>
+									</div>
+									<div style="clear:both"></div>
 								</div>
-							</div>
-						<?php } ?>
-							
-					</div>
+							<?php } ?>
+								
+						</div>
+					<?php } ?>
+					
+					
 				<?php } ?>
-				
-				
-			<?php } ?>
+
+			</div>
 				
 		<?php } ?>
 

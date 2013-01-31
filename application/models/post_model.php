@@ -17,6 +17,8 @@ class Post_model extends CI_Model {
 			case "post" :
 				$url_data['url'] = base_url() . 'p/' . $data['sid'];
 				$data['url'] = $url_data['url'];
+				$data['parent'] = $data['sid'];
+				$data['root'] = $data['sid'];
 				break;
 			case "comment" :
 				$url_data['url'] = base_url() . 'c/' . $data['sid'];
@@ -28,6 +30,8 @@ class Post_model extends CI_Model {
 			case "picture" :
 				$url_data['url'] = base_url() . 'i/' . $data['sid'];
 				$data['url'] = $url_data['url'];
+				$data['parent'] = $data['sid'];
+				$data['root'] = $data['sid'];
 				break;
 			default:
 				$url_data['url'] = base_url() . $data['sid'];
@@ -98,7 +102,8 @@ class Post_model extends CI_Model {
 		$node->children[0]->comment = $data;
 		$node->children[0]->children = $data['children'];
 
-		$this->load->view("comment", array("node" => $node));
+		$this->load->view("comment", array("node" => $node, "odd" => $data['odd']));
+
 	}
 	
 	public function sid_exists($sid) {

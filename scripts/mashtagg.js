@@ -111,9 +111,9 @@ function hideError(element) {
 
 function tab_change(event, _this) {
 
-	$("#tabs li").removeClass("menu-item");
-	$("#tabs li").removeClass("active-menu-item");
-	$("#tabs li").addClass("menu-item");
+	$("#tabs div").removeClass("menu-item");
+	$("#tabs div").removeClass("active-menu-item");
+	$("#tabs div").addClass("menu-item");
 	$("#comments-tab").html("<a href='/' >Comments</a>");
 	$("#shares-tab").html("<a href='/' >Shares</a>");
 	$("#tags-tab").html("<a href='/' >Tags</a>");
@@ -148,11 +148,18 @@ function tab_change(event, _this) {
 
 }
 
-var invalid_usernames = new Array( "admin", "administrator", "ajax", "api", "home", "login", "logout", "profile", "saved_links", "signup", "spool", "test", "iphone", "android" );
+var invalid_usernames = [ "admin", "administrator", "ajax", "api", "home", "login", "logout", "profile", "saved_links", "signup", "spool", "test", "iphone", "android" ];
 
-var invalid_passwords = new Array( "password", "test", "testing", "stupid", "slasht", "123456", "secret" );
+var invalid_passwords = [ "password", "test", "testing", "stupid", "slasht", "123456", "secret" ];
 
 $(document).ready(function() {
+
+
+	console.log($("#new_post_caption"));
+
+	if($("#new_post_textarea").length > 0) CKEDITOR.replace('new_post_textarea', {"height": 622});
+	
+	if($("#new_post_caption").length > 0) CKEDITOR.replace('new_post_caption');
 
 	$(".active-menu-item").click(function(event) {
 	
@@ -200,15 +207,18 @@ $(document).ready(function() {
 		});
 	});
 
-	$('.new_comment').click(function() {
+	/******************* Posts page **********************/
+
+	$('.new_comment').live('click', function() {
 	
 		var button = $(this);
 
 		if ( button.val() === "Save" ) {
 		
-			var body = button.closest(".add_comment_container").children('.input_container').children(".new_comment_input").val();
+			var body = button.closest(".add_comment_container").children('.input_container').children(".new_comment_input").attr("name");
+			var input_value = CKEDITOR.instances[body].getData();
 			
-			if (body != "") {
+			if (input_value != "") {
 
 				button.hide();
 				button.siblings(".loading-gif").show();
@@ -220,16 +230,26 @@ $(document).ready(function() {
 					button.parent().siblings(".new_comment_input").hide();
 					button.closest(".input_container").siblings(".reply").hide();
 				}
-				
+
 				var postData = {
 					
-					"body"      : body,
+					"body"      : input_value,
 					"published" : "true",
 					"type"      : "comment",
 					"parent"    : $("#parent_comment").val(),
 					"root"      : $("#root_comment").val()
 				
 				};
+
+				if ($(this).parent().parent().parent().hasClass("new-comment-container")) {
+					postData['odd'] = true;	
+				} else {
+					if ($(this).closest(".outer-comment-container").hasClass("odd-comment")) {
+						postData['odd'] = false;
+					} else {
+						postData['odd'] = true;
+					}
+				}
 			
 				$.ajax({
 					type: "POST",
@@ -247,6 +267,19 @@ $(document).ready(function() {
 							button.closest('.input_container').hide();
 							button.closest(".input_container").siblings(".reply").show();
 							button.closest('.comment-body-container').siblings('.new-comment-holder').prepend(data);
+							var new_textarea_name = button.closest('.comment-body-container')
+								.siblings('.new-comment-holder')
+								.children('.outer-comment-container')
+								.children('.inner-comment-container')
+								.children('.comment-body-container')
+								.children('.add_comment_container')
+								.children('.input_container')
+								.children('textarea')
+								.attr('name');
+
+							if (typeof(new_textarea_name) != "undefined") {
+								CKEDITOR.replace(new_textarea_name);
+							}
 
 						}
 							
@@ -264,11 +297,10 @@ $(document).ready(function() {
 	
 	});
 	
-	$('.reply').click(function(event) {
+	$('.reply').live('click', function(event) {
 		$("#first_new_comment").val("New Comment");
 		var is_hidden = $(this).prev(".input_container").is(":hidden")
 		$('.input_container').hide();
-		console.log(is_hidden);
 		if (is_hidden) {
 			$(this).prev('.input_container').show();
 			$("#parent_comment").val($(this).closest(".outer-comment-container").attr("id"));
@@ -302,6 +334,13 @@ $(document).ready(function() {
 		
 		$(this).find(".little-comments").hide();
 		
+	});
+
+	$('.input_container textarea').each(function(i){
+
+		var input_name = $(this).attr("name");
+		CKEDITOR.replace(input_name);
+
 	});
 
 	$('.new').click(function(e) {
@@ -606,4 +645,16 @@ function isRFC822ValidEmail(sEmail) {
   }
   
   return false;
+}
+
+function readURL(input, id) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $(id).attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
 }

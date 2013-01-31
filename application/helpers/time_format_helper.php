@@ -12,17 +12,17 @@ if ( ! function_exists('short_time_formatter')) {
    		} else if ($difference < 172800) {
    			return "Yesterday";
    		} else if ($difference < 31536000) {
-   			date('j M' , $timestamp);
+   			return date('j M' , $timestamp);
    		} else {
-   			date('j M y', $timestamp);
+   			return date('j M y', $timestamp);
    		}
     }   
 }
 
 if ( ! function_exists('long_time_formatter')) {
     function long_time_formatter($timestamp) {
-        $difference = time() - $timestamp;
-        if ($difference < 60) {
+      $difference = time() - $timestamp;
+      if ($difference < 60) {
    			return "moments ago";
    		} else if ($difference < 3600) {
         $minutes = floor($difference / 60);
@@ -41,9 +41,9 @@ if ( ! function_exists('long_time_formatter')) {
    		} else if ($difference < 172800) {
    			return "yesterday";
    		} else if ($difference < 31536000) {
-   			date('F jS' , $timestamp);
+   			return date('F jS' , $timestamp);
    		} else {
-   			date('F jS Y', $timestamp);
+   			return date('F jS Y', $timestamp);
    		}
     }   
 }

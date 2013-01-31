@@ -18,12 +18,12 @@ class Post extends CI_Controller {
 
 		if($u = Current_User::user()) {
 	
-			$s = $this->Post_model->get(array('sid' => $sid, 'published' => 'true'));
+			$p = $this->Post_model->get(array('sid' => $sid, 'published' => 'true'));
 			$c = $this->Post_model->get_comments($sid);
 			if ($u = Current_User::user()) {
 				$v = $this->Vote_model->get_by_username($u);
 				if (sizeof($c) > 0) {
-					$c = new Comment_Node($s[0], $c, $v, $u);
+					$c = new Comment_Node($p[0], $c, $v, $u);
 				} else {
 					$c = false;
 				}
@@ -33,11 +33,13 @@ class Post extends CI_Controller {
 			
 			$sh = $this->Post_model->get_shares($sid);
 			
-			if (sizeof($s) == 1) {
+			if (sizeof($p) == 1) {
 				$data = array('main_content' => 'post',
-							          'post' => $s[0],
+							          'post' => $p[0],
 								  'comments' => $c,
-								    'shares' => $sh);
+								    'shares' => $sh,
+								    'tab'    => $this->input->get('tab')
+						);
 				$this->load->view('includes/template', $data);
 			} else {
 			

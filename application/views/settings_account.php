@@ -3,7 +3,9 @@
 <div id="settings-container">
 	<div id="tab-container">
 	
-		<span class="settings-active-menu-item" >Account</span> <span class="settings-menu-item" ><a href="<?php echo base_url();?>settings/password">Password</a></span> <span class="settings-menu-item" ><a href="<?php echo base_url();?>settings/profile">Profile</a></span>
+		<div class="settings-active-menu-item" >Account</div>
+		<div class="settings-menu-item" ><a href="<?php echo base_url();?>settings/password">Password</a></div>
+		<div class="settings-menu-item" ><a href="<?php echo base_url();?>settings/profile">Profile</a></div>
 	
 	</div>
 	<div id="settings-inner">

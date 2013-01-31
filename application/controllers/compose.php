@@ -12,7 +12,10 @@ class Compose extends CI_Controller {
 	
 		if($u = Current_User::user()) {
 		
-			$data = array('main_content' => 'compose');
+			$data = array(
+				'main_content' => 'compose',
+				'type' => $this->input->get('type'),
+			);
 			$this->load->view('includes/template', $data);	
 
 		} else {
