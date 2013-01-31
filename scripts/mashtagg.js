@@ -260,6 +260,7 @@ $(document).ready(function() {
 						button.siblings(".loading-gif").hide();
 						button.show();
 						$(".new_comment_input").val("");
+						$("#no-comments-yet").remove();
 						if(button.attr("id") == "first_new_comment") {
 							button.closest('.new-comment-container').siblings('.new-comment-holder').prepend(data);
 						} else {

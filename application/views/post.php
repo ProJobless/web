@@ -72,7 +72,7 @@
 		<?php if ($comments) { ?>
 			<?php $this->load->view("comment", array("node" => $comments, "odd" => TRUE));  ?>
 		<?php } else { ?>
-				<p>There are no comments yet.</p>
+				<p id="no-comments-yet">There are no comments yet.</p>
 		<?php } ?>
 		
 	</div>
