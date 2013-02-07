@@ -362,6 +362,17 @@ span.time {
 	-webkit-border-radius: 4px;
 }
 
+#settings-inner textarea {
+	border: 1px solid #AAA;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	width:400px;
+	height:150px;
+	padding:10px;
+	font-weight: bold;
+}
+
 #tab-container {
 	height:30px;
 	background-color:rgba(0,0,0,.2);

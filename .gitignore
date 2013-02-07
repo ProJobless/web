@@ -4,3 +4,4 @@ config.php
 log*.php
 secret_helper.php
 mashtagg_globals.js
+user_data/*

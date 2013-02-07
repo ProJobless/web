@@ -19,6 +19,13 @@
 
 		<?php echo validation_errors('<p class="error">','</p>'); ?>
 
+		<pre><?php print_r($u); ?></pre>
+
+		<?php if ($u['website'] == '') {
+			$website = 'http://';
+		} else {
+			$website = $u;
+		} ?>
 
 		<div class="fixed">			
 			<label class="label" for="avatar">Avatar: </label>
@@ -30,7 +37,25 @@
 		<div class="fixed">		
 			<label class="label" for="full_name">Full Name: </label>
 			<div class="input">
-				<input type="text" name="full_name" value="<?php echo $u['full_name'] ?>">
+				<input type="text" name="full_name" value="<?php echo $u['full_name']; ?>">
+			</div>
+		</div>
+		<div class="fixed">		
+			<label class="label" for="website">Website: </label>
+			<div class="input">
+				<input type="text" name="website" value="<?php echo $website; ?>">
+			</div>
+		</div>
+		<div class="fixed">		
+			<label class="label" for="location">Location: </label>
+			<div class="input">
+				<input type="text" name="location" value="<?php echo $u['location']; ?>">
+			</div>
+		</div>
+		<div class="fixed">		
+			<label class="label" for="blurb">Blurb: </label>
+			<div class="input">
+				<textarea name="blurb" value="<?php echo $u['blurb']; ?>"></textarea>
 			</div>
 		</div>
 		<div class="fixed">	

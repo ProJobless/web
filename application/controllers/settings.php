@@ -64,7 +64,8 @@ class Settings extends CI_Controller {
 		if($u = Current_User::user()) {		
 		
 			if ( $this->input->post('hidden') == "account" )  {
-			
+				
+				$data = array();
 				$data['username'] = $this->input->post('username');
 				$data['email'] = $this->input->post('email');
 				$this->User_model->update(array('username' => $u['username']), $data);
@@ -80,8 +81,12 @@ class Settings extends CI_Controller {
 			}
 			
 			if ( $this->input->post('hidden') == "profile" ) {
-			
+
+				$data = array();
 				$data['full_name'] = $this->input->post('full_name');
+				$data['website'] = $this->input->post('website');
+				$data['location'] = $this->input->post('location');
+				$data['blurb'] = $this->input->post('blurb');
 				$this->User_model->update(array('username' => $u['username']), $data);
 				redirect('settings');
 				
