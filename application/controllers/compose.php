@@ -16,7 +16,7 @@ class Compose extends CI_Controller {
 				'main_content' => 'compose',
 				'type' => $this->input->get('type'),
 			);
-			$this->load->view('includes/template', $data);	
+			$this->load->view('includes/template', $data);
 
 		} else {
 			
@@ -34,10 +34,15 @@ class Compose extends CI_Controller {
 				'author' => $u['username'],
 				'title' => $this->input->post('post_title'),
 				'body' => $this->input->post('post_body'),
-				'type' => 'post',
 				'published' => 'true',
 			);
 
+			if (!$data['title'] == '') {
+				$data['type'] = "post";
+			} else {
+				$data['type'] = "small-post";
+			}
+			
 			$this->Post_model->create($data);
 			redirect('blog');
 
@@ -46,8 +51,6 @@ class Compose extends CI_Controller {
 			redirect('/');
 			
 		}
-
-		
 
 	}
 

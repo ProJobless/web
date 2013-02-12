@@ -154,9 +154,6 @@ var invalid_passwords = [ "password", "test", "testing", "stupid", "slasht", "12
 
 $(document).ready(function() {
 
-
-	console.log($("#new_post_caption"));
-
 	if($("#new_post_textarea").length > 0) CKEDITOR.replace('new_post_textarea', {"height": 622});
 	
 	if($("#new_post_caption").length > 0) CKEDITOR.replace('new_post_caption');
@@ -208,6 +205,8 @@ $(document).ready(function() {
 	});
 
 	/******************* Posts page **********************/
+
+	$(".outer-post-container").equalHeights();
 
 	$('.new_comment').live('click', function() {
 	

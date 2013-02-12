@@ -69,41 +69,38 @@
 				<?php foreach ($spool as $row) { ?>
 					
 					<?php if ($row['type'] != 'comment') { ?>
-						<div class="outer-post-container <?php echo $first_post; ?>">
+						<div class="outer-post-container clearfix <?php echo $first_post; ?>">
 							<?php $first_post = ""; ?>
-							<?php if ($row['title'] != '') { ?>
 								<div id="<?php echo $row['sid']; ?>"class="post-container">
-									<div class="post-author-vote-container">
-										<img src="<?php echo base_url() . $row['profile_pic']; ?>" />
+									<div class="vote-picture-container">
+										<div class='comment-rating'>
+											
+											<div class='disabled_upvote'><img src="<?php echo base_url() . 'images/disabled_arrow_up.png'; ?>" /></div>
+											<div class="influence_gain"><?php echo $row['influence_gain'];?></div>
+											<div class='disabled_downvote'><img src="<?php echo base_url() . 'images/disabled_arrow_down.png'; ?>" /></div>
+											
+										</div>
+										<div class="picture">
+											<a href="<?php echo base_url() . $row['author']; ?>"><img src="<?php echo base_url() . $row['profile_pic']; ?>" alt="<?php echo $row['author']; ?>" /></a>
+										</div>
+										<div style="clear:both;"></div>
+										<span class="arrow"></span>
+										<p class="author"><?php echo $row['author'] ?></p>
 									</div>
-									<div class="post-body-container">
-										<h2><a href="<?php echo $row['url']; ?>" class="post-title"><?php echo $row['title']; ?></a></h2>
-										<div class="post-body">
-											<?php echo $row['body']; ?>
+									<div class="inner-post-container">
+										<div class="post-body-container">
+											<?php if ($row['type'] != 'small-post' && $row['title'] != ''): ?>
+												<h2><a href="<?php echo $row['url']; ?>" class="post-title"><?php echo $row['title']; ?></a></h2>
+											<?php endif;?>
+											<div class="post-body">
+												<?php echo $row['body']; ?>
+											</div>
 										</div>
 										<div class="post-links">
 											<p><span class="expand">Expand</span>&nbsp;&nbsp;&nbsp;<span class="comments"><a href="<?php echo $row['url']; ?>" >Comments[<?php echo $row['comments_count'];?>]</a>&nbsp;&nbsp;&nbsp;<a href="<?php echo $row['url'] . '?tab=shares'; ?>" >Shares[<?php echo $row['shares_count'];?>]</a></p>
 										</div>
 									</div>
-									<div style="clear:both"></div>
 								</div>
-							<?php } else { ?>
-								<div id="<?php echo $row['sid']; ?>"class="little-post-container">
-									<div class="post-author-vote-container">
-										<img src="<?php echo base_url() . $row['profile_pic']; ?>" />
-									</div>
-									<div class="post-body-container">
-										<div class="post-body">
-											<?php echo $row['body']; ?>
-										</div>
-										<div class="post-links">
-											<p><span class="expand">Expand</span>&nbsp;&nbsp;&nbsp;<span class="little-comments"><a href="<?php echo $row['url']; ?>" >Comments[<?php echo $row['comments_count'];?>]</a>&nbsp;&nbsp;&nbsp;<a href="<?php echo $row['url'] . '?tab=shares'; ?>" >Shares[<?php echo $row['shares_count'];?>]</a></p>
-										</div>
-									</div>
-									<div style="clear:both"></div>
-								</div>
-							<?php } ?>
-								
 						</div>
 					<?php } ?>
 					

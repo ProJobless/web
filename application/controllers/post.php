@@ -18,29 +18,54 @@ class Post extends CI_Controller {
 
 		if($u = Current_User::user()) {
 	
-			$p = $this->Post_model->get(array('sid' => $sid, 'published' => 'true'));
-			$c = $this->Post_model->get_comments($sid);
-			if ($u = Current_User::user()) {
-				$v = $this->Vote_model->get_by_username($u);
-				if (sizeof($c) > 0) {
-					$c = new Comment_Node($p[0], $c, $v, $u);
-				} else {
-					$c = false;
-				}
+			$post     = $this->Post_model->get_by_sid($sid);
+			$comments = $this->Post_model->get_comments($sid);
+			$votes    = $this->Vote_model->get_by_username($u);
+			$shares   = $this->Post_model->get_shares($sid);
+
+			//Construct the comments tree using the Comment_Node class.
+			if (sizeof($comments) > 0) {
+				$comments = new Comment_Node($post, $comments, $votes, $u);
 			} else {
-				
+				$comments = false;
 			}
 			
-			$sh = $this->Post_model->get_shares($sid);
+			//Determine the post's vote status, first set it as enabled.
+
+			$post_vote_status = "enabled";
+
+			if($post['author'] == $u['username']) {
+
+				$post_vote_status = "disabled";
+
+			} else {
+
+				foreach($votes as $vote) {
+		
+					if ($vote['sid'] == $sid) {
+						if($vote['type'] == "upvote") {
+							$post_vote_status = "upvote-disabled";
+						} else {
+							$post_vote_status = "downvote-disabled";
+						}
+						break;		
+					}
+
+				}
+				
+			} 
 			
-			if (sizeof($p) == 1) {
+			if ($post) {
+
 				$data = array('main_content' => 'post',
-							          'post' => $p[0],
-								  'comments' => $c,
-								    'shares' => $sh,
-								    'tab'    => $this->input->get('tab')
+							          'post' => $post,
+								  'comments' => $comments,
+								    'shares' => $shares,
+								       'tab' => $this->input->get('tab'),
+						  'post_vote_status' => $post_vote_status,
 						);
 				$this->load->view('includes/template', $data);
+
 			} else {
 			
 				redirect('/');

@@ -85,6 +85,12 @@ class Settings extends CI_Controller {
 				$data = array();
 				$data['full_name'] = $this->input->post('full_name');
 				$data['website'] = $this->input->post('website');
+				$url_pattern = '/^[a-zA-Z]+:\/\//';
+				if($data['website'] == 'http://') {
+					$data['website'] = '';
+				} else if (!preg_match($url_pattern, $data['website'])) {
+					$data['website'] = 'http://' . $data['website'];
+				}
 				$data['location'] = $this->input->post('location');
 				$data['blurb'] = $this->input->post('blurb');
 				$this->User_model->update(array('username' => $u['username']), $data);

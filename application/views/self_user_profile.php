@@ -11,14 +11,14 @@
 			</div>
 		</div>
 		<div class="right-bio">
-			<p>Name: <?php echo $user_info['full_name']; ?></p>
-			<p>Website: <a href="<?php echo $user_info['website']; ?>"><?php echo $user_info['website']; ?></a></p>
-			<p>Location: <?php echo $user_info['website']; ?></p>
+			<p>Name: <span style="font-weight:bold"><?php echo $user_info['full_name']; ?></span></p>
+			<p>Website: <span style="font-weight:bold"><a style="color:#DE935F" href="<?php echo $user_info['website']; ?>"><?php echo $user_info['website']; ?></a></span></p>
+			<p>Location: <span style="font-weight:bold"><?php echo $user_info['location']; ?></span></p>
 			<p><?php echo $user_info['member_for_string']; ?></p>
 			<p>Last seen <?php echo $user_info['last_seen_string']; ?></p>
-			<p>Profile views: <?php echo $user_info['profile_views']; ?></p>
-			<p><a href="<?php echo base_url() . $this->uri->uri_string . '?tab=following';?>">Following: <?php echo $following_count; ?></a></p>
-			<p><a href="<?php echo base_url() . $this->uri->uri_string . '?tab=followers';?>">Followers: <?php echo $followers_count; ?></a></p>
+			<p>Profile views: <span style="font-weight:bold"><?php echo $user_info['profile_views']; ?></span></p>
+			<p><a href="<?php echo base_url() . $this->uri->uri_string . '?tab=following';?>">Following: <span style="font-weight:bold"><?php echo $following_count; ?></a></span></p>
+			<p><a href="<?php echo base_url() . $this->uri->uri_string . '?tab=followers';?>">Followers: <span style="font-weight:bold"><?php echo $followers_count; ?></a></span></p>
 			<?php if ($user_info['validated']): ?>
 				<p>You email is validated.</p>
 			<?php else: ?>

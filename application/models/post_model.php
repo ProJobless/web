@@ -20,6 +20,14 @@ class Post_model extends CI_Model {
 				$data['parent'] = $data['sid'];
 				$data['root'] = $data['sid'];
 				break;
+			case "small-post":
+				$this->load->helper('html_parsing_helper');
+				$url_data['url'] = base_url() . 'p/' . $data['sid'];
+				$data['url'] = $url_data['url'];
+				$data['parent'] = $data['sid'];
+				$data['root'] = $data['sid'];
+				$data['title'] = parse_title($data['body']);
+				break;
 			case "comment" :
 				$url_data['url'] = base_url() . 'c/' . $data['sid'];
 				$data['url'] = $url_data['url'];
@@ -49,6 +57,10 @@ class Post_model extends CI_Model {
 		$data['influence_gain'] = 0;
 		$data['vote_diff'] = 0;
 		$data['comments_count'] = 0;
+		$data['views_count'] = 0;
+		$data['last_comment'] = NULL;
+		$data['views'] = array();
+		$data['options'] = array();
 
 		if (isset($data['tags'])) {
 			foreach ($data['tags'] as $tag) {
@@ -245,12 +257,12 @@ class Post_model extends CI_Model {
 	public function get_post_history($args) {
 		if (isset($args['limit'])) {
 			if(isset($args['offset'])) {
-				return $this->mongo_db->where(array('author' => $args['username'], 'type' => $args['type']))->order_by(array('created' => 'desc'))->limit($args['limit'])->offset($args['offset'])->get('posts');
+				return $this->mongo_db->where(array('author' => $args['username']))->where_in('type', $args['type'])->order_by(array('created' => 'desc'))->limit($args['limit'])->offset($args['offset'])->get('posts');
 			} else {
-				return $this->mongo_db->where(array('author' => $args['username'], 'type' => $args['type']))->order_by(array('created' => 'desc'))->limit($args['limit'])->get('posts');
+				return $this->mongo_db->where(array('author' => $args['username']))->where_in('type', $args['type'])->order_by(array('created' => 'desc'))->limit($args['limit'])->get('posts');
 			} 
 		} else {
-			return $this->mongo_db->where(array('author' => $args['username'], 'type' => $args['type']))->order_by(array('created' => 'desc'))->get('posts');
+			return $this->mongo_db->where(array('author' => $args['username']))->where_in('type', $args['type'])->order_by(array('created' => 'desc'))->get('posts');
 		}
 		
 	}

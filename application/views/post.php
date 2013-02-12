@@ -1,24 +1,91 @@
 <?php $u = Current_User::user(); ?>
 
+<?php $this->load->helper('time_format_helper'); ?>
+
 <div id="post_container">
-	<div class="outer-post-container">
-		<div class="picture">
-			<a href="<?php echo base_url() . $post['author']; ?>"><img src="<?php echo base_url() . $post['profile_pic']; ?>" alt="<?php echo $post['author']; ?>" /></a>
+	<div class="outer-post-container clearfix">
+		<div class="vote-picture-container">
+			<div class='comment-rating'>
+				<?php if ($post_vote_status == "disabled" || $post_vote_status == "upvote-disabled"): ?>
+					<div class='disabled_upvote'><img src="<?php echo base_url() . 'images/disabled_arrow_up.png'; ?>" /></div>
+					<div class="influence_gain"><?php echo $post['influence_gain'];?></div>
+					<div class='disabled_downvote'><img src="<?php echo base_url() . 'images/disabled_arrow_down.png'; ?>" /></div>
+				<?php elseif($post_vote_status == "enabled"): ?>
+					<div class='upvote'><img src="<?php echo base_url() . 'images/arrow_up.png'; ?>" /></div>
+					<div class='influence_gain'><?php echo $post['influence_gain'];?></div>
+					<div class='downvote'><img src="<?php echo base_url() . 'images/arrow_down.png'; ?>" /></div>
+				<?php elseif($post_vote_status == "downvote-disabled"): ?>
+					<div class='upvote'><img src="<?php echo base_url() . 'images/arrow_up.png'; ?>" /></div>
+					<div class='influence_gain'><?php echo $post['influence_gain'];?></div>
+					<div class='clicked_downvote'><img src="<?php echo base_url() . 'images/clicked_arrow_down.png'; ?>" /></div>
+				<?php elseif($post_vote_status == "upvote-disabled"): ?>
+					<div class='clicked_upvote'><img src="<?php echo base_url() . 'images/clicked_arrow_up.png'; ?>" /></div>
+					<div class='influence_gain'><?php echo $post['influence_gain'];?></div>
+					<div class='downvote'><img src="<?php echo base_url() . 'images/arrow_down.png'; ?>" /></div>
+				<?php endif; ?>
+			</div>
+			<div class="picture">
+				<a href="<?php echo base_url() . $post['author']; ?>"><img src="<?php echo base_url() . $post['profile_pic']; ?>" alt="<?php echo $post['author']; ?>" /></a>
+			</div>
+			<div style="clear:both;"></div>
+			<span class="arrow"></span>
+			<p class="author"><?php echo $post['author'] ?></p>
 		</div>
 		<div class="inner-post-container">		
-			<?php if ($post['title'] != '') { ?>
-				<h2><a href="<?php echo $post['url']; ?>" class="post-title"><?php echo $post['title']; ?></a></h2>
+			<?php if ($post['type'] != 'small-post' && $post['title'] != '') { ?>
+				<h1><a href="<?php echo $post['url']; ?>" class="post-title"><?php echo $post['title']; ?></a></h1>
 			<?php } ?>
 
-			<div id="<?php echo $post['sid']; ?>"class="post-container-1">
-				<div class="post-body-container">
-					<div class="body">
-						<?php echo $post['body']; ?>
-					</div>
+			<div id="<?php echo $post['sid']; ?>" class="post-body-container">
+				<div class="body">
+					<?php echo $post['body']; ?>
 				</div>
 			</div>
+
+			<div class="meta-container">
+				<div class="created-container left">
+					<p>Created</p>
+					<p class="bold-meta"><?php echo long_time_formatter($post['created']); ?></p>
+				</div>
+				<div class="last-post left">
+					<p>Last comment</p>
+					<p class="bold-meta">
+						<?php if ($post['last_comment'] == ''){
+							echo 'Never';
+						} else {
+							echo long_time_formatter($post['last_comment']);
+						} ?>
+					</p>
+				</div>
+				<div class="view-amount left">
+					<p>Views</p>
+					<p class="bold-meta"><?php echo $post['views_count'];?></p>
+				</div>
+				<div class="comment-amount left">
+					<p>Comments</p>
+					<p class="bold-meta"><?php echo $post['comments_count']; ?></p>
+				</div>
+				<div class="share-amount left">
+					<p>Shares</p>
+					<p class="bold-meta"><?php echo $post['shares_count'];?></p>
+				</div>
+				<div class="tag-container left">
+					<p>Tags</p>
+					<p class="bold-meta">
+						<?php if (count($post['tags']) > 0){ 
+							foreach ($post['tags'] as $tag) { 
+								echo '<span class="tag"><a href="' . base_url() . '/t/' . $tag . '/"' . $tag . '</a></span> ';
+							}
+						} else {
+							echo 'None';
+						} ?>
+					</p>
+				</div>
+				<div class="config-container right">
+				</div>
+			</div>
+
 		</div>
-		<div style="clear:both"></div>
 		
 	</div>
 	

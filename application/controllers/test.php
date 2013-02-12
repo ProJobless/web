@@ -9,7 +9,10 @@ class Test extends CI_Controller {
 	
 	function index() {
 
-		
+		$this->load->helper('html_parsing_helper');
+
+
+		echo parse_title("<p>                                  <a href='asdfasdfasdf'><em>Hsdfgsdfgsdfgggsdfgsdfgsdfgsdfsdfgsdfsdfgsdfgsdfgsdfsdfgsgfdei</em></a>                                    </p> <p><a href='blah blah'>How are you?</a></p>");
 
 	}
 }

@@ -19,12 +19,10 @@
 
 		<?php echo validation_errors('<p class="error">','</p>'); ?>
 
-		<pre><?php print_r($u); ?></pre>
-
 		<?php if ($u['website'] == '') {
 			$website = 'http://';
 		} else {
-			$website = $u;
+			$website = $u['website'];
 		} ?>
 
 		<div class="fixed">			
@@ -55,7 +53,7 @@
 		<div class="fixed">		
 			<label class="label" for="blurb">Blurb: </label>
 			<div class="input">
-				<textarea name="blurb" value="<?php echo $u['blurb']; ?>"></textarea>
+				<textarea name="blurb"><?php echo $u['blurb']; ?></textarea>
 			</div>
 		</div>
 		<div class="fixed">	
