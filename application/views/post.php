@@ -29,7 +29,9 @@
 			</div>
 			<div style="clear:both;"></div>
 			<span class="arrow"></span>
-			<p class="author"><?php echo $post['author'] ?></p>
+			<div class="author">
+				<p><?php echo $post['author'] ?></p>
+			</div>
 		</div>
 		<div class="inner-post-container">		
 			<?php if ($post['type'] != 'small-post' && $post['title'] != '') { ?>

@@ -1,3 +1,5 @@
+<?php $this->load->helper('time_format_helper'); ?>
+
 <div id="blog-outer-container">
 
 	<div id="blog-author-container">
@@ -69,9 +71,9 @@
 				<?php foreach ($spool as $row) { ?>
 					
 					<?php if ($row['type'] != 'comment') { ?>
-						<div class="outer-post-container clearfix <?php echo $first_post; ?>">
+						<div class="outer-post-container clearfix">
 							<?php $first_post = ""; ?>
-								<div id="<?php echo $row['sid']; ?>"class="post-container">
+								<div id="<?php echo $row['sid']; ?>"class="post-container clearfix">
 									<div class="vote-picture-container">
 										<div class='comment-rating'>
 											
@@ -85,10 +87,14 @@
 										</div>
 										<div style="clear:both;"></div>
 										<span class="arrow"></span>
-										<p class="author"><?php echo $row['author'] ?></p>
 									</div>
-									<div class="inner-post-container">
+									<div class="inner-post-container  <?php echo $first_post; ?>">
 										<div class="post-body-container">
+											<div class="author">
+												<a href="<?php echo base_url() . $row['author']; ?>">
+													<?php echo $row['author']; ?>
+												</a>
+											</div>
 											<?php if ($row['type'] != 'small-post' && $row['title'] != ''): ?>
 												<h2><a href="<?php echo $row['url']; ?>" class="post-title"><?php echo $row['title']; ?></a></h2>
 											<?php endif;?>
@@ -96,10 +102,57 @@
 												<?php echo $row['body']; ?>
 											</div>
 										</div>
-										<div class="post-links">
-											<p><span class="expand">Expand</span>&nbsp;&nbsp;&nbsp;<span class="comments"><a href="<?php echo $row['url']; ?>" >Comments[<?php echo $row['comments_count'];?>]</a>&nbsp;&nbsp;&nbsp;<a href="<?php echo $row['url'] . '?tab=shares'; ?>" >Shares[<?php echo $row['shares_count'];?>]</a></p>
+										<div class="expand-link">
+											<img src="<?php echo base_url() . 'images/arrow_down_3.png'; ?>" />
 										</div>
+
+										<div class="meta-container">
+											<div class="created-container left">
+												<p>Created</p>
+												<p class="bold-meta"><?php echo long_time_formatter($row['created']); ?></p>
+											</div>
+											<div class="last-post left">
+												<p>Last comment</p>
+												<p class="bold-meta">
+													<?php if ($row['last_comment'] == ''){
+														echo 'Never';
+													} else {
+														echo long_time_formatter($row['last_comment']);
+													} ?>
+												</p>
+											</div>
+											<div class="view-amount left">
+												<p>Views</p>
+												<p class="bold-meta"><?php echo $row['views_count'];?></p>
+											</div>
+											<div class="comment-amount left">
+												<p>Comments</p>
+												<p class="bold-meta"><?php echo $row['comments_count']; ?></p>
+											</div>
+											<div class="share-amount left">
+												<p>Shares</p>
+												<p class="bold-meta"><?php echo $row['shares_count'];?></p>
+											</div>
+											<div class="tag-container left">
+												<p>Tags</p>
+												<p class="bold-meta">
+													<?php if (count($row['tags']) > 0){ 
+														foreach ($row['tags'] as $tag) { 
+															echo '<span class="tag"><a href="' . base_url() . '/t/' . $tag . '/"' . $tag . '</a></span> ';
+														}
+													} else {
+														echo 'None';
+													} ?>
+												</p>
+											</div>
+
+											<div class="config-container right">
+											</div>
+
+										</div>
+
 									</div>
+
 								</div>
 						</div>
 					<?php } ?>
