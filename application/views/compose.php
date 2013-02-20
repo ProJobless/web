@@ -12,7 +12,10 @@
 					</div>
 					<div class="image-upload-container">
 					</div>
-					<textarea id="new_post_caption" name="post_body"></textarea>
+					<textarea id="new_post_caption" name="post_body" placeholder="Caption"></textarea>
+					<div class="tags-input-container">
+						<input type="text" id="post-tags" name="post_tags" placeholder="Tags" />
+					</div>
 					<div class="controls-container">
 						<?php echo form_submit('submit','Create Post'); ?>
 						<div class="publish-container">
@@ -32,6 +35,9 @@
 						<input type="text" id="post-title" name="post_title" placeholder="Title" />
 					</div>
 					<textarea id="new_post_textarea" name="post_body"></textarea>
+					<div class="tags-input-container">
+						<input type="text" id="post-tags" name="post_tags" placeholder="Tags" />
+					</div>
 					<div class="controls-container">
 						<?php echo form_submit('submit','Create Post'); ?>
 						<div class="publish-container">

@@ -29,11 +29,13 @@
 			</div>
 			<div style="clear:both;"></div>
 			<span class="arrow"></span>
-			<div class="author">
-				<p><?php echo $post['author'] ?></p>
-			</div>
 		</div>
-		<div class="inner-post-container">		
+		<div class="inner-post-container">
+			<div class="author">
+				<a href="<?php echo base_url() . $post['author']; ?>">
+					<?php echo $post['author']; ?>
+				</a>
+			</div>
 			<?php if ($post['type'] != 'small-post' && $post['title'] != '') { ?>
 				<h1><a href="<?php echo $post['url']; ?>" class="post-title"><?php echo $post['title']; ?></a></h1>
 			<?php } ?>
@@ -74,13 +76,7 @@
 				<div class="tag-container left">
 					<p>Tags</p>
 					<p class="bold-meta">
-						<?php if (count($post['tags']) > 0){ 
-							foreach ($post['tags'] as $tag) { 
-								echo '<span class="tag"><a href="' . base_url() . '/t/' . $tag . '/"' . $tag . '</a></span> ';
-							}
-						} else {
-							echo 'None';
-						} ?>
+						<?php echo count($post['tags']); ?>
 					</p>
 				</div>
 				<div class="config-container right">
@@ -178,7 +174,7 @@
 				<?php } else {?>
 				<?php foreach ($post['tags'] as $tag) { ?>
 					
-					<p class="tag"><?php echo $tag ?></p>
+					<p class="tag"><a href="<?php echo base_url() . 't/' . $tag;?>"><?php echo $tag ?></a></p>
 					
 				<?php } ?>
 			<?php } ?>

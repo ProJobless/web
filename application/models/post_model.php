@@ -78,9 +78,13 @@ class Post_model extends CI_Model {
 	
 	public function get_by_sid($sid) {
 		
-		$s = $this->mongo_db->where(array("sid" => $sid))->limit(1)->get("posts");
-		if (sizeof($s) == 1) {
-			return $s[0];
+		if(is_string($sid)) {
+			$s = $this->mongo_db->where(array("sid" => $sid))->limit(1)->get("posts");
+			if (sizeof($s) == 1) {
+				return $s[0];
+			} else {
+				return FALSE;
+			}
 		} else {
 			return FALSE;
 		}
@@ -176,8 +180,43 @@ class Post_model extends CI_Model {
 		
 	}
 
-	public function get_by_tag($tag_name, $page=1, $posts_per_page=25, $sort_alg=TIMESTAMP_SORT) {
+	public function get_list($constraints) {
+		$pages = $this->Post_model->get_pages_amount($constraints);
+		if ($constraints['page'] > $pages) {
+			$constraints['page'] = $pages;
+		} else if ($constraints['page'] < 1) {
+			$constraints['page'] = 1;
+		}
+		$this->mongo_db->where(array("tags" => $constraints['tags']))
+		            ->offset(($constraints['page'] - 1) * $constraints['posts_per_page'])
+		            ->limit($constraints['posts_per_page'])
+		            ->order_by(array($constraints['sort_by'] => 'desc'));
+		
+		if (isset($constraints['search'])) {
+			if ($constraints['search'] != "") {
+				$this->mongo_db->or_like(array('title' => $constraints['search'],
+					                           'body' => $constraints['search']));
+			}
+		}
+		return $this->mongo_db->get('posts');
+	}
 
+	public function get_total($constraints) {
+
+		if (isset($constraints['search'])) {
+			if ($constraints['search'] != "") {
+				return $this->mongo_db->where(array("tags" => $constraints['tags']))
+									  ->or_like(array('title' => $constraints['search'],
+					                           'body' => $constraints['search']))
+				                      ->count('posts');
+			}
+		}
+		return $this->mongo_db->where(array("tags" => $constraints['tags']))->count('posts');
+		
+	}
+
+	public function get_pages_amount($constraints) {
+		return ceil($this->Post_model->get_total($constraints) / $constraints['posts_per_page']);
 	}
 
 	public function update($sid, $data) {

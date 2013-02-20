@@ -154,7 +154,7 @@ var invalid_passwords = [ "password", "test", "testing", "stupid", "slasht", "12
 
 $(document).ready(function() {
 
-	if($("#new_post_textarea").length > 0) CKEDITOR.replace('new_post_textarea', {"height": 622});
+	if($("#new_post_textarea").length > 0) CKEDITOR.replace('new_post_textarea', {"height": 552});
 	
 	if($("#new_post_caption").length > 0) CKEDITOR.replace('new_post_caption');
 
@@ -208,7 +208,7 @@ $(document).ready(function() {
 
 	$("#post_container .outer-post-container").equalHeights();
 
-	$(".posts-container .outer-post-container .post-container").equalHeights();
+	post_fix_heights();
 
 	$('.new_comment').live('click', function() {
 	
@@ -620,24 +620,41 @@ $(document).ready(function() {
 		
 	});
 
-	// Blog page
+	/******************* Blog page **********************/
 
 	$(".expand-link").live('click', function(){
 		if ($(this).closest(".outer-post-container").hasClass("expanded")) {
+			$(this).children("img").attr("src", Mashtagg.base_url + "images/arrow_down_3_50p.png");
 			$(this).closest(".outer-post-container").removeClass("expanded");
 			$(".outer-post-container").removeClass("expanded");
 			$(".meta-container").hide();
-			$(".posts-container .outer-post-container .post-container").equalHeights();
 		} else {
+			$(".expand-link img").attr("src", Mashtagg.base_url + "images/arrow_down_3_50p.png");
+			$(this).children("img").attr("src", Mashtagg.base_url + "images/arrow_up_3_50p.png");
 			$(".outer-post-container").removeClass("expanded");
 			$(this).closest(".outer-post-container").addClass("expanded");
 			$(".meta-container").hide();
 			$(this).siblings(".meta-container").show();
-			$(".posts-container .outer-post-container .post-container").equalHeights();
 		}
+		post_fix_heights();
 	});
 
 });
+
+function post_fix_heights() {
+	$(".posts-container .post-container").each(function() {
+		if ($(this).closest(".outer-post-container").hasClass("expanded")) {
+			$(this).children(".vote-picture-container").css({
+				"min-height" : $(this).children(".inner-post-container").height()
+			});
+		} else {
+			$(this).children(".vote-picture-container").css({
+				"min-height" : $(this).children(".inner-post-container").height() + 1
+			});
+		}
+		
+	});
+}
 
 
 //From http://rosskendall.com/blog/web/javascript-function-to-check-an-email-address-conforms-to-rfc822

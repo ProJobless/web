@@ -171,7 +171,6 @@ class User_model extends CI_Model {
 		} else if ($constraints['page'] < 1) {
 			$constraints['page'] = 1;
 		}
-		$total_users = $this->User_model->get_total($constraints);
 		$this->mongo_db->offset(($constraints['page'] - 1) * $this->USERS_PER_PAGE)
 		            ->limit($this->USERS_PER_PAGE)
 		            ->order_by(array($constraints['tab'] => 'desc'));
@@ -195,6 +194,7 @@ class User_model extends CI_Model {
 			}
 		}
 		return $this->mongo_db->count('users');
+		
 	}
 
 	public function get_pages_amount($constraints) {

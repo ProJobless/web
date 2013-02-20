@@ -64,6 +64,7 @@ $route['signup'] = 'signup';
 $route['test'] = 'test';
 $route['settings'] = 'settings';
 $route['validate_email'] = 'validate_email';
+$route['tags'] = 'tags';
 $route['unit_test'] = 'unit_test';
 $route['users'] = 'users';
 
@@ -87,7 +88,8 @@ $route['refer/(:any)'] = 'refer/$1';
 $route['saved/(:any)'] = 'saved/$1';
 $route['settings/(:any)'] = 'settings/$1';
 $route['signup/(:any)'] = 'signup/$1';
-$route['t/(:any)'] = 'tags/$1';
+$route['tags/(:any)'] = 'tags/display_by_name/$1';
+$route['t/(:any)'] = 'tags/display_by_name/$1';
 $route['test/(:any)'] = 'test/$1';
 $route['unit_test/(:any)'] = 'unit_test/$1';
 $route['users/(:any)'] = 'users/display_by_username/$1';

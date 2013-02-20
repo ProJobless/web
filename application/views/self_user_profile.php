@@ -1,6 +1,6 @@
 <div class="profile-container">
 	<div class="profile-header">
-		<h3><?php echo $user_info['username']; ?></h3>
+		<h1><?php echo $user_info['username']; ?></h1>
 	</div>
 	<div class="bio-container">
 		<div class="left-bio">

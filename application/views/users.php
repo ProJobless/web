@@ -1,7 +1,7 @@
 <div class="content-container">
 	<div class="user-header">
 		<div class="left-side">
-			<h3>Users</h3>
+			<h1>Users</h1>
 		</div>
 		<div class="right-side">
 			<?php if($args['tab'] == 'created'):?>

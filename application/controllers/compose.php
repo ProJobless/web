@@ -37,6 +37,11 @@ class Compose extends CI_Controller {
 				'published' => 'true',
 			);
 
+			if ($tags = $this->input->post('post_tags')) {
+				$tags = explode(' ', $tags);
+				$data['tags'] = $tags;
+			}
+
 			if (!$data['title'] == '') {
 				$data['type'] = "post";
 			} else {

@@ -1,6 +1,8 @@
 <?php
 
 class Tag_model extends CI_Model {
+
+	protected $TAGS_PER_PAGE = 40;
 	
 	public function __construct() { 
 	
@@ -21,6 +23,18 @@ class Tag_model extends CI_Model {
 				'tag_type' => $this->Tag_model->determine_type($data['name']),
 			);
 			$this->mongo_db->insert('tags', $tag_data);
+			
+			if (!$this->Tag_model->exists($data['name'])) {
+				$tag_meta_data = array(
+					'sid' => get_unique_id(),
+					'name' => $data['name'],
+					'created' => time(),
+					'count' => 1,
+				);
+				$this->mongo_db->insert('tags_meta', $tag_meta_data);
+			} else {
+				$this->mongo_db->where(array('name' => $data['name']))->inc('count')->set('tags_meta');
+			}
 
 			$f = $this->Feed_model->get_by_source($data['name']);
 
@@ -56,10 +70,47 @@ class Tag_model extends CI_Model {
 		return FALSE;
 		
 	}
+
+	public function get_list($constraints) {
+		$pages = $this->Tag_model->get_pages_amount($constraints);
+		if ($constraints['page'] > $pages) {
+			$constraints['page'] = $pages;
+		} else if ($constraints['page'] < 1) {
+			$constraints['page'] = 1;
+		}
+		$total_tags = $this->Tag_model->get_total($constraints);
+		$this->mongo_db->offset(($constraints['page'] - 1) * $this->TAGS_PER_PAGE)
+		            ->limit($this->TAGS_PER_PAGE)
+		            ->order_by(array($constraints['tab'] => 'desc'));
+		
+		if (isset($constraints['search'])) {
+			if ($constraints['search'] != "") {
+				$this->mongo_db->or_like(array('username' => $constraints['search'],
+					                           'full_name' => $constraints['search']));
+			}
+		}
+		return $this->mongo_db->get('tags_meta');
+	}
+
+	public function get_pages_amount($constraints) {
+		return ceil($this->Tag_model->get_total($constraints) / $this->TAGS_PER_PAGE);
+	}
+
+	public function get_total($constraints) {
+
+		if (isset($constraints['search'])) {
+			if ($constraints['search'] != "") {
+				return $this->mongo_db->like(array('name' => $constraints['search']))
+				                      ->count('tags_meta');
+			}
+		}
+		return $this->mongo_db->count('tags_meta');
+
+	}
 	
 	public function get_by_name($name) {
 		
-		$t = $this->mongo_db->where(array('name' => $name))->get('tags');
+		$t = $this->mongo_db->where(array('name' => $name))->get('tags_meta');
 		if (count($t) > 0) {
 			return $t;
 		} else {
@@ -73,16 +124,28 @@ class Tag_model extends CI_Model {
 		return count($t);
 	}
 	
-	public function exists($name, $sid) {
+	public function exists($name, $sid="") {
 		
-		$t = $this->mongo_db->where(array('name' => $name, 'object' => $sid))->limit(1)->get('tags');
-		if (sizeof($t) == 1) {
-			return TRUE;
+		if ($sid == "") {
+			$tag = $this->mongo_db->where(array('name' => $name))->limit(1)->get('tags_meta');
+			if (sizeof($tag) == 1) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
 		} else {
-			return FALSE;
+			$tag = $this->mongo_db->where(array('name' => $name, 'object' => $sid))->limit(1)->get('tags');
+			if (sizeof($tag) == 1) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}	
 		}
 		
+		
 	}
+
+
 
 	public function determine_type($name) {
 		$first = substr($name, 0, 1);
