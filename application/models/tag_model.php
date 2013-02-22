@@ -33,7 +33,7 @@ class Tag_model extends CI_Model {
 				);
 				$this->mongo_db->insert('tags_meta', $tag_meta_data);
 			} else {
-				$this->mongo_db->where(array('name' => $data['name']))->inc('count')->set('tags_meta');
+				$this->mongo_db->where(array('name' => $data['name']))->inc('count')->update('tags_meta');
 			}
 
 			$f = $this->Feed_model->get_by_source($data['name']);

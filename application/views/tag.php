@@ -3,6 +3,24 @@
 <div id="tag-outer-container">
 
 	<div id="tag-meta-container">
+
+		<div class="meta-content">
+
+			<?php if (is_array($tags)) {
+
+				foreach($tags as $tag) {
+
+					echo '<h1>#' . $tag . '</h1>';
+
+				}
+
+			} else {
+
+				echo '<h1>#' . $tags . '</h1>';
+
+			} ?>
+
+		</div>
 		
 	</div>
 
@@ -52,12 +70,7 @@
 													<?php echo $post['author']; ?>
 												</a>
 											</div>
-											<?php if ($post['type'] != 'small-post' && $post['title'] != ''): ?>
-												<h2><a href="<?php echo $post['url']; ?>" class="post-title"><?php echo $post['title']; ?></a></h2>
-											<?php endif;?>
-											<div class="post-body">
-												<?php echo $post['body']; ?>
-											</div>
+											<h2><a href="<?php echo $post['url']; ?>" class="post-title"><?php echo $post['title']; ?></a></h2>
 										</div>
 										<div class="expand-link">
 											<img src="<?php echo base_url() . 'images/arrow_down_3_50p.png'; ?>" />

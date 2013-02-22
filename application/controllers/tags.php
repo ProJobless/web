@@ -39,6 +39,7 @@ class Tags extends CI_Controller {
 								 "posts_per_page" => 25,
 								 "sort_by" => "created");
 			$data["posts"] = $this->Post_model->get_list($constraints);
+			$data['tags'] = $tag;
 			$data['main_content'] = 'tag';
 			$this->load->view('includes/template', $data);	
 		} else {
