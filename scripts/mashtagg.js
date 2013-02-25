@@ -206,7 +206,9 @@ $(document).ready(function() {
 
 	/******************* Posts page **********************/
 
-	$("#post_container .outer-post-container").equalHeights();
+	if ($("#post_container .outer-post-container").length) {
+		$("#post_container .outer-post-container").equalHeights();
+	}
 
 	post_fix_heights();
 
