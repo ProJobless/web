@@ -21,7 +21,7 @@ body {
 
 .tag a{
 	padding:4px;
-	background-color:#5E8D87;
+	background-color:#0092A2;
 	color:#FFF;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.3);
 	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
@@ -124,7 +124,7 @@ body {
 	background-color:#A54242;
 }
 #container3 .profile-link {
-	background-color:#5E8D87;
+	background-color:#0092A2;
 }
 #container3 .tags-link {
 	background-color:#8C9440;
@@ -985,7 +985,7 @@ input, textarea, select {
 
 #post_container .meta-container div .bold-meta {
 	font-weight:bold;
-	color:#5E8D87;
+	color:#0092A2;
 	margin-top:8px;
 }
 
@@ -1083,7 +1083,7 @@ input, textarea, select {
 }
 
 .outer-post-container .vote-picture-container .author {
-	color:#5E8D87;
+	color:#0092A2;
 	margin:0px auto;
 	text-align:center;
 	font-weight:bold;
@@ -1423,14 +1423,12 @@ ul {
 .new_comment_submit {
 	margin: 15px;
 	padding:2px;
-	background-color:#5E8D87;
+	background-color:#0092A2;
 	color:#FFF;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.3);
 	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
 	box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
 	border: 1px solid rgba(0,0,0,0.4);
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
 }
 
 #comment-container {
@@ -1491,14 +1489,12 @@ ul {
 .new_comment {
 	margin: 15px 0px 10px 0px;
 	padding:5px;
-	background-color:#5E8D87;
+	background-color:#0092A2;
 	color:#FFF;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.3);
 	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
 	box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
 	border: 1px solid rgba(0,0,0,0.4);
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
 	cursor:pointer;
 }
 
@@ -1559,7 +1555,7 @@ ul {
 
 
 .comment_author a {
-	color:#5E8D87;
+	color:#0092A2;
 	font-size:inherit;
 	font-weight:bold;		
 }
@@ -2506,7 +2502,7 @@ ul {
 }
 
 #blog-content-container .posts-container .outer-post-container .post-body-container .author a:hover {
-	color:#5E8D87;
+	color:#0092A2;
 	text-decoration:underline;
 }
 
@@ -2552,7 +2548,7 @@ ul {
 
 .posts-container .meta-container div .bold-meta {
 	font-weight:bold;
-	color:#5E8D87;
+	color:#0092A2;
 	margin-top:3px;
 }
 
@@ -2676,7 +2672,7 @@ ul {
 }
 
 #tag-meta-container .meta-content {
-	padding:1px 10px 10px 10px;
+	padding:4px 10px 10px 10px;
 	width:300px;
 	height:500px;
 	background-color:rgba(255,255,255,0.95);
@@ -2686,13 +2682,11 @@ ul {
 #tag-meta-container .meta-content h1 {
 	margin-top:5px;
 	padding:2px;
-	background-color:#5E8D87;
+	background-color:#0092A2;
 	color:#FFF;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.3);
 	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
 	box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
 	border: 1px solid rgba(0,0,0,0.4);
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
 	text-align:center;
 }
