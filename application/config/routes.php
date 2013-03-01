@@ -98,7 +98,7 @@ $route['unit_test/(:any)'] = 'unit_test/$1';
 $route['users/(:any)'] = 'users/display_by_username/$1';
 $route['validate_email/(:any)'] = 'validate_email/$1';
 
-$route['(:any)'] = 'blog/display_by_username/$1';
+//$route['(:any)'] = 'blog/display_by_username/$1';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
