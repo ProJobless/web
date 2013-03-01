@@ -48,7 +48,7 @@ class Post_model extends CI_Model {
 		
 		$url_data['username'] = $data['author'];
 		$this->Url_model->add($url_data);
-		$data['profile_pic'] = $this->User_model->get_picture($data['author']);
+		$data['avatar_thumbnail'] = $this->User_model->get_avatar_thumbnail($data['author']);
 		$data['created'] = time();
 		$data['saves_count'] = 0;
 		$data['shares_count'] = 0;
@@ -287,8 +287,8 @@ class Post_model extends CI_Model {
 		}
 	}
 
-	public function change_pic($username, $new_pic) {
-		$this->mongo_db->where(array('author' => $username))->set(array("profile_pic" => $new_pic))->update_all('posts');
+	public function change_avatar_thumbnail($username, $new_pic) {
+		$this->mongo_db->where(array('author' => $username))->set(array("avatar_thumbnail" => $new_pic))->update_all('posts');
 	}
 
 	/************************** History fetch function **********************/

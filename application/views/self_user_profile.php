@@ -4,7 +4,7 @@
 	</div>
 	<div class="bio-container">
 		<div class="left-bio">
-			<img src="<?php echo base_url() . $user_info['profile_pic']; ?>" />
+			<img src="<?php echo base_url() . $user_info['avatar']; ?>" />
 			<div class="influence-container">
 				<span class="influence"><?php echo $user_info['influence']; ?></span><br />
 				<span class="influence-label">Influence</span>

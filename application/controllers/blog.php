@@ -13,10 +13,10 @@ class Blog extends CI_Controller {
 		if($u = Current_User::user()) {
 		
 			$s = $this->Post_model->get(array('author' => $u['username'], 'published' => 'true'));
-			$data = array('main_content'  => 'blog',
-						         'spool'  => $s,
-								 'type'   => 'self',
-								 'author_info' => $u);
+			$data = array('main_content' => 'blog',
+						         'spool' => $s,
+								  'type' => 'self',
+						   'author_info' => $u);
 
 			$this->load->view('includes/template', $data);
 			
@@ -34,10 +34,17 @@ class Blog extends CI_Controller {
 		if($u = Current_User::user()) {
 	
 			$s = $this->Post_model->get(array('author' => $username, 'published' => 'true'));
-				$data = array('main_content'  => 'blog',
-							         'spool'  => $s,
-									 'type'   => 'other');
-			$this->load->view('includes/tempalte', $data);
+			$u = $this->User_model->get_by_username($username);
+			if ($u) {
+				$data = array('main_content' => 'blog',
+							         'spool' => $s,
+							          'type' => 'other',
+							   'author_info' => $u);
+				$this->load->view('includes/template', $data);	
+			} else {
+				redirect('/');
+			}
+			
 
 		} else {
 			

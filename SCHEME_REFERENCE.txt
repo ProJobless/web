@@ -2,7 +2,8 @@ user : {
 	salt : string
 	created : unix_timestamp		
 	password : encrypt_pw( password , salt )		
-	profile_pic : images/silhoeutte.png
+	avatar : images/silhoeutte.png
+	avatar_thumbnail : images/silhoeutte.png
 	blurb : string
 	full_name : string
 	website : string
@@ -23,7 +24,7 @@ post: {
 	sid : get_unique_id()
 	type : post | comment | share | picture
 	author : string
-	profile_pic : string
+	avatar_thumbnail : string
 	created : time()
 	saves : int
 	shares : int

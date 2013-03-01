@@ -8,6 +8,8 @@ class Test extends CI_Controller {
 	}
 	
 	function index() {
-		
+
+		$this->User_model->update(array("username" => "john"), array("avatar" => "images/silhoeutte.png", "avatar_thumbnail" => "images/silhoeutte.png"));
+
 	}
 }

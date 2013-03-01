@@ -36,11 +36,12 @@
 				<div class="user-container">
 					<div class="pic">
 						<a href="<?php echo base_url() . 'users/' . $user['username']; ?>">
-							<img src="<?php echo $user['profile_pic']; ?>" />
+							<img src="<?php echo base_url() . $user['avatar_thumbnail']; ?>" />
 						</a>
 					</div>
 					<div class="info">
 						<p><a href="<?php echo base_url() . 'users/' . $user['username']; ?>"><?php echo $user['username']; ?></a></p>
+						<p><?php echo $user['location'];?></p>
 						<p><?php echo $user['influence']; ?></p>
 					</div>
 					<div style="clear:both"></div>

@@ -14,7 +14,7 @@
 			<?php if ($row['type'] != 'comment') { ?>
 				<div class="outer-post-container">
 					<div class="picture">
-						<img src="<?php echo base_url() . $row['profile_pic']; ?>" height="35" width="35"/>
+						<img src="<?php echo base_url() . $row['avatar']; ?>" height="35" width="35"/>
 						<p class="author"><a href="<?php echo base_url() . $row['author'];?>" ><?php echo $row['author']; ?></a></p>
 					</div> 				
 					

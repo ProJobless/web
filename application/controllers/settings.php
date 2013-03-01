@@ -94,11 +94,67 @@ class Settings extends CI_Controller {
 				$data['location'] = $this->input->post('location');
 				$data['blurb'] = $this->input->post('blurb');
 				$this->User_model->update(array('username' => $u['username']), $data);
-				redirect('settings');
+
+				if (($this->input->post("hidden-avatar-flag") == "false") && ($this->input->post("hidden-thumbnail-flag") == "true") && $this->input->post("hidden-thumbnail-coords")) {
+
+					$thumbnail_name = "_" . $u['username'] . "_avatar_thumbnail";
+					$thumbnail_path = 'avatars/' . $thumbnail_name;
+					$coords = $this->input->post("hidden-thumbnail-coords");
+					$coords = explode(",", $coords);
+					if (count($coords) == 4) {
+						$this->load->helper("image_helper");
+						$this->User_model->change_avatar_thumbnail(
+							$u['username'],
+							crop_image($u['avatar'], $thumbnail_path, $coords)
+						);
+
+					}	
+
+				} else {
+
+					if (isset($_FILES['userfile']) && isset($_FILES['userfile']['name'])) {
+
+						$type = substr($_FILES['userfile']['name'], -3, 3);
+						$config = array();
+						$config['file_name'] = $u['username'] . '.' . $type;
+						$config['upload_path'] = './avatars';
+						$config['allowed_types'] = 'gif|jpg|png';
+						$config['overwrite'] = TRUE;
+
+						$file_path = 'avatars/' . $config['file_name'];
+
+						$this->load->library('upload', $config);
+
+						if ( ! $this->upload->do_upload()) {
+							$error = array('error' => $this->upload->display_errors());
+						} else {
+							$this->User_model->change_avatar($u['username'], $file_path);
+						}
+
+						if ($this->input->post("hidden-avatar-flag") == "true" && $this->input->post("hidden-thumbnail-flag") == "true" && $this->input->post("hidden-thumbnail-coords")) {
+		
+							$thumbnail_name = "_" . $u['username'] . "_avatar_thumbnail";
+							$thumbnail_path = 'avatars/' . $thumbnail_name;
+							$coords = $this->input->post("hidden-thumbnail-coords");
+							$coords = explode(",", $coords);
+							if (count($coords) == 4) {
+								$this->load->helper("image_helper");
+								$this->User_model->change_avatar_thumbnail(
+									$u['username'],
+									crop_image($file_path, $thumbnail_path, $coords)
+								);
+							}
+
+										
+						}
+
+					}
+
+				}
+				$data = array('main_content' => 'settings_profile', 'user_info' => $u);
+				$this->load->view('includes/template', $data);
 				
 			}
-			
-			
 			
 		} else {
 			

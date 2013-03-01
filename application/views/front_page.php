@@ -6,19 +6,7 @@
 
 		<div class="meta-content">
 
-			<?php if (is_array($tags)) {
-
-				foreach($tags as $tag) {
-
-					echo '<h1>#' . $tag . '</h1>';
-
-				}
-
-			} else {
-
-				echo '<h1>#' . $tags . '</h1>';
-
-			} ?>
+			
 
 		</div>
 		

@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "home";
+$route['default_controller'] = "front_page";
 $route['404_override'] = '';
 
 $route[''] = '';
@@ -51,6 +51,7 @@ $route['cron'] = 'cron';
 $route['debug'] = 'debug';
 $route['feed'] = 'feed';
 $route['forgot_password'] = 'forgot_password';
+$route['front_page'] = 'front_page';
 $route['home'] = 'home';
 $route['login'] = 'login';
 $route['logout'] = 'logout';
@@ -82,7 +83,7 @@ $route['i/(:any)'] = 'images/1$';
 $route['login/(:any)'] = 'login/$1';
 $route['logout/(:any)'] = 'logout/$1';
 $route['profile/(:any)'] = 'profile/$1';
-$route['blog/(:any)'] = 'blog/$1';
+$route['blog/(:any)'] = 'blog/display_by_username/$1';
 $route['p/(:any)'] = 'post/display_by_sid/$1';
 $route['refer/(:any)'] = 'refer/$1';
 $route['saved/(:any)'] = 'saved/$1';
@@ -95,7 +96,7 @@ $route['unit_test/(:any)'] = 'unit_test/$1';
 $route['users/(:any)'] = 'users/display_by_username/$1';
 $route['validate_email/(:any)'] = 'validate_email/$1';
 
-$route['(:any)'] = '';
+//$route['(:any)'] = 'blog/display_by_username/$1';
 
 
 /* End of file routes.php */

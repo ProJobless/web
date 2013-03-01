@@ -25,7 +25,7 @@
 				<?php endif; ?>
 			</div>
 			<div class="picture">
-				<a href="<?php echo base_url() . $post['author']; ?>"><img src="<?php echo base_url() . $post['profile_pic']; ?>" alt="<?php echo $post['author']; ?>" /></a>
+				<a href="<?php echo base_url() . $post['author']; ?>"><img src="<?php echo base_url() . $post['avatar_thumbnail']; ?>" alt="<?php echo $post['author']; ?>" /></a>
 			</div>
 			<div style="clear:both;"></div>
 			<span class="arrow"></span>

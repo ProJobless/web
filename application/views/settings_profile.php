@@ -9,7 +9,7 @@
 	
 	</div>
 	<div id="settings-inner">
-		<?php echo form_open('settings/submit'); ?>
+		<?php echo form_open_multipart('settings/submit'); ?>
 		<div class="fixed">			
 			<div class="settings-label">&nbsp;</div>
 			<div class="input">
@@ -28,8 +28,20 @@
 		<div class="fixed">			
 			<label class="label" for="avatar">Avatar: </label>
 			<div class="input">
-				<img id="profile_avatar" src="<?php echo base_url() . $u['profile_pic']; ?>" />
-				<p><input type="file" name="avatar" onchange="readURL(this, '#profile_avatar');" /></p>
+				<img id="profile_avatar" src="<?php echo base_url() . $u['avatar']; ?>" />
+				<p><input id="profile_avatar_img" type="file" name="userfile" onchange="readURL(this, '#profile_avatar');" /><input class="right" id="done_cropping" type="button" value="Done cropping" /></p>
+			</div>
+		</div>
+		<div class="fixed">		
+			<label class="label" for="crop-button">Avatar Thumbnail: </label>
+			<div class="input">
+				<div id="crop-image-wrapper">
+					<img id="profile_avatar_thumbnail" src="<?php echo base_url() . $u['avatar_thumbnail']; ?>" />
+				</div>
+				<p><input value="Crop Thumnbnail" name="crop-button" type="button" id="crop_button" /> OR <input value="Upload Thumbnail" type="file" name="thumbnail" onchange="readURL(this,'#profile_avatar_thumbnail');" /></p>
+				<input type="hidden" name="hidden-thumbnail-coords" id="hidden-thumbnail-coords" />
+				<input type="hidden" name="hidden-thumbnail-flag" id="hidden-thumbnail-flag" value="false" />
+				<input type="hidden" name="hidden-avatar-flag" id="hidden-avatar-flag" value="false" />
 			</div>
 		</div>
 		<div class="fixed">		

@@ -18,7 +18,8 @@ class User_model extends CI_Model {
 		$data['salt'] = get_salt();
 		$data['created'] = time();		
 		$data['password'] = encrypt_pw($data['password'], $data['salt']);		
-		$data['profile_pic'] = "images/silhoeutte.png";
+		$data['avatar'] = "images/silhoeutte.png";
+		$data['avatar_thumbnail'] = "images/silhoeutte.png";
 		$data['blurb'] = "";
 		$data['full_name'] = "";
 		$data['website'] = "";
@@ -119,19 +120,27 @@ class User_model extends CI_Model {
 	
 	public function update($where, $data) {
 		
-		$this->mongo_db->where($where)->set($data)->update('users');
+		$this->mongo_db->where($where)->set($data)->update_all('users');
 		
 	}
 	
-	public function change_pic($username, $picture) {
+	public function change_avatar($username, $picture) {
 	
 		if ($this->User_model->username_exists($username)) {
-			$this->mongo_db->where(array('username' => $username))->set(array('profile_pic' => $picture))->update_all('users');
-			$this->Post_model->change_pic($username, $picture);
+			$this->mongo_db->where(array('username' => $username))->set(array('avatar' => $picture))->update_all('users');
 			return TRUE;	
 		}
 		return FALSE;
 	
+	}
+
+	public function change_avatar_thumbnail($username, $thumbnail) {
+		if ($this->User_model->username_exists($username)) {
+			$this->mongo_db->where(array('username' => $username))->set(array('avatar_thumbnail' => $thumbnail))->update_all('users');
+			$this->Post_model->change_avatar_thumbnail($username, $thumbnail);
+			return TRUE;	
+		}
+		return FALSE;
 	}
 	
 	public function username_exists($username) {
@@ -152,11 +161,19 @@ class User_model extends CI_Model {
 		
 	}
 	
-	public function get_picture($username) {
+	public function get_avatar($username) {
 	
 		$u = $this->mongo_db->where(array('username' => $username))->limit(1)->get('users');
 		
-		return $u[0]['profile_pic'];
+		return $u[0]['avatar'];
+	
+	}
+
+	public function get_avatar_thumbnail($username) {
+	
+		$u = $this->mongo_db->where(array('username' => $username))->limit(1)->get('users');
+		
+		return $u[0]['avatar_thumbnail'];
 	
 	}
 

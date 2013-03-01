@@ -481,6 +481,8 @@ $(document).ready(function() {
 
 	/******************* Profile Page ********************/
 
+
+
 	$("#follow-button").click(function(){
 		if($(this).val() == "Follow") {
 			var postData = {
@@ -503,7 +505,89 @@ $(document).ready(function() {
 			});	
 			$(this).val("Follow");		
 		}
-	})
+	});
+
+	var crop_coords = {};
+
+	$("#crop_button").click(function(){
+		$("#done_cropping").show();
+		$("#profile_avatar").Jcrop({
+			onSelect: function(c) {
+				crop_coords.x  = c.x,
+				crop_coords.y  = c.y,
+				crop_coords.x2 = c.x2,
+				crop_coords.y2 = c.y2,
+				crop_coords.w  = c.w,
+				crop_coords.h  = c.h
+			},
+            bgColor:     'black',
+            bgOpacity:   .4,
+            setSelect:   [ 0, 0, 100, 100 ],
+            aspectRatio: 1,
+        }, function(){
+        	Jcrop_image = this;
+        });
+	});
+
+	$("#profile_avatar_img").change(function(){
+		$("#hidden-avatar-flag").val("true");
+	});
+
+	$("#done_cropping").click(function(){
+		$("#profile_avatar_thumbnail").attr("src", $("#profile_avatar").attr("src"));
+		
+
+		var img = new Image();
+		img.src = $("#profile_avatar").attr("src");
+
+		$("#crop-image-wrapper").css({
+			"overflow" : "hidden",
+			"background-image" : "none"
+		});
+
+		if (img.width > 500) {
+			var new_height = ( img.height / img.width ) * 500;
+			var new_width = 500;
+		} else {
+			var new_height = img.height;
+			var new_width = img.width;
+		}
+
+		var crop_ratio_x = crop_coords.w / new_width;
+		var crop_ratio_y = crop_coords.h / new_height;
+
+		var new_cropped_width = 48 / crop_ratio_x;
+		var new_cropped_height = 48 / crop_ratio_y;
+
+		var new_cropped_x = (crop_coords.x / new_width) * new_cropped_width;
+		var new_cropped_y = (crop_coords.y / new_height) * new_cropped_height;
+
+		var crop_start_x = (crop_coords.x / new_width) * img.width;
+		var crop_start_y = (crop_coords.y / new_height) * img.height;
+
+		var crop_end_x =  (crop_coords.x2 / new_width) * img.width;
+		var crop_end_y =  (crop_coords.y2 / new_height) * img.height;
+
+
+		$("#hidden-thumbnail-coords").val(crop_start_x + "," + crop_start_y + "," + crop_end_x + "," + crop_end_y);
+
+		$("#crop-image-wrapper img").css({
+			"opacity": "1",
+			 "display": "block",
+			 "visibility": "visible",
+			 "max-width": "none",
+			 "max-height": "none",
+			 "width": new_cropped_width + "px",
+			 "height": new_cropped_height + "px",
+			 "image-rendering": "auto",
+			 "margin-left": "-" + new_cropped_x + "px",
+			 "margin-top" : "-" + new_cropped_y + "px"
+		});
+
+		$("#hidden-thumbnail-flag").val("true");
+		Jcrop_image.destroy();
+		$(this).hide();
+	});
 
 	/******************* Login / signup page **********************/
 

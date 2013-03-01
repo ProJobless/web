@@ -33,7 +33,7 @@
 			<?php } ?>
 			</div>
 			<div class='profile-pic'>
-				<img src="<?php echo base_url() . $child->comment['profile_pic']; ?>" />
+				<img src="<?php echo base_url() . $child->comment['avatar_thumbnail']; ?>" />
 			</div>
 			<div class='inner-comment-container'>
 				<div class='comment-body-container'>
