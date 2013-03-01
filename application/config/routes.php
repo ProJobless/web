@@ -43,7 +43,6 @@ $route['404_override'] = '';
 
 $route[''] = '';
 $route['ajax'] = 'ajax';
-$route['avatars'] = 'front_page';
 $route['api'] = 'api';
 $route['blog'] = 'blog';
 $route['compose'] = 'compose';
@@ -61,7 +60,6 @@ $route['post'] = 'post';
 $route['profile'] = 'profile';
 $route['refer'] = 'refer';
 $route['saved'] = 'saved';
-$route['scripts'] = 'front_page';
 $route['settings'] = 'settings';
 $route['signup'] = 'signup';
 $route['test'] = 'test';
