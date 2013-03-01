@@ -8,7 +8,7 @@ body {
 	
 	font-family:Arial;
 	font-size: 12px;
-	background: url(../images/wallpaper-1908939.jpg);
+	background: url(../images/johnwhatup.jpg);
 	color: #aaaaaa;
 	margin:0;
    	padding:0;
@@ -932,7 +932,11 @@ input, textarea, select {
 }
 
 #post_container .outer-post-container .comment-rating {
-	margin-right:10px;
+	margin:0px 5px 0px 5px;
+}
+
+#post_container .outer-post-container .picture {
+	margin: 7px 15px 0px 0px;
 }
 
 #post_container .outer-post-container .inner-post-container {
@@ -1290,7 +1294,7 @@ ul {
 	float:right;
 	font-weight:bold;
 	color: black;
-	padding: 8px 8px 7px 8px;
+	padding: 9px 8px 7px 8px;
 	background-color: #FAFAFA;
 }
 
@@ -1638,6 +1642,10 @@ ul {
 	background-color:#FAFAFA;
 	padding:30px;
 	color:#000;
+}
+
+#tags-container p {
+	margin: 15px;
 }
 
 #shares-container {

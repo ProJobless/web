@@ -30,6 +30,7 @@ class User_model extends CI_Model {
 		$data['validated'] = FALSE;
 		$data['influence'] = 0;
 		$data['achievement_score'] = 0;
+		$data['user_number'] = $this->user_count();
 
 		$this->mongo_db->insert('users', $data);
 	}
@@ -275,6 +276,10 @@ class User_model extends CI_Model {
 
 	public function touch($username) {
 		$this->User_model->update(array("username" => $username), array("last_seen" =>  time()));
+	}
+
+	public function user_count() {
+		return $this->mongo_db->count('users');
 	}
 
 	/************************** Influence setters **********************/

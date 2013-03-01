@@ -6,7 +6,8 @@
 
 		<div class="meta-content">
 
-			
+			<h1>Mashtagg</h1>
+			<p>The imagination of the internet</p>
 
 		</div>
 		
