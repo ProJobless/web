@@ -43,6 +43,7 @@ $route['404_override'] = '';
 
 $route[''] = '';
 $route['ajax'] = 'ajax';
+$route['avatars'] = 'front_page';
 $route['api'] = 'api';
 $route['blog'] = 'blog';
 $route['compose'] = 'compose';
@@ -60,6 +61,7 @@ $route['post'] = 'post';
 $route['profile'] = 'profile';
 $route['refer'] = 'refer';
 $route['saved'] = 'saved';
+$route['scripts'] = 'front_page';
 $route['settings'] = 'settings';
 $route['signup'] = 'signup';
 $route['test'] = 'test';
@@ -71,6 +73,7 @@ $route['users'] = 'users';
 
 $route['ajax/(:any)'] = 'ajax/$1';
 $route['api/(:any)'] = 'api/$1';
+$route['avatars/(:any)'] = 'avatars/$1';
 $route['c/(:any)'] = 'comment/$1';
 $route['compose/(:any)'] = 'compose/$1';
 $route['create_stuff/(:any)'] = 'create_stuff/$1';
@@ -87,6 +90,7 @@ $route['blog/(:any)'] = 'blog/display_by_username/$1';
 $route['p/(:any)'] = 'post/display_by_sid/$1';
 $route['refer/(:any)'] = 'refer/$1';
 $route['saved/(:any)'] = 'saved/$1';
+$route['scripts/(:any)'] = 'scripts/$1';
 $route['settings/(:any)'] = 'settings/$1';
 $route['signup/(:any)'] = 'signup/$1';
 $route['tags/(:any)'] = 'tags/display_by_name/$1';
@@ -96,8 +100,7 @@ $route['unit_test/(:any)'] = 'unit_test/$1';
 $route['users/(:any)'] = 'users/display_by_username/$1';
 $route['validate_email/(:any)'] = 'validate_email/$1';
 
-//$route['(:any)'] = 'blog/display_by_username/$1';
-
+$route['(:any)'] = 'blog/display_by_username/$1';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
