@@ -1,5 +1,6 @@
 *.DS_Store
 *.log
+.htaccess
 config.php
 log*.php
 secret_helper.php

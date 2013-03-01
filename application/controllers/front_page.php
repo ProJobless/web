@@ -12,8 +12,7 @@ class Front_page extends CI_Controller {
 			);
 			$this->load->view('includes/template', $data);
 			
-		}
-		else {
+		} else {
 			
 			$this->load->view('welcome_page');
 			

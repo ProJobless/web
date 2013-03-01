@@ -5,10 +5,6 @@
 	<div class="bio-container">
 		<div class="left-bio">
 			<img src="<?php echo base_url() . $user_info['avatar']; ?>" />
-			<div class="influence-container">
-				<span class="influence"><?php echo $user_info['influence']; ?></span><br />
-				<span class="influence-label">Influence</span>
-			</div>
 		</div>
 		<div class="right-bio">
 			<p>Name: <span style="font-weight:bold"><?php echo $user_info['full_name']; ?></span></p>
@@ -19,6 +15,7 @@
 			<p>Profile views: <span style="font-weight:bold"><?php echo $user_info['profile_views']; ?></span></p>
 			<p><a href="<?php echo base_url() . $this->uri->uri_string . '?tab=following';?>">Following: <span style="font-weight:bold"><?php echo $following_count; ?></a></span></p>
 			<p><a href="<?php echo base_url() . $this->uri->uri_string . '?tab=followers';?>">Followers: <span style="font-weight:bold"><?php echo $followers_count; ?></a></span></p>
+			<p><a href="<?php echo base_url() . $this->uri->uri_string . '?tab=influence';?>">Influence: <span style="font-weight:bold"><?php echo $user_info['influence']; ?></a></span></p>
 			<?php if ($user_info['validated']): ?>
 				<p>You email is validated.</p>
 			<?php else: ?>
