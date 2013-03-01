@@ -5,7 +5,7 @@
 	</div>
 	<div class="bio-container">
 		<div class="left-bio">
-			<img src="<?php echo base_url(); ?>images/silhoeutte.png" width="150" height="150" />
+			<img src="<?php echo base_url() . $user_info['avatar']; ?>" width="150" />
 		</div>
 		<div class="right-bio">
 			<p>Name: <?php echo $user_info['full_name']; ?></p>

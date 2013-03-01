@@ -9,7 +9,8 @@ class Test extends CI_Controller {
 	
 	function index() {
 
-		echo $this->User_model->user_count();
+		$data = array("username" => "jimmy", "password" => "secret", "email" => "jimmy@gmail.com", "favorite_color" => "blue");
+		$this->User_model->signup($data);
 
 	}
 }

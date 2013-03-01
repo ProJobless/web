@@ -175,9 +175,13 @@ $(document).ready(function() {
 		$(this).addClass("clicked_upvote");
 		$(this).children("img").attr("src", Mashtagg.base_url + "images/clicked_arrow_up.png");
 		$(this).removeClass("upvote");
-		$(this).next(".clicked_downvote").addClass("downvote");
-		$(this).next(".clicked_downvote").removeClass("clicked_downvote");
-		var sid = $(this).closest(".outer-comment-container").attr("id");
+		$(this).parent().children(".clicked_downvote").children("img").attr("src", Mashtagg.base_url + "images/arrow_down.png");
+		$(this).parent().children(".clicked_downvote").addClass("downvote");
+		$(this).parent().children(".clicked_downvote").removeClass("clicked_downvote");
+		var influence_gain = parseInt($(this).parent().children(".influence_gain").html());
+		$(this).parent().children(".influence_gain").html(++influence_gain);
+		var sid = $(this).closest(".outer-post-container").attr("id");
+		console.log(sid);
 		$.ajax({
 			type: "POST",
 			url: Mashtagg.base_url + "ajax/upvote",
@@ -193,9 +197,12 @@ $(document).ready(function() {
 		$(this).addClass("clicked_downvote");
 		$(this).children("img").attr("src", Mashtagg.base_url + "images/clicked_arrow_down.png");
 		$(this).removeClass("downvote");
-		$(this).prev(".clicked_upvote").addClass("upvote");
-		$(this).prev(".clicked_upvote").removeClass("clicked_upvote");
-		var sid = $(this).closest(".outer-comment-container").attr("id");
+		$(this).parent().children(".clicked_upvote").children("img").attr("src", Mashtagg.base_url + "images/arrow_up.png");
+		$(this).parent().children(".clicked_upvote").addClass("upvote");
+		$(this).parent().children(".clicked_upvote").removeClass("clicked_upvote");
+		var influence_gain = parseInt($(this).parent().children(".influence_gain").html());
+		$(this).parent().children(".influence_gain").html(--influence_gain);
+		var sid = $(this).closest(".outer-post-container").attr("id");
 		$.ajax({
 			type: "POST",
 			url: Mashtagg.base_url + "ajax/downvote",
