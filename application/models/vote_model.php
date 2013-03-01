@@ -64,8 +64,14 @@ class Vote_model extends CI_Model {
 		}
 		return FALSE;
 	}
+
+	public function get_by_username($username) {
+		
+		return $this->mongo_db->where(array("username" => $username))->get("votes");
 	
-	public function get_by_username($args) {
+	}
+	
+	public function get($args) {
 		if (isset($args['limit'])) {
 			if(isset($args['offset']) && isset($args['limit'])) {
 				return $this->mongo_db->where(array("username" => $args['username']))->order_by(array("created" => "desc"))->offset($offset)->limit($args['limit'])->get("votes");

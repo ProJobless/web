@@ -10,14 +10,17 @@
 
 	<?php foreach ($node->children as $child) { ?>
 
+
+
 		<div id='<?php echo $child->comment['sid']?>' class='outer-comment-container <?php echo $odd_even; ?>'>
 			<div class='comment-rating'>
 			<?php if ($u['username'] == $child->comment['author']) { ?>
 				<div class='disabled_upvote'><img src="<?php echo base_url() . 'images/disabled_arrow_up.png'; ?>" /></div>
 				<div class='disabled_downvote'><img src="<?php echo base_url() . 'images/disabled_arrow_down.png'; ?>" /></div>
 			<?php } else { ?>
+
 				<?php if ($child->vote) { ?>
-				
+					
 					<?php if($child->vote['type'] == 'upvote') { ?>
 						<div class='clicked_upvote'><img src="<?php echo base_url() . 'images/clicked_arrow_up.png'; ?>" /></div>
 						<div class='downvote'><img src="<?php echo base_url() . 'images/arrow_down.png'; ?>" /></div>
@@ -37,7 +40,7 @@
 			</div>
 			<div class='inner-comment-container'>
 				<div class='comment-body-container'>
-					<p class='comment_author'><a href='<?php echo base_url() . $child->comment['author'] ?>'><?php echo $child->comment['author'] ?></a> - <?php echo $child->comment['influence_gain']; ?> influence - posted <a class="create_date" href="<?php echo $child->comment['url'];?>" title="<?php echo date('g:i A jS M Y', $child->comment['created']);?>"><?php echo long_time_formatter($child->comment['created']); ?></a></p>
+					<p class='comment_author'><a href='<?php echo base_url() . $child->comment['author'] ?>'><?php echo $child->comment['author'] ?></a> - <span class="influence_gain"><?php echo $child->comment['influence_gain']; ?></span> influence - posted <a class="create_date" href="<?php echo $child->comment['url'];?>" title="<?php echo date('g:i A jS M Y', $child->comment['created']);?>"><?php echo long_time_formatter($child->comment['created']); ?></a></p>
 					<div class='comment_body'>
 						<?php echo $child->comment['body'] ?>
 					</div>

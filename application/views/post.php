@@ -5,7 +5,7 @@
 <div id="post_container">
 	<div id="<?php echo $post['sid'];?>" class="outer-post-container clearfix">
 		<div class="vote-picture-container">
-			<div class='comment-rating'>
+			<div class='comment-rating root-post'>
 				<?php if ($post_vote_status == "disabled"): ?>
 					<div class='disabled_upvote'><img src="<?php echo base_url() . 'images/disabled_arrow_up.png'; ?>" /></div>
 					<div class="influence_gain"><?php echo $post['influence_gain'];?></div>

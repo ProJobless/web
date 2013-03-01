@@ -150,7 +150,7 @@ function tab_change(event, _this) {
 
 var invalid_usernames = [ "admin", "administrator", "ajax", "api", "home", "login", "logout", "profile", "saved_links", "signup", "spool", "test", "iphone", "android" ];
 
-var invalid_passwords = [ "password", "test", "testing", "stupid", "slasht", "123456", "secret" ];
+var invalid_passwords = [ "password", "test", "testing", "stupid", "mashtagg", "123456", "secret" ];
 
 $(document).ready(function() {
 
@@ -172,16 +172,33 @@ $(document).ready(function() {
 	
 	$(".upvote").click(function() {
 
+		if ($(this).parent().hasClass('root-post')) {
+			var influence_gain = parseInt($(this).parent().children(".influence_gain").html());
+			if ($(this).parent().children(".clicked_downvote").length) {
+				influence_gain = influence_gain + 2;
+			} else {
+				influence_gain++;
+			}
+			$(this).parent().children(".influence_gain").html(influence_gain);
+			var sid = $(this).closest(".outer-post-container").attr("id");
+		} else {
+			var influence_gain = parseInt($(this).closest(".outer-comment-container").find(".influence_gain").html());
+			if ($(this).parent().children(".clicked_downvote").length) {
+				influence_gain = influence_gain + 2;
+			} else {
+				influence_gain++;
+			}
+			$(this).closest(".outer-comment-container").find(".influence_gain").html(influence_gain)
+			var sid = $(this).closest(".outer-comment-container").attr("id");
+		}
+
 		$(this).addClass("clicked_upvote");
 		$(this).children("img").attr("src", Mashtagg.base_url + "images/clicked_arrow_up.png");
 		$(this).removeClass("upvote");
 		$(this).parent().children(".clicked_downvote").children("img").attr("src", Mashtagg.base_url + "images/arrow_down.png");
 		$(this).parent().children(".clicked_downvote").addClass("downvote");
 		$(this).parent().children(".clicked_downvote").removeClass("clicked_downvote");
-		var influence_gain = parseInt($(this).parent().children(".influence_gain").html());
-		$(this).parent().children(".influence_gain").html(++influence_gain);
-		var sid = $(this).closest(".outer-post-container").attr("id");
-		console.log(sid);
+
 		$.ajax({
 			type: "POST",
 			url: Mashtagg.base_url + "ajax/upvote",
@@ -194,15 +211,33 @@ $(document).ready(function() {
 	
 	$(".downvote").click(function() {
 
+		if ($(this).parent().hasClass('root-post')) {
+			var influence_gain = parseInt($(this).parent().children(".influence_gain").html());
+			if ($(this).parent().children(".clicked_upvote").length) {
+				influence_gain = influence_gain - 2;
+			} else {
+				influence_gain--;
+			}
+			$(this).parent().children(".influence_gain").html(influence_gain);
+			var sid = $(this).closest(".outer-post-container").attr("id");
+		} else {
+			var influence_gain = parseInt($(this).closest(".outer-comment-container").find(".influence_gain").html());
+			if ($(this).parent().children(".clicked_upvote").length) {
+				influence_gain = influence_gain - 2;
+			} else {
+				influence_gain--;
+			}
+			$(this).closest(".outer-comment-container").find(".influence_gain").html(influence_gain)
+			var sid = $(this).closest(".outer-comment-container").attr("id");
+		}
+
 		$(this).addClass("clicked_downvote");
 		$(this).children("img").attr("src", Mashtagg.base_url + "images/clicked_arrow_down.png");
 		$(this).removeClass("downvote");
 		$(this).parent().children(".clicked_upvote").children("img").attr("src", Mashtagg.base_url + "images/arrow_up.png");
 		$(this).parent().children(".clicked_upvote").addClass("upvote");
 		$(this).parent().children(".clicked_upvote").removeClass("clicked_upvote");
-		var influence_gain = parseInt($(this).parent().children(".influence_gain").html());
-		$(this).parent().children(".influence_gain").html(--influence_gain);
-		var sid = $(this).closest(".outer-post-container").attr("id");
+		
 		$.ajax({
 			type: "POST",
 			url: Mashtagg.base_url + "ajax/downvote",

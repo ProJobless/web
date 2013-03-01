@@ -16,7 +16,7 @@ class Comment_Node {
 		$this->root     = $comment['root'];
 		$this->size     = sizeof($carray);
 		if($user) {
-			$this->vote = $this->find_vote($votes, $user);
+			$this->vote = $this->find_vote($votes, $comment['sid']);
 		} else {
 			$this->vote = false;
 		}
@@ -36,7 +36,7 @@ class Comment_Node {
 	private function find_vote($votes, $sid) {
 
 		foreach($votes as $vote) {
-		
+
 			if ($vote['sid'] == $sid) {
 				return $vote;
 			}
