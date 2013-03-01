@@ -173,6 +173,7 @@ $(document).ready(function() {
 	$(".upvote").click(function() {
 
 		$(this).addClass("clicked_upvote");
+		$(this).children("img").attr("src", Mashtagg.base_url + "images/clicked_arrow_up.png");
 		$(this).removeClass("upvote");
 		$(this).next(".clicked_downvote").addClass("downvote");
 		$(this).next(".clicked_downvote").removeClass("clicked_downvote");
@@ -190,6 +191,7 @@ $(document).ready(function() {
 	$(".downvote").click(function() {
 
 		$(this).addClass("clicked_downvote");
+		$(this).children("img").attr("src", Mashtagg.base_url + "images/clicked_arrow_down.png");
 		$(this).removeClass("downvote");
 		$(this).prev(".clicked_upvote").addClass("upvote");
 		$(this).prev(".clicked_upvote").removeClass("clicked_upvote");
