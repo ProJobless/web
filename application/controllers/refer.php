@@ -61,7 +61,7 @@ class Refer extends CI_Controller {
 				} else {
 
 					$referrals = $this->Referral_model->get_all($u['username']);
-					if (count($referrals) > MAX_REFERRAL_AMOUNT) {
+					if (!isset($u['admin']) && count($referrals) > MAX_REFERRAL_AMOUNT) {
 
 						
 

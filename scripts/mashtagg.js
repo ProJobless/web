@@ -712,21 +712,26 @@ $(document).ready(function() {
 				$(".validation-errors").hide();
 				$("#referral_email").css({"border" : "1px solid #AAA"});
 				var referral_amount = $("#referral_amount").val();
+				var admin_referral_amount = 0;
 				if (referral_amount < 5) {
-					referral_amount++;
-					$("#referral_amount").val(referral_amount);
+					if (referral_amount >= 0) {
+						referral_amount++;
+						$("#referral_amount").val(referral_amount);
+					} else {
+						admin_referral_amount = $("#admin_referral_amount").val();
+						admin_referral_amount++;
+						$("#admin_referral_amount").val(admin_referral_amount);
+					}
+
 					$(".email-container").hide();
 					$(".inner-container .header").show();
 					$("#referral_email").val("");
-					if (referral_amount == 5) {
-						$(".referral-header").html("<p>You have used up all 5 of your invites.<p>");
-					} else {
-						$(".referral-header").html("<p>You have sent " + referral_amount + " referrals out, and have " + (5 - referral_amount) + " left to send.</p>");
-					}
+
 					var postData = {
 						"referrer" : referrer,
 						"email" : email
 					};
+
 					$.ajax({
 						type: "POST",
 						url: Mashtagg.base_url + "refer/create",
@@ -740,6 +745,15 @@ $(document).ready(function() {
 							);
 						}
 					});
+					
+					if (referral_amount == 5) {
+						$(".referral-header").html("<p>You have used up all 5 of your invites.<p>");
+					} else if (referral_amount >= 0) {
+						$(".referral-header").html("<p>You have sent " + referral_amount + " referrals out, and have " + (5 - referral_amount) + " left to send.</p>");
+					} else {
+						$(".referral-header").html("<p>You have sent " + admin_referral_amount + " referrals out.</p>");
+					}
+
 				}
 			} else {
 				$(".validation-errors").show();
