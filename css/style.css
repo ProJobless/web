@@ -1456,7 +1456,7 @@ ul {
 
 #comment-container .outer-comment-container .profile-pic {
 	float:left;
-	margin:8px;
+	margin:8px 8px 0px 8px;
 }
 
 #comment-container .outer-comment-container .profile-pic img{
