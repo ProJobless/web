@@ -2,8 +2,8 @@ user : {
 	salt : string
 	created : unix_timestamp		
 	password : encrypt_pw( password , salt )		
-	avatar : images/silhoeutte.png
-	avatar_thumbnail : images/silhoeutte.png
+	avatar : assets/silhoeutte.png
+	avatar_thumbnail : assets/silhoeutte.png
 	blurb : string
 	full_name : string
 	website : string

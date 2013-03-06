@@ -52,9 +52,9 @@
 									<div class="vote-picture-container">
 										<div class='comment-rating'>
 											
-											<div class='disabled_upvote'><img src="<?php echo base_url() . 'images/disabled_arrow_up.png'; ?>" /></div>
+											<div class='disabled_upvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_up.png'; ?>" /></div>
 											<div class="influence_gain"><?php echo $post['influence_gain'];?></div>
-											<div class='disabled_downvote'><img src="<?php echo base_url() . 'images/disabled_arrow_down.png'; ?>" /></div>
+											<div class='disabled_downvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_down.png'; ?>" /></div>
 											
 										</div>
 										<div class="picture">
@@ -73,7 +73,7 @@
 											<h2><a href="<?php echo $post['url']; ?>" class="post-title"><?php echo $post['title']; ?></a></h2>
 										</div>
 										<div class="expand-link">
-											<img src="<?php echo base_url() . 'images/arrow_down_3_50p.png'; ?>" />
+											<img src="<?php echo base_url() . 'assets/arrow_down_3_50p.png'; ?>" />
 										</div>
 
 										<div class="meta-container">

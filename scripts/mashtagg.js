@@ -495,6 +495,42 @@ $(document).ready(function() {
 		
 	});
 
+	$(".save-post").live('click', function(){
+		var post_data = {
+			"post_id" : $(this).closest(".outer-post-container").attr("id")
+		};
+		if ($(this).hasClass("clicked")) {
+			$(this).removeClass("clicked");
+			$(this).addClass("unclicked");
+			$(this).attr("src", Mashtagg.base_url + 'images/star_fav_empty.png');
+
+			$.ajax({
+				type: "POST",
+				url: Mashtagg.base_url + "ajax/unsave_post",
+				data: post_data,
+				success: function(data) {
+					console.log("success!");
+				}
+			});
+
+		} else {
+			$(this).addClass("clicked");
+			$(this).removeClass("unclicked");
+			$(this).attr("src", Mashtagg.base_url + 'images/star_fav_full.png');
+
+			$.ajax({
+				type: "POST",
+				url: Mashtagg.base_url + "ajax/save_post",
+				data: post_data,
+				success: function(data) {
+					console.log("success!");
+				}
+			});
+
+		}		
+		
+	});
+
 	/******************* Users page ********************/
 
 	$(".user-search-input").bind('keypress', function(event) {
@@ -557,12 +593,12 @@ $(document).ready(function() {
 		$("#done_cropping").show();
 		$("#profile_avatar").Jcrop({
 			onSelect: function(c) {
-				crop_coords.x  = c.x,
-				crop_coords.y  = c.y,
-				crop_coords.x2 = c.x2,
-				crop_coords.y2 = c.y2,
-				crop_coords.w  = c.w,
-				crop_coords.h  = c.h
+				crop_coords.x  = c.x;
+				crop_coords.y  = c.y;
+				crop_coords.x2 = c.x2;
+				crop_coords.y2 = c.y2;
+				crop_coords.w  = c.w;
+				crop_coords.h  = c.h;
 			},
             bgColor:     'black',
             bgOpacity:   .4,
@@ -782,6 +818,24 @@ $(document).ready(function() {
 		}
 		post_fix_heights();
 	});
+
+	/******************* Compose page *********************/
+
+	$("#upload_image").change(function(){
+		if (this.files && this.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$(".image-placeholder-container").show();
+				$(".image-upload-container").hide();
+				$(".image-placeholder-container img").attr('src', e.target.result);
+			}
+
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
+
+	$(".navigation-outline").height("800px");
 
 });
 

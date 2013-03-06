@@ -20,8 +20,16 @@ class Post extends CI_Controller {
 	
 			$post     = $this->Post_model->get_by_sid($sid);
 			$comments = $this->Post_model->get_comments($sid);
-			$votes    = $this->Vote_model->get_by_username($u['username']);
+
+			$post_ids = array();
+			$post_ids[] = $sid;
+			foreach($comments as $comment) {
+				$post_ids[] = $comment['sid'];
+			}
+
 			$shares   = $this->Post_model->get_shares($sid);
+			$votes    = $this->Vote_model->get_by_username($u['username']);
+			$saves    = $this->Save_model->get_saves($u['username'], $post_ids);
 
 			//Construct the comments tree using the Comment_Node class.
 			if (sizeof($comments) > 0) {
@@ -53,8 +61,20 @@ class Post extends CI_Controller {
 
 				}
 				
-			} 
-			
+			}
+
+			//Determine the post's save status
+
+			$post_save_status = 'unsaved';
+			foreach($saves as $save) {
+
+				if ($save['post_id'] == $sid) {
+					$post_save_status = 'saved';
+					break;
+				}
+
+			}
+
 			if ($post) {
 
 				$data = array('main_content' => 'post',
@@ -63,6 +83,8 @@ class Post extends CI_Controller {
 								    'shares' => $shares,
 								       'tab' => $this->input->get('tab'),
 						  'post_vote_status' => $post_vote_status,
+						  'post_save_status' => $post_save_status,
+						             'saves' => $saves,
 						);
 				$this->load->view('includes/template', $data);
 

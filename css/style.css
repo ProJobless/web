@@ -8,7 +8,7 @@ body {
 	
 	font-family:Arial;
 	font-size: 12px;
-	background: url(../images/johnwhatup.jpg);
+	background: url(../assets/johnwhatup.jpg);
 	color: #aaaaaa;
 	margin:0;
    	padding:0;
@@ -416,13 +416,13 @@ input, textarea, select {
 .login-boxes {
 	width:346px;
 	height:344px;
-	background:url(../images/squares.png);
+	background:url(../assets/squares.png);
 }
 
 #logo {
 	width:322px;
 	height:99px;
-	background:url(../images/logo.png);
+	background:url(../assets/logo.png);
 }
 
 #signup_form {
@@ -857,6 +857,7 @@ input, textarea, select {
 	margin: 5px 0px 0px 0px;
 	color:#BBB;
 	font-weight:bold;
+	display:inline-block
 }
 
 #post_container .outer-post-container .inner-post-container .author {
@@ -1095,11 +1096,24 @@ input, textarea, select {
 	position:absolute;
 	right:0px;
 	top:20px;
-	background:url("../images/white-arrow.png") no-repeat;
+	background:url("../assets/white-arrow.png") no-repeat;
 }
 
 .posts-container .outer-post-container .vote-picture-container .arrow {
 	top:20px;
+}
+
+.outer-post-container .inner-post-container .control-buttons {
+	margin-top:5px;
+	float:right;
+}
+
+.outer-post-container .inner-post-container .control-buttons img {
+	cursor:pointer;
+	height:24px;
+	width:24px;
+	margin-left:5px;
+
 }
 
 .outer-post-container .post-body-container .body {
@@ -2109,7 +2123,7 @@ ul {
 	margin:10px;
 	height:32px;
 	width:32px;
-	background:url(../images/loading.gif);
+	background:url(../assets/loading.gif);
 }
 
 .validate-email-container {
@@ -2371,13 +2385,13 @@ ul {
 	padding:5px 0px;
 	width:100%;
 	background-color: rgba(0,0,0,.2);
-	height:800px;
-
+	display:block;
 }
 
 .compose-content-container .compose-outer-container {
 	width:100%;
 	height:100%;
+	display:block;
 }
 
 .compose-content-container .compose-outer-container .navigation-outline{
@@ -2385,6 +2399,7 @@ ul {
 	height:100%;
 	width:250px;
 	background-color: rgba(0,0,0,.2);
+	display:block;
 }
 
 .compose-content-container .compose-outer-container .input-container {
@@ -2399,6 +2414,18 @@ ul {
 	border-bottom:1px dashed #C7C7C7;
 	margin-bottom:10px;
 	padding:5px 5px 5px 20px;
+}
+
+.compose-content-container .compose-outer-container .input-container .image-placeholder-container {
+	display:none;
+	height:322px;
+	width:322px;
+	margin:20px auto;
+}
+
+.compose-content-container .compose-outer-container .input-container .image-placeholder-container img {
+	max-width:322px;
+	max-height:322px;
 }
 
 .compose-content-container .compose-outer-container .input-container .image-upload-container {
@@ -2488,6 +2515,12 @@ ul {
 
 .compose-content-container .compose-outer-container .input-container .controls-container {
 	padding:15px 20px;
+}
+
+#upload_image {
+	height:100%;
+	width:100%;
+	opacity:0;
 }
 
 .clearfix:after { 

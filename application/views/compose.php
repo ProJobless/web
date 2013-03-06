@@ -1,6 +1,7 @@
 <div class="compose-content-container">
 	<div class="compose-outer-container">
 		<div class="navigation-outline">
+			&nbsp;
 		</div>
 		<?php echo form_open('compose/submit'); ?>
 			<div class="input-container">
@@ -11,6 +12,10 @@
 						<input type="text" id="post-title" name="post_title" placeholder="Title" />
 					</div>
 					<div class="image-upload-container">
+						<input type="file" id="upload_image" name="userfile" />
+					</div>
+					<div class="image-placeholder-container">
+						<img />
 					</div>
 					<textarea id="new_post_caption" name="post_body" placeholder="Caption"></textarea>
 					<div class="tags-input-container">
@@ -51,5 +56,6 @@
 				
 			</div>
 		<?php echo form_close(); ?>
+		<div style="clear:both"></div>
 	</div>
 </div>

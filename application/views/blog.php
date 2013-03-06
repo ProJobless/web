@@ -38,25 +38,25 @@
 
 					<a href="<?php echo base_url() . 'compose'; ?>">
 						<div class="compose-button new_post">
-							<img src="<?php echo base_url() . 'images/new_post.png';?>" />
+							<img src="<?php echo base_url() . 'assets/new_post.png';?>" />
 							<p>Post</p>
 						</div>
 					</a>
 					<a href="<?php echo base_url() . 'compose?type=image'; ?>">
 						<div class="compose-button new_image">
-							<img src="<?php echo base_url() . 'images/new_picture.png';?>" />
+							<img src="<?php echo base_url() . 'assets/new_picture.png';?>" />
 							<p>Image</p>
 						</div>
 						</a>
 					<a href="<?php echo base_url() . 'compose?type=link'; ?>">
 						<div class="compose-button new_link">
-							<img src="<?php echo base_url() . 'images/new_share.png';?>" />
+							<img src="<?php echo base_url() . 'assets/new_share.png';?>" />
 							<p>Link</p>
 						</div>
 						</a>
 					<a href="<?php echo base_url() . 'compose?type=quote'; ?>">
 						<div class="compose-button new_quote">
-							<img src="<?php echo base_url() . 'images/new_quote.png';?>" />
+							<img src="<?php echo base_url() . 'assets/new_quote.png';?>" />
 							<p>Quote</p>
 						</div>
 					</a>
@@ -93,9 +93,9 @@
 									<div class="vote-picture-container">
 										<div class='comment-rating'>
 											
-											<div class='disabled_upvote'><img src="<?php echo base_url() . 'images/disabled_arrow_up.png'; ?>" /></div>
+											<div class='disabled_upvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_up.png'; ?>" /></div>
 											<div class="influence_gain"><?php echo $row['influence_gain'];?></div>
-											<div class='disabled_downvote'><img src="<?php echo base_url() . 'images/disabled_arrow_down.png'; ?>" /></div>
+											<div class='disabled_downvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_down.png'; ?>" /></div>
 											
 										</div>
 										<div class="picture">
@@ -119,7 +119,7 @@
 											</div>
 										</div>
 										<div class="expand-link">
-											<img src="<?php echo base_url() . 'images/arrow_down_3_50p.png'; ?>" />
+											<img src="<?php echo base_url() . 'assets/arrow_down_3_50p.png'; ?>" />
 										</div>
 
 										<div class="meta-container">

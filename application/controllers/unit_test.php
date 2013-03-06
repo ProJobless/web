@@ -57,21 +57,21 @@ class Unit_test extends CI_Controller {
 		echo $this->unit->run($u8, FALSE, "User_model->username_exists 2");
 
 		$picture = $this->User_model->get_picture("jimmy");
-		echo $this->unit->run($picture, "images/silhoeutte.png", "User_model->get_picture 1");
+		echo $this->unit->run($picture, "assets/silhoeutte.png", "User_model->get_picture 1");
 
 		$data2 = array("title" => "test title", "body" => "test body", "author" => "jimmy", "url" => "http://www.test.com", "published" => "false", "type" => "link");
 		$post_id = $this->Post_model->create($data2);
 		$post = $this->Post_model->get_by_sid($post_id);
 		echo $this->unit->run($post['avatar'], $picture, "Making sure the profile pic gets attached to the post");
 
-		$u9 = $this->User_model->change_avatar("jimmy", "images/silhoeutte2.png");
+		$u9 = $this->User_model->change_avatar("jimmy", "assets/silhoeutte2.png");
 		echo $this->unit->run($u9, TRUE, "User_model->change_pic 1");
 
 		$u10 = $this->User_model->get_by_username("jimmy");
-		echo $this->unit->run($u10['avatar'], "images/silhoeutte2.png", "User_model->change_pic 2");
+		echo $this->unit->run($u10['avatar'], "assets/silhoeutte2.png", "User_model->change_pic 2");
 
 		$post = $this->Post_model->get_by_sid($post_id);
-		echo $this->unit->run($post['avatar'], "images/silhoeutte2.png", "Making sure the profile pic gets attached to the post");
+		echo $this->unit->run($post['avatar'], "assets/silhoeutte2.png", "Making sure the profile pic gets attached to the post");
 
 		$u11 = $this->User_model->incr_value("jimmy", "comments_count");
 		$jimmy = $this->User_model->get_all_data("jimmy");

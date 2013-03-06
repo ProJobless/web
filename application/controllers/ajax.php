@@ -96,6 +96,22 @@ class Ajax extends CI_Controller {
 			
 		}
 	}
+
+	public function save_post() {
+		if ($u = Current_User::user()) {
+
+			$this->Save_model->save($u['username'], $this->input->post("post_id"));
+
+		}
+	}
+
+	public function unsave_post() {
+		if ($u = Current_User::user()) {
+
+			$this->Save_model->unsave($u['username'], $this->input->post("post_id"));
+
+		}
+	}
 	
 	public function website_scrape() {
 		if($u = Current_User::user()) {

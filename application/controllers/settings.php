@@ -61,7 +61,7 @@ class Settings extends CI_Controller {
 	
 		$this->output->enable_profiler(TRUE);
 	
-		if($u = Current_User::user()) {		
+		if($u = Current_User::user()) {
 		
 			if ( $this->input->post('hidden') == "account" )  {
 				
@@ -82,6 +82,7 @@ class Settings extends CI_Controller {
 			
 			if ( $this->input->post('hidden') == "profile" ) {
 
+				$this->load->helper("id_gen_helper");
 				$data = array();
 				$data['full_name'] = $this->input->post('full_name');
 				$data['website'] = $this->input->post('website');
@@ -93,16 +94,24 @@ class Settings extends CI_Controller {
 				}
 				$data['location'] = $this->input->post('location');
 				$data['blurb'] = $this->input->post('blurb');
+
+				//Update the user object with the changes so they show up on the profile settings page when we submit
+				$u['full_name'] = $data['full_name'];
+				$u['website'] = $data['website'];
+				$u['location'] = $data['location'];
+				$u['blurb'] = $data['blurb'];
+
 				$this->User_model->update(array('username' => $u['username']), $data);
 
 				if (($this->input->post("hidden-avatar-flag") == "false") && ($this->input->post("hidden-thumbnail-flag") == "true") && $this->input->post("hidden-thumbnail-coords")) {
 
-					$thumbnail_name = "_" . $u['username'] . "_avatar_thumbnail";
+					$thumbnail_name = $u['username'] . "_avatar_thumbnail_" . get_unique_image_id();
 					$thumbnail_path = 'avatars/' . $thumbnail_name;
 					$coords = $this->input->post("hidden-thumbnail-coords");
 					$coords = explode(",", $coords);
 					if (count($coords) == 4) {
 						$this->load->helper("image_helper");
+						$u['avatar_thumbnail'] = $thumbnail_path;
 						$this->User_model->change_avatar_thumbnail(
 							$u['username'],
 							crop_image($u['avatar'], $thumbnail_path, $coords)
@@ -115,8 +124,9 @@ class Settings extends CI_Controller {
 					if (isset($_FILES['userfile']) && isset($_FILES['userfile']['name'])) {
 
 						$type = substr($_FILES['userfile']['name'], -3, 3);
+						
 						$config = array();
-						$config['file_name'] = $u['username'] . '.' . $type;
+						$config['file_name'] = $u['username'] . '_' . get_unique_image_id() . '.' . $type;
 						$config['upload_path'] = './avatars';
 						$config['allowed_types'] = 'gif|jpg|png';
 						$config['overwrite'] = TRUE;
@@ -128,31 +138,32 @@ class Settings extends CI_Controller {
 						if ( ! $this->upload->do_upload()) {
 							$error = array('error' => $this->upload->display_errors());
 						} else {
+							$u['avatar'] = $file_path;
 							$this->User_model->change_avatar($u['username'], $file_path);
 						}
 
 						if ($this->input->post("hidden-avatar-flag") == "true" && $this->input->post("hidden-thumbnail-flag") == "true" && $this->input->post("hidden-thumbnail-coords")) {
 		
-							$thumbnail_name = "_" . $u['username'] . "_avatar_thumbnail";
+							$thumbnail_name = $u['username'] . "_avatar_thumbnail_" . get_unique_image_id();
 							$thumbnail_path = 'avatars/' . $thumbnail_name;
 							$coords = $this->input->post("hidden-thumbnail-coords");
 							$coords = explode(",", $coords);
 							if (count($coords) == 4) {
 								$this->load->helper("image_helper");
+								$u['avatar_thumbnail'] = $thumbnail_path;
 								$this->User_model->change_avatar_thumbnail(
 									$u['username'],
 									crop_image($file_path, $thumbnail_path, $coords)
 								);
 							}
 
-										
 						}
 
 					}
 
 				}
-				$data = array('main_content' => 'settings_profile', 'user_info' => $u);
-				$this->load->view('includes/template', $data);
+				
+				redirect('settings/profile');
 				
 			}
 			

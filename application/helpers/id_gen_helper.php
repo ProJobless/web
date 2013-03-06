@@ -31,4 +31,17 @@ if ( ! function_exists('get_unique_id')) {
 		
 		return $id;
 	}
+
+	function get_unique_image_id() {
+
+		$index = 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-_';
+		$id = '';
+		
+		for($i = 1;$i <= 32; $i++) {
+			$id = $id . $index[rand(0,63)];
+		}
+		
+		return $id;
+
+	}
 }

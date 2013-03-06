@@ -18,8 +18,8 @@ class User_model extends CI_Model {
 		$data['salt'] = get_salt();
 		$data['created'] = time();		
 		$data['password'] = encrypt_pw($data['password'], $data['salt']);		
-		$data['avatar'] = "images/silhoeutte.png";
-		$data['avatar_thumbnail'] = "images/silhoeutte.png";
+		$data['avatar'] = "assets/silhoeutte.png";
+		$data['avatar_thumbnail'] = "assets/silhoeutte.png";
 		$data['blurb'] = "";
 		$data['full_name'] = "";
 		$data['website'] = "";

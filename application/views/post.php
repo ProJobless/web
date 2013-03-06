@@ -7,21 +7,21 @@
 		<div class="vote-picture-container">
 			<div class='comment-rating root-post'>
 				<?php if ($post_vote_status == "disabled"): ?>
-					<div class='disabled_upvote'><img src="<?php echo base_url() . 'images/disabled_arrow_up.png'; ?>" /></div>
+					<div class='disabled_upvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_up.png'; ?>" /></div>
 					<div class="influence_gain"><?php echo $post['influence_gain'];?></div>
-					<div class='disabled_downvote'><img src="<?php echo base_url() . 'images/disabled_arrow_down.png'; ?>" /></div>
+					<div class='disabled_downvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_down.png'; ?>" /></div>
 				<?php elseif($post_vote_status == "enabled"): ?>
-					<div class='upvote'><img src="<?php echo base_url() . 'images/arrow_up.png'; ?>" /></div>
+					<div class='upvote'><img src="<?php echo base_url() . 'assets/arrow_up.png'; ?>" /></div>
 					<div class='influence_gain'><?php echo $post['influence_gain'];?></div>
-					<div class='downvote'><img src="<?php echo base_url() . 'images/arrow_down.png'; ?>" /></div>
+					<div class='downvote'><img src="<?php echo base_url() . 'assets/arrow_down.png'; ?>" /></div>
 				<?php elseif($post_vote_status == "downvote-disabled"): ?>
-					<div class='upvote'><img src="<?php echo base_url() . 'images/arrow_up.png'; ?>" /></div>
+					<div class='upvote'><img src="<?php echo base_url() . 'assets/arrow_up.png'; ?>" /></div>
 					<div class='influence_gain'><?php echo $post['influence_gain'];?></div>
-					<div class='clicked_downvote'><img src="<?php echo base_url() . 'images/clicked_arrow_down.png'; ?>" /></div>
+					<div class='clicked_downvote'><img src="<?php echo base_url() . 'assets/clicked_arrow_down.png'; ?>" /></div>
 				<?php elseif($post_vote_status == "upvote-disabled"): ?>
-					<div class='clicked_upvote'><img src="<?php echo base_url() . 'images/clicked_arrow_up.png'; ?>" /></div>
+					<div class='clicked_upvote'><img src="<?php echo base_url() . 'assets/clicked_arrow_up.png'; ?>" /></div>
 					<div class='influence_gain'><?php echo $post['influence_gain'];?></div>
-					<div class='downvote'><img src="<?php echo base_url() . 'images/arrow_down.png'; ?>" /></div>
+					<div class='downvote'><img src="<?php echo base_url() . 'assets/arrow_down.png'; ?>" /></div>
 				<?php endif; ?>
 			</div>
 			<div class="picture">
@@ -35,6 +35,14 @@
 				<a href="<?php echo base_url() . $post['author']; ?>">
 					<?php echo $post['author']; ?>
 				</a>
+			</div>
+			<div class="control-buttons">
+				<img class="share-post" src="<?php echo base_url() . 'assets/new_share.png';?>" />
+				<?php if ($post_save_status == "unsaved"): ?>
+					<img class="save-post unclicked" src="<?php echo base_url() . 'assets/star_fav_empty.png'; ?>" />
+				<?php else: ?>
+					<img class="save-post clicked" src="<?php echo base_url() . 'assets/star_fav_full.png'; ?>" />
+				<?php endif; ?>
 			</div>
 			<?php if ($post['type'] != 'small-post' && $post['title'] != '') { ?>
 				<h1><a href="<?php echo $post['url']; ?>" class="post-title"><?php echo $post['title']; ?></a></h1>
