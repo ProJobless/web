@@ -369,9 +369,17 @@ $config['proxy_ips'] = '';
 | The base path of the CI app
 |
 */
-
 $config['base_path'] = "C:/wamp/www/mashtagg";
 
+/*
+|--------------------------------------------------------------------------
+| Image Path
+|--------------------------------------------------------------------------
+|
+| The path to the images folder outside of the CI application folder
+|
+*/
+$config['image_path'] = "C:/images"
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

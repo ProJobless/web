@@ -55,6 +55,10 @@ body {
 	max-width:500px;
 }
 
+.post-image {
+	max-width:390px;
+}
+
 /************** HEADER ***************/
 
 #header {
@@ -938,7 +942,15 @@ input, textarea, select {
 
 #post_container .outer-post-container .picture {
 	margin: 7px 15px 0px 0px;
+	
 }
+
+#post_container .outer-post-container .picture a img {
+	-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 
 #post_container .outer-post-container .inner-post-container {
 	min-height:50px;
@@ -1406,6 +1418,9 @@ ul {
 .posts-container .picture img {
 	width:36px;
 	height: 36px;
+	-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 .edit {
 
@@ -1476,6 +1491,9 @@ ul {
 #comment-container .outer-comment-container .profile-pic img{
 	height:36px;
 	width:36px;
+	-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #comment-container .outer-comment-container .comment-rating div {
@@ -1814,6 +1832,9 @@ ul {
 .user-container .pic img {
 	height:50px;
 	width:50px;
+	-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .user-container .info {
@@ -2407,6 +2428,7 @@ ul {
 	height:100%;
 	float:left;
 	background-color:#FFF;
+	text-align:center;
 }
 
 .compose-content-container .compose-outer-container .input-container .title-input-container {
@@ -2418,14 +2440,30 @@ ul {
 
 .compose-content-container .compose-outer-container .input-container .image-placeholder-container {
 	display:none;
-	height:322px;
-	width:322px;
 	margin:20px auto;
 }
 
-.compose-content-container .compose-outer-container .input-container .image-placeholder-container img {
+.compose-content-container .compose-outer-container .input-container .image-placeholder-container div {
+	margin: 0px;
+}
+
+.compose-content-container .compose-outer-container .input-container .image-placeholder-container div img {
 	max-width:322px;
-	max-height:322px;
+	max-height:281px;
+	margin:0px auto;
+	-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.compose-content-container .compose-outer-container .input-container .image-placeholder-container p {
+	margin:0px;
+	float:none;
+	width:322px;
+}
+
+.compose-content-container .compose-outer-container .input-container .image-placeholder-container p input {
+	margin:0px;
 }
 
 .compose-content-container .compose-outer-container .input-container .image-upload-container {
@@ -2433,7 +2471,16 @@ ul {
 	width:312px;
 	height:312px;
 	border:5px dashed #C7C7C7;
-	background-color:#EAEAEA;
+	position:relative;
+	background:url(../assets/new_picture.png) no-repeat center #EAEAEA;
+}
+
+.compose-content-container .compose-outer-container .input-container .image-upload-container img {
+	position:absolute;
+	top:130px;
+	left:130px;
+	opacity:0.3;
+	z-index:1;
 }
 
 .compose-content-container .compose-outer-container .input-container .title-input-container #post-title {
@@ -2468,32 +2515,27 @@ ul {
 }
 
 
-.compose-content-container form input[type=submit] {
+.compose-content-container form input[type=submit], .compose-content-container form input[type=button] {
+	display:block;
 	cursor:pointer;
-	float:left;
-	background:#FF5DB1;
-	background:-moz-linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
-	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#FF5DB1),color-stop(100%,#E94A86));
-	background:-webkit-linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
-	background:-o-linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
-	background:-ms-linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
-	background:linear-gradient(top,#FF5DB1 0%,#E94A86 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF5DB1',endColorstr='#E94A86',GradientType=0);
-	padding:6px 7px;
-	color:#fff;
-	font-family:'Helvetica Neue',sans-serif;
-	font-size:12px;
-	border-radius:4px;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border:1px solid #E8124F	
+	padding:5px;
+	background-color:#0092A2;
+	color:#FFF;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
+	box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
+	border: 1px solid rgba(0,0,0,0.4);
 }
 
-.compose-content-container form input[type=submit]:hover {
+.compose-content-container form .cancel-image {
+	margin: 10px 0px;
+}
+
+.compose-content-container form input[type=submit]:hover, .compose-content-container form input[type=button]:hover {
 	border-color: #000;
 }
 
-.compose-content-container form input[type=submit]:active {
+.compose-content-container form input[type=submit]:active, .compose-content-container form input[type=button]:active {
 	border-color: #FFF;
 }
 
@@ -2514,13 +2556,22 @@ ul {
 }
 
 .compose-content-container .compose-outer-container .input-container .controls-container {
-	padding:15px 20px;
+	padding:10px;
+}
+
+.compose-content-container .compose-outer-container .input-container .controls-container input {
+	float:left;
+}
+
+.compose-content-container .compose-outer-container .input-container {
+
 }
 
 #upload_image {
 	height:100%;
 	width:100%;
 	opacity:0;
+	z-index:20;
 }
 
 .clearfix:after { 

@@ -193,9 +193,9 @@ $(document).ready(function() {
 		}
 
 		$(this).addClass("clicked_upvote");
-		$(this).children("img").attr("src", Mashtagg.base_url + "images/clicked_arrow_up.png");
+		$(this).children("img").attr("src", Mashtagg.base_url + "assets/clicked_arrow_up.png");
 		$(this).removeClass("upvote");
-		$(this).parent().children(".clicked_downvote").children("img").attr("src", Mashtagg.base_url + "images/arrow_down.png");
+		$(this).parent().children(".clicked_downvote").children("img").attr("src", Mashtagg.base_url + "assets/arrow_down.png");
 		$(this).parent().children(".clicked_downvote").addClass("downvote");
 		$(this).parent().children(".clicked_downvote").removeClass("clicked_downvote");
 
@@ -232,9 +232,9 @@ $(document).ready(function() {
 		}
 
 		$(this).addClass("clicked_downvote");
-		$(this).children("img").attr("src", Mashtagg.base_url + "images/clicked_arrow_down.png");
+		$(this).children("img").attr("src", Mashtagg.base_url + "assets/clicked_arrow_down.png");
 		$(this).removeClass("downvote");
-		$(this).parent().children(".clicked_upvote").children("img").attr("src", Mashtagg.base_url + "images/arrow_up.png");
+		$(this).parent().children(".clicked_upvote").children("img").attr("src", Mashtagg.base_url + "assets/arrow_up.png");
 		$(this).parent().children(".clicked_upvote").addClass("upvote");
 		$(this).parent().children(".clicked_upvote").removeClass("clicked_upvote");
 		
@@ -502,7 +502,7 @@ $(document).ready(function() {
 		if ($(this).hasClass("clicked")) {
 			$(this).removeClass("clicked");
 			$(this).addClass("unclicked");
-			$(this).attr("src", Mashtagg.base_url + 'images/star_fav_empty.png');
+			$(this).attr("src", Mashtagg.base_url + 'assets/star_fav_empty.png');
 
 			$.ajax({
 				type: "POST",
@@ -516,7 +516,7 @@ $(document).ready(function() {
 		} else {
 			$(this).addClass("clicked");
 			$(this).removeClass("unclicked");
-			$(this).attr("src", Mashtagg.base_url + 'images/star_fav_full.png');
+			$(this).attr("src", Mashtagg.base_url + 'assets/star_fav_full.png');
 
 			$.ajax({
 				type: "POST",
@@ -804,13 +804,13 @@ $(document).ready(function() {
 
 	$(".expand-link").live('click', function(){
 		if ($(this).closest(".outer-post-container").hasClass("expanded")) {
-			$(this).children("img").attr("src", Mashtagg.base_url + "images/arrow_down_3_50p.png");
+			$(this).children("img").attr("src", Mashtagg.base_url + "assets/arrow_down_3_50p.png");
 			$(this).closest(".outer-post-container").removeClass("expanded");
 			$(".outer-post-container").removeClass("expanded");
 			$(".meta-container").hide();
 		} else {
-			$(".expand-link img").attr("src", Mashtagg.base_url + "images/arrow_down_3_50p.png");
-			$(this).children("img").attr("src", Mashtagg.base_url + "images/arrow_up_3_50p.png");
+			$(".expand-link img").attr("src", Mashtagg.base_url + "assets/arrow_down_3_50p.png");
+			$(this).children("img").attr("src", Mashtagg.base_url + "assets/arrow_up_3_50p.png");
 			$(".outer-post-container").removeClass("expanded");
 			$(this).closest(".outer-post-container").addClass("expanded");
 			$(".meta-container").hide();
@@ -826,13 +826,24 @@ $(document).ready(function() {
 			var reader = new FileReader();
 
 			reader.onload = function (e) {
-				$(".image-placeholder-container").show();
+				$(".image-placeholder-container").css({"display" : "inline-block"});
 				$(".image-upload-container").hide();
 				$(".image-placeholder-container img").attr('src', e.target.result);
+				// $(".image-placeholder-container").css({
+				// 	"width" : $(".upload-image-preview").width() + "px"
+				// });
+
+				console.log($(".upload-image-preview").width());		
 			}
 
 			reader.readAsDataURL(this.files[0]);
 		}
+
+	});
+
+	$(".cancel-image").click(function(){
+		$(".image-placeholder-container").hide();
+		$(".image-upload-container").show();
 	});
 
 	$(".navigation-outline").height("800px");

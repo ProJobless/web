@@ -3,7 +3,8 @@
 		<div class="navigation-outline">
 			&nbsp;
 		</div>
-		<?php echo form_open('compose/submit'); ?>
+		<?php echo form_open_multipart('compose/submit'); ?>
+			<input type="hidden" name="type" value="<?php echo $type;?>" />
 			<div class="input-container">
 
 				<?php if($type == "image"): ?>
@@ -15,7 +16,8 @@
 						<input type="file" id="upload_image" name="userfile" />
 					</div>
 					<div class="image-placeholder-container">
-						<img />
+						<div><img class="upload-image-preview" /></div>
+						<div><input type="button" class="cancel-image" value="Cancel" /></div>
 					</div>
 					<textarea id="new_post_caption" name="post_body" placeholder="Caption"></textarea>
 					<div class="tags-input-container">

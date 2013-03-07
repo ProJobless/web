@@ -124,7 +124,7 @@ class Post_model extends CI_Model {
 	
 	public function sid_exists($sid) {
 		
-		return ( $this->mongo_db->where(array('sid' => $sid))->count('posts') > 0 );		
+		return ( $this->mongo_db->where(array('sid' => $sid))->count('posts') > 0 );
 		
 	}
 	

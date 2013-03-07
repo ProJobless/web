@@ -57,6 +57,34 @@ if ( ! function_exists('crop_image')) {
 		
 	}
 
-	
+}
+
+if ( ! function_exists('serve_image')) {
+
+	function serve_image($image_data) {
+
+		switch($image_data['file_type']) {
+
+			case 'jpg': $content_type = "Content-Type: image/jpeg"; break;
+			case 'png': $content_type = "Content-Type: image/png"; break;
+			case 'gif': $content_type = "Content-Type: image/gif"; break;
+			default   : $content_type = FALSE;
+
+		}
+
+		$content_length = filesize($image_data['path']);
+		$last_modified = "Last-Modified: " . date("D, j M Y H:i:s T", (int) $image_data['created']);
+
+		if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && ( strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) >= $image_data['created'] ) ) {
+			header("HTTP/1.1 304 Not Modified");
+		} else {
+			header($content_type);
+			header($content_length);
+			header($last_modified);
+			readfile($image_data['path']);
+		}
+
+
+	}
 
 }

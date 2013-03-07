@@ -7,7 +7,8 @@
 	<!-- <link href='http://fonts.googleapis.com/css?family=Tenor+Sans' rel='stylesheet' type='text/css' />
 	<link href='http://fonts.googleapis.com/css?family=Lato:300italic' rel='stylesheet' type='text/css' /> -->
 	<link rel="stylesheet" href="<?php echo base_url();?>css/jquery.Jcrop.min.css" type="text/css" />
-	<link rel="stylesheet" href="<?php echo base_url();?>css/style.css" type="text/css" media="screen" charset="utf-8" /> 
+	<link rel="stylesheet" href="<?php echo base_url();?>css/style.css" type="text/css" media="screen" charset="utf-8" />
+	<link rel="icon" href="<?php echo base_url(); ?>favicon.ico" type="image/ico">
 </head>
 
 <body>
