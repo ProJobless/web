@@ -6,8 +6,12 @@
 
 		<div class="meta-content">
 
-			<h1>Mashtagg</h1>
-			<p>The imagination of the internet</p>
+			<div class="logo-holder">
+				<p class="mascot-holder"><img class="mascot" src="<?=base_url() . 'assets/mascot.png';?>" /></p>
+				<h1 class="mashtagg-title">Mashtagg</h1>
+				<div style="clear:both;"></div>
+			</div>
+			<p class="slogan">The imagination of the internet</p>
 
 		</div>
 		

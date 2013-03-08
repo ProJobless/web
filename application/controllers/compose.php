@@ -53,6 +53,7 @@ class Compose extends CI_Controller {
 
 					if ( !$this->upload->do_upload()) {
 						$error = array('error' => $this->upload->display_errors());
+						print_r($error);
 					} else {
 						$image_source = $this->Image_model->create($u['username'], $config);
 

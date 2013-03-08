@@ -20,7 +20,7 @@ body {
 }
 
 .tag a{
-	padding:4px;
+	padding:4px;`
 	background-color:#0092A2;
 	color:#FFF;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.3);
@@ -57,6 +57,35 @@ body {
 
 .post-image {
 	max-width:390px;
+}
+
+.mascot-holder {
+	float:left;
+	margin:0px;
+}
+
+#tag-meta-container .meta-content .mashtagg-title {
+	float:left;
+	margin:0px;
+	text-shadow:none;
+	border:none;
+	background:none;
+	color:#000;
+	margin-top:10px;
+}
+
+.mascot {
+	width:20px;
+	height:45px;
+}
+
+.logo-holder {
+	margin:5px auto;
+	width:140px;
+}
+
+.slogan {
+	text-align:center;
 }
 
 /************** HEADER ***************/
