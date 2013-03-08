@@ -20,7 +20,7 @@ body {
 }
 
 .tag a{
-	padding:4px;`
+	padding:4px;
 	background-color:#0092A2;
 	color:#FFF;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.3);
@@ -2131,7 +2131,7 @@ ul {
 .profile-container .summary-container {
 	width:1000px;
 	background:#FFF;
-	margin-top:5px;
+	margin-top:10px;
 }
 
 .profile-container .summary-container .summary-row {

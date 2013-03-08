@@ -250,10 +250,6 @@ $(document).ready(function() {
 
 	/******************* Posts page **********************/
 
-	if ($("#post_container .outer-post-container").length) {
-		$("#post_container .outer-post-container").equalHeights();
-	}
-
 	post_fix_heights();
 
 	$('.new_comment').live('click', function() {
@@ -848,6 +844,12 @@ $(document).ready(function() {
 
 	$(".navigation-outline").height("800px");
 
+});
+
+$(window).load(function(){
+	if ($("#post_container .outer-post-container").length) {
+		$("#post_container .outer-post-container").equalHeights();
+	}
 });
 
 function post_fix_heights() {
