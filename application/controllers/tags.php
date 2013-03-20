@@ -38,9 +38,25 @@ class Tags extends CI_Controller {
 								 "page" => 1,
 								 "posts_per_page" => 25,
 								 "sort_by" => "created");
-			$data["posts"] = $this->Post_model->get_list($constraints);
-			$data['tags'] = $tag;
-			$data['main_content'] = 'tag';
+
+			$posts = $this->Post_model->get_list($constraints);
+
+			$post_ids = array();
+
+			foreach ($posts as $post) {
+				$post_ids[] = $post['sid'];
+			}
+
+			$votes = $this->Vote_model->get_by_username($u['username'], $post_ids);
+			$saves = $this->Save_model->get_saves($u['username'], $post_ids);
+			$posts = $this->Post_model->attach_votes_saves($posts, $votes, $saves);
+
+			$data = array(
+				       'posts' => $posts,
+				       'tags'  => $tag,
+				'main_content' => 'tag'
+			);
+
 			$this->load->view('includes/template', $data);	
 		} else {
 			redirect('/');

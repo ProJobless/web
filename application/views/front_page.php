@@ -39,9 +39,9 @@
 				    } ?>
 					
 					<?php if ($post['type'] != 'comment') { ?>
-						<div class="outer-post-container clearfix <?php echo $first_post; ?> <?php echo $last_post; ?>">
+						<div id="<?php echo $post['sid']; ?>" class="outer-post-container clearfix <?php echo $first_post; ?> <?php echo $last_post; ?>">
 							<?php $first_post = ""; ?>
-								<div id="<?php echo $post['sid']; ?>"class="post-container clearfix">
+								<div class="post-container clearfix">
 									<div class="vote-picture-container">
 										<div class='comment-rating'>
 											
@@ -57,11 +57,32 @@
 										<span class="arrow"></span>
 									</div>
 									<div class="inner-post-container  <?php echo $first_post; ?>">
+										<?php if(isset($post['thumbnail_image']) && $post['thumbnail_image'] != ''): ?>
+											<div class="link-image-container">
+												<a href="<?php echo $post['share_url']; ?>">
+													<img src="<?=$post['thumbnail_image'];?>" />
+												</a>
+											</div>
+										<?php endif; ?>
 										<div class="post-body-container">
 											<div class="author">
 												<a href="<?php echo base_url() . $post['author']; ?>">
 													<?php echo $post['author']; ?>
 												</a>
+												<?php if ($post['type'] == 'share'): ?>
+													<img class="share-icon" src="<?=base_url() . 'assets/little_share.png';?>" />
+													<a href="<?php echo $post['share_url']; ?>">
+														<?php echo $post['share_root']; ?>
+													</a>
+												<?php endif; ?>
+											</div>
+											<div class="control-buttons">
+												<img class="share-post" src="<?php echo base_url() . 'assets/new_share.png';?>" />
+												<?php if (!$post['save_status']): ?>
+													<img class="save-post unclicked" src="<?php echo base_url() . 'assets/star_fav_empty.png'; ?>" />
+												<?php else: ?>
+													<img class="save-post clicked" src="<?php echo base_url() . 'assets/star_fav_full.png'; ?>" />
+												<?php endif; ?>
 											</div>
 											<h2><a href="<?php echo $post['url']; ?>" class="post-title"><?php echo $post['title']; ?></a></h2>
 										</div>

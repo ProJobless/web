@@ -40,7 +40,15 @@
 			</div>
 			<div class='inner-comment-container'>
 				<div class='comment-body-container'>
-					<p class='comment_author'><a href='<?php echo base_url() . $child->comment['author'] ?>'><?php echo $child->comment['author'] ?></a> - <span class="influence_gain"><?php echo $child->comment['influence_gain']; ?></span> influence - posted <a class="create_date" href="<?php echo $child->comment['url'];?>" title="<?php echo date('g:i A jS M Y', $child->comment['created']);?>"><?php echo long_time_formatter($child->comment['created']); ?></a></p>
+					<p class='comment_author'>
+						<a href='<?php echo base_url() . $child->comment['author'] ?>'><?php echo $child->comment['author'] ?></a> - <span class="influence_gain"><?php echo $child->comment['influence_gain']; ?></span> influence - posted <a class="create_date" href="<?php echo $child->comment['url'];?>" title="<?php echo date('g:i A jS M Y', $child->comment['created']);?>"><?php echo long_time_formatter($child->comment['created']); ?></a>
+					<img class="share-post comment-share" src="<?php echo base_url() . 'assets/new_share.png';?>" />
+					<?php if (!$child->save): ?>
+						<img class="save-post unclicked comment-save" src="<?php echo base_url() . 'assets/star_fav_empty.png'; ?>" />
+					<?php else: ?>
+						<img class="save-post clicked comment-save" src="<?php echo base_url() . 'assets/star_fav_full.png'; ?>" />
+					<?php endif; ?>
+					</p>
 					<div class='comment_body'>
 						<?php echo $child->comment['body'] ?>
 					</div>

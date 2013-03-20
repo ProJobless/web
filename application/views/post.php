@@ -35,6 +35,12 @@
 				<a href="<?php echo base_url() . $post['author']; ?>">
 					<?php echo $post['author']; ?>
 				</a>
+				<?php if ($post['type'] == 'share'): ?>
+					<img class="share-icon" src="<?=base_url() . 'assets/little_share.png';?>" />
+					<a href="<?php echo $post['share_url']; ?>">
+						<?php echo $post['share_root']; ?>
+					</a>
+				<?php endif; ?>
 			</div>
 			<div class="control-buttons">
 				<img class="share-post" src="<?php echo base_url() . 'assets/new_share.png';?>" />

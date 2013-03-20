@@ -65,9 +65,14 @@ class Vote_model extends CI_Model {
 		return FALSE;
 	}
 
-	public function get_by_username($username) {
+	public function get_by_username($username, $post_ids = array()) {
 		
-		return $this->mongo_db->where(array("username" => $username))->get("votes");
+		if (count($post_ids) == 0) {
+			return $this->mongo_db->where(array("username" => $username))->get("votes");	
+		} else {
+			return $this->mongo_db->where(array("username" => $username))->where_in('sid', $post_ids)->get('votes');
+		}
+		
 	
 	}
 	

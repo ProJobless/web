@@ -67,9 +67,9 @@
 
 		<?php endif; ?>
 
-		<?php if (sizeof($spool) > 0) { ?>
+		<?php if (sizeof($posts) > 0) { ?>
 
-			<?php $post_amount = sizeof($spool); ?>
+			<?php $post_amount = sizeof($posts); ?>
 
 			<div class="posts-container">
 
@@ -77,7 +77,7 @@
 
 				<?php $post_number = 0; ?>
 				
-				<?php foreach ($spool as $row) { ?>
+				<?php foreach ($posts as $row) { ?>
 
 					<?php $post_number++;
 					if ($post_number == $post_amount) {
@@ -110,6 +110,12 @@
 												<a href="<?php echo base_url() . $row['author']; ?>">
 													<?php echo $row['author']; ?>
 												</a>
+												<?php if ($row['type'] == 'share'): ?>
+													<img class="share-icon" src="<?=base_url() . 'assets/little_share.png';?>" />
+													<a href="<?php echo $row['share_url']; ?>">
+														<?php echo $row['share_root']; ?>
+													</a>
+												<?php endif; ?>
 											</div>
 											<?php if ($row['type'] != 'small-post' && $row['title'] != ''): ?>
 												<h2><a href="<?php echo $row['url']; ?>" class="post-title"><?php echo $row['title']; ?></a></h2>

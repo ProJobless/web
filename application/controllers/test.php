@@ -9,7 +9,7 @@ class Test extends CI_Controller {
 	
 	function index() {
 
-		$this->User_model->update(array("username" => "john"), array("admin" => "true"));
-
+		
+		
 	}
 }

@@ -28,12 +28,12 @@ class Post extends CI_Controller {
 			}
 
 			$shares   = $this->Post_model->get_shares($sid);
-			$votes    = $this->Vote_model->get_by_username($u['username']);
+			$votes    = $this->Vote_model->get_by_username($u['username'], $post_ids);
 			$saves    = $this->Save_model->get_saves($u['username'], $post_ids);
 
 			//Construct the comments tree using the Comment_Node class.
 			if (sizeof($comments) > 0) {
-				$comments = new Comment_Node($post, $comments, $votes, $u['username']);
+				$comments = new Comment_Node($post, $comments, $votes, $saves, $u['username']);
 			} else {
 				$comments = false;
 			}

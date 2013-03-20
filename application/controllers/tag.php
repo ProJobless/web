@@ -18,7 +18,7 @@ class Tag extends CI_Controller {
 
 		if ($u = Current_user::user()) {
 
-			$s = $this->Post_model->get(array('sid' => $sid, 'published' => 'true'));
+			$s = $this->Post_model->get_list(array('tags' => array($name), 'published' => 'true'));
 
 			if (sizeof($t) == 1) {
 				$data = array('main_content' => 'post',

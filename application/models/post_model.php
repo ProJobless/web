@@ -15,39 +15,38 @@ class Post_model extends CI_Model {
 
 		switch($data['type']) {
 			case "post" :
-				$url_data['url'] = base_url() . 'p/' . $data['sid'];
-				$data['url'] = $url_data['url'];
-				$data['parent'] = $data['sid'];
-				$data['root'] = $data['sid'];
-				break;
 			case "small-post":
-				$this->load->helper('html_parsing_helper');
-				$url_data['url'] = base_url() . 'p/' . $data['sid'];
-				$data['url'] = $url_data['url'];
+				$data['url'] = base_url() . 'p/' . $data['sid'];
 				$data['parent'] = $data['sid'];
 				$data['root'] = $data['sid'];
-				$data['title'] = parse_title($data['body']);
+				$data['share_url'] = $data['url'];
 				break;
 			case "comment" :
-				$url_data['url'] = base_url() . 'c/' . $data['sid'];
-				$data['url'] = $url_data['url'];
+				$data['url'] = base_url() . 'c/' . $data['sid'];
+				$data['share_url'] = $data['url'];
 				break;
 			case "share" :
-				$url_data['url'] = $data['url'];
-				break;
-			case "picture" :
-				$url_data['url'] = base_url() . 'i/' . $data['sid'];
-				$data['url'] = $url_data['url'];
+				$data['url'] = base_url() . 'p/' . $data['sid'];
 				$data['parent'] = $data['sid'];
 				$data['root'] = $data['sid'];
 				break;
+			case "image" :
+				$data['url'] = base_url() . 'i/' . $data['sid'];
+				$data['parent'] = $data['sid'];
+				$data['root'] = $data['sid'];
+				$data['share_url'] = $data['url'];
+				break;
 			default:
-				$url_data['url'] = base_url() . $data['sid'];
-				$data['url'] = $url_data['url'];
+				$data['url'] = base_url() . $data['sid'];
+				$data['share_url'] = $data['url'];
+		}
+
+		$this->load->helper('html_parsing_helper');
+
+		if ( ctype_space($data['title']) || $data['title'] == '') {
+			$data['title'] = parse_title($data['body']);	
 		}
 		
-		$url_data['username'] = $data['author'];
-		$this->Url_model->add($url_data);
 		$data['avatar_thumbnail'] = $this->User_model->get_avatar_thumbnail($data['author']);
 		$data['created'] = time();
 		$data['saves_count'] = 0;
@@ -182,15 +181,31 @@ class Post_model extends CI_Model {
 
 	public function get_list($constraints) {
 		$pages = $this->Post_model->get_pages_amount($constraints);
-		if ($constraints['page'] > $pages) {
-			$constraints['page'] = $pages;
-		} else if ($constraints['page'] < 1) {
-			$constraints['page'] = 1;
+
+		if (isset($constraints['page']) && isset($constrains['posts_per_page'])) {
+
+			if ($constraints['page'] > $pages) {
+				$constraints['page'] = $pages;
+			} else if ($constraints['page'] < 1) {
+				$constraints['page'] = 1;
+			}
+			$this->mongo_db->where(array("tags" => $constraints['tags']))
+	            ->offset(($constraints['page'] - 1) * $constraints['posts_per_page'])
+	            ->limit($constraints['posts_per_page'])
+	            ->order_by(array($constraints['sort_by'] => 'desc'));
+
+		} else {
+
+			$this->mongo_db->where(array("tags" => $constraints['tags']))
+				->order_by(array('created' => 'desc'));
+
+		} 
+
+		if (isset($constraints['published'])) {
+			$this->mongo_db->where(array('published' => $constraints['published']));
 		}
-		$this->mongo_db->where(array("tags" => $constraints['tags']))
-		            ->offset(($constraints['page'] - 1) * $constraints['posts_per_page'])
-		            ->limit($constraints['posts_per_page'])
-		            ->order_by(array($constraints['sort_by'] => 'desc'));
+
+		
 		
 		if (isset($constraints['search'])) {
 			if ($constraints['search'] != "") {
@@ -320,6 +335,56 @@ class Post_model extends CI_Model {
 
 	public function get_post_count($args) {
 		return $this->mongo_db->where(array('author' => $args['username'], 'type' => $args['type']))->count('posts');
+	}
+
+	/*********************** Votes and Saves stuff ************************/
+
+	public function attach_votes_saves($posts, $votes, $saves) {
+
+		$vote_ids = array();
+		$save_ids = array();
+		$index = 0;
+
+		foreach($votes as $vote) {
+			$vote_ids[] = $vote['sid'];
+		}
+
+		foreach($saves as $save) {
+			$save_ids[] = $save['post_id'];
+		}
+
+		foreach($posts as $post) {
+
+			$vote_key = array_search($post['sid'], $vote_ids);
+
+			if ($vote_key !== false) {
+
+				$posts[$index]['vote_status'] = $votes[$vote_key]['type'];
+
+			} else {
+
+				$posts[$index]['vote_status'] = false;
+
+			}
+
+			$post_key = array_search($post['sid'], $save_ids);
+
+			if ($post_key !== false) {
+
+				$posts[$index]['save_status'] = true;
+
+			} else {
+
+				$posts[$index]['save_status'] = false;
+
+			}
+
+			$index++;
+
+		}
+
+		return $posts;
+
 	}
 
 }

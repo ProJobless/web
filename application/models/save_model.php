@@ -36,9 +36,9 @@ class Save_model extends CI_Model {
 
 	public function get_saves($username, $post_ids = array()) {
 		if(count($post_ids) == 0) {
-			return $save = $this->mongo_db->where(array("username" => $username))->get('saves');
+			return $this->mongo_db->where(array("username" => $username))->get('saves');
 		} else {
-			return $save = $this->mongo_db->where(array("username" => $username))->where_in('post_id', $post_ids)->get('saves');	
+			return $this->mongo_db->where(array("username" => $username))->where_in('post_id', $post_ids)->get('saves');
 		}
 		
 	}

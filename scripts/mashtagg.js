@@ -443,58 +443,18 @@ $(document).ready(function() {
 	});
 	
 	$('.image-preview').hide();
-	
-	
-	$('#url').change(function() {
-		
-		var postData = { "url": $('#url').val() };
-		
-		var i = 0;
-		
-		$.ajax({
-			type: "POST",
-			url: Mashtagg.base_url + "ajax/website_scrape",
-			data: postData,
-			success: function(json) {
-				var images = JSON.parse(json);
-				
-				$('.image-preview').show();
-				$('#link-image').attr('src', images[i].src);
-				$('#next-image').bind('click', function(event) {
-					event.preventDefault();
-					i++;
-					
-					if ( i > images.length) { 
-						i = 0; 
-					}
-					
-					$('#link-image').attr('src', images[i].src);
-					
-				});
-				
-				$('#prev-image').bind('click', function(event) {
-					event.preventDefault();
-					i--;
-					
-					if ( i < 0) { 
-						i = images.length;
-					}
-					
-					$('#link-image').attr('src', images[i].src);
-					
-				});
-				
-				
-				
-			}
-		});
-		
-	});
 
 	$(".save-post").live('click', function(){
-		var post_data = {
-			"post_id" : $(this).closest(".outer-post-container").attr("id")
-		};
+		if ( $(this).hasClass("comment-save") ) {
+			var post_data = {
+				"post_id" : $(this).closest(".outer-comment-container").attr("id")
+			};
+		} else {
+			var post_data = {
+				"post_id" : $(this).closest(".outer-post-container").attr("id")
+			};
+		}
+		
 		if ($(this).hasClass("clicked")) {
 			$(this).removeClass("clicked");
 			$(this).addClass("unclicked");
@@ -842,6 +802,157 @@ $(document).ready(function() {
 		$(".image-upload-container").show();
 	});
 
+	$('#link').change(function() {
+
+		var link = $('#link').val()
+		
+		var postData = { "url": link };
+		
+		var i = 0;
+
+		if (link != "") {
+
+			$('.link-loading-container').show();
+
+			$.ajax({
+				type: "POST",
+				url: Mashtagg.base_url + "ajax/website_scrape",
+				data: postData,
+				success: function(json) {
+
+					//Clear out any values that may have been carried over.
+					$("#link_url").val("");
+					$("#link_title").val("");
+					$("#link_description").val("");
+					$("#link_media_url").val("");
+					$("#link_type").val("");
+					$("#link_image").val("");
+					$("#link_base_url").val("");
+					$("#link_media_height").val("");
+					$("#link_media_width").val("");
+
+					$('.link-loading-container').hide();
+					$(".link-placeholder-container").css({"display":"inline-block"});
+					
+					data = JSON.parse(json);
+					console.log(data);
+
+					$("#link_url").val(link);
+					$("#link_title").val(data.title);
+					$("#link_description").val(data.description);
+					$("#link_base_url").val(data.base_url);
+
+					if (data.hasOwnProperty("type")) {
+
+						//There are currently 3 types of links that we parse out, 'player', 'image', and 'summary'
+						//Player is a video or sound clip
+						//Image is an image, ... :O
+						//And summary is the summary of a website. So a link to a blog article, or news article or some shit.
+						if (data.type == "player") {
+
+							//Do some height/width calculations, we don't want them to be native that youtube or whatever gives us
+							//because we want this player to fit nicely in the frame we have.
+
+							var ratio = data.player_height / data.player_width;
+							var height = data.player_height;
+							var width = data.player_width;
+
+							if (width > 620) {
+								width = 620;
+								height = ratio * width;
+							}
+
+							//Now set the values in the DOM:
+							$(".link-media-container").show();
+							$(".link-summary-container").hide();
+							$("#object_frame").hide();
+							$("#player_frame").attr("src", data.player);
+							$("#player_frame").attr("height", height);
+							$("#player_frame").attr("width", width);
+							$("#player_frame").show();
+							$(".link-player-container").show();
+							$(".image-container").hide();
+
+							$("#link_type").val("player");
+							$("#link_media_url").val(data.player);
+							$("#link_image").val(data.image);
+							$("#link_media_height").val(data.player_height);
+							$("#link_media_width").val(data.player_width);
+
+						} else if (data.type == "image") {
+
+							$(".link-media-container").show();
+							$(".link-summary-container").hide();
+							$(".link-player-container").hide();
+							$(".image-container").show();
+							$(".image-container img").attr("src", data.image);
+
+							$("#link_type").val("image");
+							$("#link_media_url").val(data.player);
+							$("#link_image").val(data.image);
+
+						} else {
+
+							$(".link-title .link-title-link").html(data.title);
+							$(".link-title .link-title-link").attr("href", link);
+							$(".link-media-container").hide();
+
+							$(".link-summary-container").show();
+							if (data.hasOwnProperty("image") && data.image != "") {
+								$(".image-container").show();
+								$(".image-container img").attr("src", data.image);	
+							} else {
+								$(".image-container").hide();
+							}
+							$(".text-container .link-description").html(data.description);
+
+							$("#link_type").val("summary");
+							$("#link_image").val(data.image);
+
+						}
+
+					} else {
+
+						if (data.hasOwnProperty("error")) {
+							$(".image-container img").attr("src", "");
+							$(".image-container").hide();
+							$(".link-title .link-title-link").html("");
+							$(".link-media-container").hide();
+							$(".link-summary-container").show();
+							$(".text-container .link-description").html("There was an error retrieving the link given.");
+						}
+
+					}
+
+
+				}
+			});
+
+		} else {
+
+			$("#link_url").val("");
+			$("#link_title").val("");
+			$("#link_description").val("");
+			$("#link_media_url").val("");
+			$("#link_type").val("");
+			$("#link_image").val("");
+			$("#link_base_url").val("");
+			$("#link_media_height").val("");
+			$("#link_media_width").val("");
+			$(".link-placeholder-container").hide();
+
+		}
+		
+		
+		
+	});
+
+	$(".cancel-link").click(function(){
+		$(".link-placeholder-container").hide();
+		$("#link").val("");
+
+	});
+
 	$(".navigation-outline").height("800px");
 
 });
@@ -850,6 +961,10 @@ $(window).load(function(){
 	if ($("#post_container .outer-post-container").length) {
 		$("#post_container .outer-post-container").equalHeights();
 	}
+
+	if($(".compose-outer-container").length > 0) {
+		$(".compose-outer-container").equalHeights();	
+	} 
 });
 
 function post_fix_heights() {
