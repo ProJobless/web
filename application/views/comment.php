@@ -12,32 +12,39 @@
 
 
 
-		<div id='<?php echo $child->comment['sid']?>' class='outer-comment-container <?php echo $odd_even; ?>'>
-			<div class='comment-rating'>
-			<?php if ($u['username'] == $child->comment['author']) { ?>
-				<div class='disabled_upvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_up.png'; ?>" /></div>
-				<div class='disabled_downvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_down.png'; ?>" /></div>
-			<?php } else { ?>
+		<div id='<?php echo $child->comment['sid']?>' class='outer-comment-container <?php echo $odd_even; ?> clearfix'>
 
-				<?php if ($child->vote) { ?>
+			<div class="author-rating-container clearfix">
+
+				<div class='comment-rating'>
+				<?php if ($u['username'] == $child->comment['author']) { ?>
+					<div class='disabled_upvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_up.png'; ?>" /></div>
+					<div class='disabled_downvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_down.png'; ?>" /></div>
+				<?php } else { ?>
+
+					<?php if ($child->vote) { ?>
+						
+						<?php if($child->vote['type'] == 'upvote') { ?>
+							<div class='clicked_upvote'><img src="<?php echo base_url() . 'assets/clicked_arrow_up.png'; ?>" /></div>
+							<div class='downvote'><img src="<?php echo base_url() . 'assets/arrow_down.png'; ?>" /></div>
+						<?php } else { ?>
+							<div class='upvote'><img src="<?php echo base_url() . 'assets/arrow_up.png'; ?>" /></div>
+							<div class='clicked_downvote'><img src="<?php echo base_url() . 'assets/clicked_arrow_down.png'; ?>" /></div>
+						<?php } ?>
 					
-					<?php if($child->vote['type'] == 'upvote') { ?>
-						<div class='clicked_upvote'><img src="<?php echo base_url() . 'assets/clicked_arrow_up.png'; ?>" /></div>
-						<div class='downvote'><img src="<?php echo base_url() . 'assets/arrow_down.png'; ?>" /></div>
 					<?php } else { ?>
 						<div class='upvote'><img src="<?php echo base_url() . 'assets/arrow_up.png'; ?>" /></div>
-						<div class='clicked_downvote'><img src="<?php echo base_url() . 'assets/clicked_arrow_down.png'; ?>" /></div>
+						<div class='downvote'><img src="<?php echo base_url() . 'assets/arrow_down.png'; ?>" /></div>
 					<?php } ?>
-				
-				<?php } else { ?>
-					<div class='upvote'><img src="<?php echo base_url() . 'assets/arrow_up.png'; ?>" /></div>
-					<div class='downvote'><img src="<?php echo base_url() . 'assets/arrow_down.png'; ?>" /></div>
+
 				<?php } ?>
-			<?php } ?>
+				</div>
+				<div class='profile-pic'>
+					<img src="<?php echo base_url() . $child->comment['avatar_thumbnail']; ?>" />
+				</div>
+
 			</div>
-			<div class='profile-pic'>
-				<img src="<?php echo base_url() . $child->comment['avatar_thumbnail']; ?>" />
-			</div>
+
 			<div class='inner-comment-container'>
 				<div class='comment-body-container'>
 					<p class='comment_author'>

@@ -49,6 +49,7 @@ $route['compose'] = 'compose';
 $route['create_stuff'] = 'create_stuff';
 $route['cron'] = 'cron';
 $route['debug'] = 'debug';
+$route['email_test'] = 'email_test';
 $route['feed'] = 'feed';
 $route['forgot_password'] = 'forgot_password';
 $route['front_page'] = 'front_page';

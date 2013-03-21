@@ -36,8 +36,15 @@ class Post_model extends CI_Model {
 				$data['root'] = $data['sid'];
 				$data['share_url'] = $data['url'];
 				break;
+			case "quote":
+				$data['url'] = base_url() . 'p/' . $data['sid'];
+				$data['parent'] = $data['sid'];
+				$data['root'] = $data['sid'];
+				$data['share_url'] = $data['url'];
 			default:
 				$data['url'] = base_url() . $data['sid'];
+				$data['parent'] = $data['sid'];
+				$data['root'] = $data['sid'];
 				$data['share_url'] = $data['url'];
 		}
 

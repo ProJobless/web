@@ -1001,13 +1001,6 @@ input, textarea, select {
 	
 }
 
-#post_container .outer-post-container .picture a img {
-	-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-
 #post_container .outer-post-container .inner-post-container {
 	min-height:50px;
 	float:left;
@@ -1467,15 +1460,13 @@ ul {
 }
 
 .posts-container .picture {
-	margin:15px 14px 0px 5px;
+	margin:12px 11px 0px 2px;
 }
 
 .posts-container .picture img {
 	width:36px;
 	height: 36px;
-	-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	border:3px solid rgba(0,0,0,0.2);;
 }
 .edit {
 
@@ -1520,10 +1511,6 @@ ul {
 	color:#000;
 }
 
-#comment-container p {
-	margin:0px 0px 0px 30px;
-}
-
 #comment-container .odd-comment {
 	background-color:#FAFAFA;
 }
@@ -1536,6 +1523,7 @@ ul {
 	border:1px solid #DDD;
 	border-bottom:0px;
 	padding:5px 5px 1px 5px;
+	position:relative;
 }
 
 #comment-container .outer-comment-container .profile-pic {
@@ -1546,13 +1534,17 @@ ul {
 #comment-container .outer-comment-container .profile-pic img{
 	height:36px;
 	width:36px;
-	-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	border:3px solid rgba(0,0,0,0.2);
 }
 
 #comment-container .outer-comment-container .comment-rating div {
 	margin-bottom:4px;
+}
+
+#comment-container .outer-comment-container .author-rating-container {
+	position:absolute;
+	left:0px;
+	top:0px;
 }
 
 .new-comment-container {
@@ -1562,11 +1554,8 @@ ul {
 
 
 .inner-comment-container {
-	margin-left: 10px;
-}
-
-.inner-comment-container .add_comment_container {
-	margin-left:46px;
+	margin-left: 80px;
+	float:left;
 }
 
 .new_comment_input{
@@ -2671,7 +2660,7 @@ ul {
 	text-shadow:1px 1px 1px #999999;
 }
 
-.compose-content-container .compose-outer-container .input-container .title-input-container #post-title {
+.compose-content-container .compose-outer-container .input-container .title-input-container input {
 	width:100%;
 	height:50px;
 	border:none;
@@ -2696,6 +2685,10 @@ ul {
 	font-family:Helvetica, Arial, sans-serif;
 }
 
+.compose-content-container .compose-outer-container .input-container .quote-input-container {
+
+}
+
 #link:focus {
 	outline-width:0;
 }
@@ -2705,6 +2698,10 @@ ul {
 }
 
 #post-tags:focus {
+	outline-width:0;
+}
+
+#quote-author:focus {
 	outline-width:0;
 }
 
@@ -2942,12 +2939,12 @@ ul {
 }
 
 #tag-content-container .posts-container .outer-post-container .post-container .vote-picture-container .picture {
-	margin-top:11px;
-	margin-bottom:9px;
+	margin-top:9px;
+	margin-bottom:6px;
 }
 
 #tag-content-container .posts-container .outer-post-container .post-container .vote-picture-container .comment-rating{
-	padding-top:8px;
+	padding-top:10px;
 }
 
 #tag-content-container .control-buttons {
@@ -3041,3 +3038,5 @@ ul {
 	padding:5px;
 	background-color:#EAEAEA;
 }
+
+/* url('http://localhost/mashtagg/assets/new_quote_grey.png')

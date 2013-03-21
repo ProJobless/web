@@ -39,6 +39,15 @@ class Compose extends CI_Controller {
 		
 			if ($this->input->post('type') == "quote") {
 
+				$post_data['author'] = $u['username'];
+				$post_data['quote_author'] = $this->input->post('post_title');
+				$post_data['body'] = $this->input->post('quote_body');
+				$post_data['type'] = 'quote';
+				$post_data['published'] = 'true';
+
+				$this->Post_model->create($post_data);
+				redirect('blog');
+
 			} else if ($this->input->post('type') == "link") {
 
 				$this->load->helper('share_helper');
