@@ -49,6 +49,8 @@ class Refer extends CI_Controller {
 
 				if (isset($u['admin']) && $u['admin']) {
 
+					$this->load->helper("email_helper");
+
 					$data = array(
 						'referrer' => $referrer,
 						'email' => $email,
