@@ -54,9 +54,21 @@ class Refer extends CI_Controller {
 						'email' => $email,
 					);
 
-					$this->Referral_model->create($data);
-					$data['main_content'] = 'referral_success';
-					$this->load->view('includes/template', $data);
+					$code = $this->Referral_model->create($data);
+
+					if ($u['full_name'] == "") {
+						$referral_name = $u['username'];
+					} else {
+						$referral_name = $u['full_name'];
+					}
+
+					$email = array(
+						'signup_code' => $code,
+						'referral_name' => $referral_name,
+						'email' => $data['email'],
+					);
+
+					email_referral($email);
 
 				} else {
 
