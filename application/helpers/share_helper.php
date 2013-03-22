@@ -25,8 +25,8 @@ if ( ! function_exists('create_share_html')) {
 
 					$ratio = $data['link_media_height'] / $data['link_media_width'];
 
-					if ($data['link_media_width'] > 720) {
-						$data['link_media_width'] = 720;
+					if ($data['link_media_width'] > 690) {
+						$data['link_media_width'] = 690;
 						$data['link_media_height'] = $ratio * $data['link_media_width'];
 					}
 
