@@ -2873,6 +2873,31 @@ ul {
 	border-bottom:none;
 }
 
+#blog-content-container .outer-post-container .post-body-container .quote-body {
+	margin-top:5px;
+	font-size:20px;
+}
+
+.outer-post-container .post-body-container .quote-body {
+	background:rgba(0,0,0,0.075) no-repeat url('../assets/new_quote_white.png') 5px 5px;
+	padding:13px 10px 10px 10px;
+	margin-top:5px;
+}
+
+.outer-post-container .post-body-container .quote-body p {
+	margin-top:0px;
+	font-style:italic;
+}
+
+#post_container .outer-post-container .post-body-container .quote-body {
+	font-size:20px;
+	margin:10px;
+}
+
+#post_container .outer-post-container .post-body-container .quote-body p {
+	font-size:20px;
+}
+
 /*************************** Tag page ***************************/
 
 #tag-outer-container {

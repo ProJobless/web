@@ -40,6 +40,9 @@
 					<a href="<?php echo $post['share_url']; ?>">
 						<?php echo $post['share_root']; ?>
 					</a>
+				<?php elseif ($post['type'] == 'quote'): ?>
+					<img class="share-icon" src="<?=base_url() . 'assets/little_share.png';?>" />
+					<?php echo $post['quote_author']; ?>
 				<?php endif; ?>
 			</div>
 			<div class="control-buttons">
@@ -50,15 +53,23 @@
 					<img class="save-post clicked" src="<?php echo base_url() . 'assets/star_fav_full.png'; ?>" />
 				<?php endif; ?>
 			</div>
-			<?php if ($post['type'] != 'small-post' && $post['title'] != '') { ?>
+			<?php if ($post['type'] != 'small-post' && $post['type'] != 'quote' && $post['title'] != '') { ?>
 				<h1><a href="<?php echo $post['url']; ?>" class="post-title"><?php echo $post['title']; ?></a></h1>
 			<?php } ?>
 
-			<div id="<?php echo $post['sid']; ?>" class="post-body-container">
-				<div class="body">
-					<?php echo $post['body']; ?>
+			<?php if ($post['type'] == 'quote'):?>
+				<div id="<?php echo $post['sid']; ?>" class="post-body-container">
+					<div class="body quote-body">
+						<?php echo $post['body']; ?>
+					</div>
 				</div>
-			</div>
+			<?php else: ?>
+				<div id="<?php echo $post['sid']; ?>" class="post-body-container">
+					<div class="body">
+						<?php echo $post['body']; ?>
+					</div>
+				</div>
+			<?php endif; ?>
 
 			<div class="meta-container">
 				<div class="created-container left">

@@ -44,6 +44,7 @@ class Compose extends CI_Controller {
 				$post_data['body'] = $this->input->post('quote_body');
 				$post_data['type'] = 'quote';
 				$post_data['published'] = 'true';
+				$post_data['title'] = '';
 
 				$this->Post_model->create($post_data);
 				redirect('blog');

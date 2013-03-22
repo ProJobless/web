@@ -115,14 +115,23 @@
 													<a href="<?php echo $row['share_url']; ?>">
 														<?php echo $row['share_root']; ?>
 													</a>
+												<?php elseif ($row['type'] == 'quote'): ?>
+													<img class="share-icon" src="<?=base_url() . 'assets/little_share.png';?>" />
+													<?php echo $row['quote_author']; ?>
 												<?php endif; ?>
 											</div>
-											<?php if ($row['type'] != 'small-post' && $row['title'] != ''): ?>
+											<?php if ($row['type'] != 'small-post' && $row['type'] != 'quote' && $row['title'] != ''): ?>
 												<h2><a href="<?php echo $row['url']; ?>" class="post-title"><?php echo $row['title']; ?></a></h2>
 											<?php endif;?>
-											<div class="post-body">
-												<?php echo $row['body']; ?>
-											</div>
+											<?php if ($row['type'] == 'quote'):?>
+												<div class="post-body quote-body">
+													<?php echo $row['body']; ?>
+												</div>
+											<?php else: ?>
+												<div class="post-body">
+													<?php echo $row['body']; ?>
+												</div>
+											<?php endif; ?>
 										</div>
 										<div class="expand-link">
 											<img src="<?php echo base_url() . 'assets/arrow_down_3_50p.png'; ?>" />

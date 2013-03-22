@@ -12,15 +12,7 @@ class Email_test extends CI_Controller {
 	
 		if($u = Current_User::user()) {
 
-			$this->load->helper('email_helper');
-
-			$data = array(
-				'email' => 'johnspar1@gmail.com',
-				'referral_name' => 'john',
-				'signup_code' => 'aslkdalksjdlajsd',
-			);
-
-			email_referral($data);
+			
 			
 		} else {
 			

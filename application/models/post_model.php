@@ -13,6 +13,8 @@ class Post_model extends CI_Model {
 		$this->load->helper('id_gen_helper');
 		$data['sid'] = get_unique_id();
 
+
+
 		switch($data['type']) {
 			case "post" :
 			case "small-post":
@@ -41,6 +43,7 @@ class Post_model extends CI_Model {
 				$data['parent'] = $data['sid'];
 				$data['root'] = $data['sid'];
 				$data['share_url'] = $data['url'];
+				break;
 			default:
 				$data['url'] = base_url() . $data['sid'];
 				$data['parent'] = $data['sid'];

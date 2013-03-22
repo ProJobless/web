@@ -81,6 +81,9 @@
 													<a href="<?php echo $post['share_url']; ?>">
 														<?php echo $post['share_root']; ?>
 													</a>
+												<?php elseif ($post['type'] == 'quote'): ?>
+													<img class="share-icon" src="<?=base_url() . 'assets/little_share.png';?>" />
+													<?php echo $post['quote_author']; ?>
 												<?php endif; ?>
 											</div>
 											<div class="control-buttons">
