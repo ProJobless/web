@@ -126,6 +126,7 @@ class Post_model extends CI_Model {
 		$node->children[] = new stdClass;
 		$node->children[0]->comment = $data;
 		$node->children[0]->children = $data['children'];
+		$node->children[0]->save = false;
 
 		$this->load->view("comment", array("node" => $node, "odd" => $data['odd']));
 

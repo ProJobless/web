@@ -257,8 +257,18 @@ $(document).ready(function() {
 		var button = $(this);
 
 		if ( button.val() === "Save" ) {
+
+			if (button.hasClass("first_new_comment")) {
+
+				var body = button.parent().siblings(".input_container").children(".new_comment_input").attr("name");
+
+			} else {
+
+				var body = button.closest('.input_container').children(".new_comment_input").attr("name");
+
+			}
 		
-			var body = button.closest(".add_comment_container").children('.input_container').children(".new_comment_input").attr("name");
+			
 			var input_value = CKEDITOR.instances[body].getData();
 			
 			if (input_value != "") {
@@ -310,8 +320,8 @@ $(document).ready(function() {
 							button.parent().siblings(".new_comment_input").show();
 							button.closest('.input_container').hide();
 							button.closest(".input_container").siblings(".reply").show();
-							button.closest('.comment-body-container').siblings('.new-comment-holder').prepend(data);
-							var new_textarea_name = button.closest('.comment-body-container')
+							button.closest('.add_comment_container').siblings('.new-comment-holder').prepend(data);
+							var new_textarea_name = button.closest('.add_comment_container')
 								.siblings('.new-comment-holder')
 								.children('.outer-comment-container')
 								.children('.inner-comment-container')
@@ -343,10 +353,13 @@ $(document).ready(function() {
 	
 	$('.reply').live('click', function(event) {
 		$("#first_new_comment").val("New Comment");
-		var is_hidden = $(this).prev(".input_container").is(":hidden")
+		var comment_container = $(this).closest(".outer-comment-container");
+
+		var is_hidden = comment_container.children(".add_comment_container").children(".input_container").is(":hidden")
 		$('.input_container').hide();
+
 		if (is_hidden) {
-			$(this).prev('.input_container').show();
+			comment_container.children(".add_comment_container").children(".input_container").show();
 			$("#parent_comment").val($(this).closest(".outer-comment-container").attr("id"));
 		}
 		event.preventDefault();

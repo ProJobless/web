@@ -59,20 +59,20 @@
 					<div class='comment_body'>
 						<?php echo $child->comment['body'] ?>
 					</div>
-						<div class='add_comment_container'>
-							<div class='input_container'>
-								<textarea name="<?php echo $child->comment['sid'];?>-input" class='new_comment_input' rows='5' cols='50'></textarea>
-								<div class='add_comment'>
-									<input type='button' class='new_comment' value='Save'/>
-									<div class="loading-gif hidden"></div>
-								</div>
-							</div>
-							<div class='reply'><a href='/'>reply</a></div>
-						</div>
+					<div class='reply'><a href='/'>reply</a></div>
 				</div>
-				<div class="new-comment-holder">
+			</div>
+			<div class='add_comment_container'>
+				<div class='input_container'>
+					<textarea name="<?php echo $child->comment['sid'];?>-input" class='new_comment_input' rows='5' cols='50'></textarea>
+					<div class='add_comment'>
+						<input type='button' class='new_comment' value='Save'/>
+						<div class="loading-gif hidden"></div>
+					</div>
 				</div>
-				<?php $this->load->view("comment", array("node" => $child, "odd" => !$odd)); ?>
+			</div>
+			<div class="new-comment-holder">
+			<?php $this->load->view("comment", array("node" => $child, "odd" => !$odd)); ?>
 			</div>
 		</div>
 	
@@ -91,18 +91,19 @@
 					<div class='comment_body'>
 						<?php echo $child->comment['body'] ?>
 					</div>
-					<div class='add_comment_container'>
-						<div class='input_container'>
-							<textarea class='new_comment_input' rows='5' cols='50'></textarea>
-							<div class='add_comment'><input type='button' class='new_comment' value='Save'/></div>
-							<div class="loading-gif hidden"></div>
-						</div>
-						<div class='reply'><a href='/'>reply</a></div>
-					</div>
+					
 				</div>
-				<div class="new-comment-holder">
+			</div>
+			<?php $this->load->view("comment", array("node" => $child, "odd" => !$odd)); ?>
+			<div class='add_comment_container'>
+				<div class='input_container'>
+					<textarea class='new_comment_input' rows='5' cols='50'></textarea>
+					<div class='add_comment'><input type='button' class='new_comment' value='Save'/></div>
+					<div class="loading-gif hidden"></div>
 				</div>
-				<?php $this->load->view("comment", array("node" => $child, "odd" => !$odd)); ?>
+				<div class='reply'><a href='/'>reply</a></div>
+			</div>
+			<div class="new-comment-holder">
 			</div>
 		</div>
 	

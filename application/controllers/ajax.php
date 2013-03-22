@@ -38,6 +38,7 @@ class Ajax extends CI_Controller {
 			$data['sid'] = $this->Post_model->create($data);
 			$comment = $this->Post_model->get_by_sid($data['sid']);
 			$comment['odd'] = $data['odd'];
+			$comment['save'] = false;
 
 			$this->Post_model->generate_comment_html($comment);
 		}

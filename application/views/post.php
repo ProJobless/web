@@ -145,11 +145,11 @@
 	
 		<div class="new-comment-container">
 			<div class="add_comment_container">
-				<div class="input_container">
+				<div class="input_container first_input_container">
 					<textarea name="new_comment_input" class="new_comment_input" rows="5" cols="50"></textarea>
 				</div>
 				<div class="add_comment">
-					<input type="button" id="first_new_comment" class="new_comment" value="New Comment"/>
+					<input type="button" id="first_new_comment" class="new_comment first_new_comment" value="New Comment"/>
 					<input type="hidden" id="root_comment" value="<?php echo $post['sid']; ?>" />
 					<input type="hidden" id="parent_comment" value="<?php echo $post['sid']; ?>" />
 					<div class="loading-gif hidden"></div>

@@ -55,7 +55,7 @@ body {
 }
 
 #comment-container #no-comments-yet {
-	padding: 0px 0px 20px 0px;
+	padding: 0px 0px 20px 10px;
 }
 
 #profile_avatar {
@@ -1521,8 +1521,7 @@ ul {
 
 #comment-container .outer-comment-container {
 	border:1px solid #DDD;
-	border-bottom:0px;
-	padding:5px 5px 1px 5px;
+	padding:5px 5px 5px 10px;
 	position:relative;
 }
 
@@ -1548,14 +1547,11 @@ ul {
 }
 
 .new-comment-container {
-	padding-left: 30px;
+padding-left:10px;
 }
-
-
 
 .inner-comment-container {
 	margin-left: 80px;
-	float:left;
 }
 
 .new_comment_input{
@@ -1563,7 +1559,7 @@ ul {
 }
 
 .new_comment {
-	margin: 15px 0px 10px 0px;
+	margin: 15px 0px 5px 0px;
 	padding:5px;
 	background-color:#0092A2;
 	color:#FFF;
@@ -1575,8 +1571,12 @@ ul {
 }
 
 .input_container {
-	padding-top:20px;
+	padding-left:75px;
 	display: none;
+}
+
+.first_input_container {
+	padding-left:0px;
 }
 
 .hidden {

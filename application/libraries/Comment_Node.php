@@ -10,7 +10,7 @@ class Comment_Node {
 	public $vote;
 	public $save;
 
-	public function __construct($comment, $carray, $votes, $saves, $user) {
+	public function __construct($comment, $carray, $votes = array(), $saves = array(), $user) {
 		
 		$this->comment  = $comment;
 		$this->parentc  = $comment['parent'];
