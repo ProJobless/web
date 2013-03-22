@@ -316,6 +316,13 @@ $(document).ready(function() {
 						$("#no-comments-yet").remove();
 						if(button.attr("id") == "first_new_comment") {
 							button.closest('.new-comment-container').siblings('.new-comment-holder').prepend(data);
+							var new_textarea_name = button.closest('.new-comment-container')
+								.siblings('.new-comment-holder')
+								.children('.outer-comment-container:first')
+								.children('.add_comment_container')
+								.children('.input_container')
+								.children('textarea')
+								.attr('name');
 						} else {
 							button.parent().siblings(".new_comment_input").show();
 							button.closest('.input_container').hide();
@@ -323,18 +330,15 @@ $(document).ready(function() {
 							button.closest('.add_comment_container').siblings('.new-comment-holder').prepend(data);
 							var new_textarea_name = button.closest('.add_comment_container')
 								.siblings('.new-comment-holder')
-								.children('.outer-comment-container')
-								.children('.inner-comment-container')
-								.children('.comment-body-container')
+								.children('.outer-comment-container:first')
 								.children('.add_comment_container')
 								.children('.input_container')
 								.children('textarea')
 								.attr('name');
-
-							if (typeof(new_textarea_name) != "undefined") {
-								CKEDITOR.replace(new_textarea_name);
-							}
-
+						}
+						console.log(new_textarea_name);
+						if (typeof(new_textarea_name) != "undefined") {
+							CKEDITOR.replace(new_textarea_name);
 						}
 							
 					}
