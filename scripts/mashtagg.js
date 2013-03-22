@@ -172,7 +172,7 @@ $(document).ready(function() {
 	
 	$(".upvote").click(function() {
 
-		if ($(this).parent().hasClass('root-post')) {
+		if ($(this).parent().hasClass('root-post') || $(this).parent().hasClass('feed-post')) {
 			var influence_gain = parseInt($(this).parent().children(".influence_gain").html());
 			if ($(this).parent().children(".clicked_downvote").length) {
 				influence_gain = influence_gain + 2;

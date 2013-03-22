@@ -35,7 +35,7 @@ class Blog extends CI_Controller {
 		if($u = Current_User::user()) {
 	
 			$posts = $this->Post_model->get(array('author' => $username, 'published' => 'true'));
-			$u = $this->User_model->get_by_username($username);
+			$blog_author = $this->User_model->get_by_username($username);
 
 			$post_ids = array();
 
@@ -51,7 +51,7 @@ class Blog extends CI_Controller {
 				$data = array('main_content' => 'blog',
 							         'posts' => $posts,
 							          'type' => 'other',
-							   'author_info' => $u);
+							   'author_info' => $blog_author);
 
 				$this->load->view('includes/template', $data);	
 			} else {

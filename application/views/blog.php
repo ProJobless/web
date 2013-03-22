@@ -91,9 +91,9 @@
 							<?php $first_post = ""; ?>
 								<div id="<?php echo $row['sid']; ?>"class="post-container clearfix">
 									<div class="vote-picture-container">
-										<div class='comment-rating'>
+										<div class='comment-rating feed-post'>
 											
-											<?php if (isset($row['vote_status']) && $row['vote_status'] && $row['type'] != "self"): ?>
+											<?php if (isset($row['vote_status']) && $row['vote_status'] && $type != "self"): ?>
 
 												<?php if($row['vote_status'] == "disabled"): ?>
 													<div class='disabled_upvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_up.png'; ?>" /></div>

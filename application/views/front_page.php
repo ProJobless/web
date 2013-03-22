@@ -43,7 +43,7 @@
 							<?php $first_post = ""; ?>
 								<div class="post-container clearfix">
 									<div class="vote-picture-container">
-										<div class='comment-rating'>
+										<div class='comment-rating feed-post'>
 
 											<?php if ($post['vote_status']): ?>
 

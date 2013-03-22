@@ -366,12 +366,10 @@ class Post_model extends CI_Model {
 
 		foreach($posts as $post) {
 
-			if ($post['author'] == $username) {
+			$posts[$index]['vote_status'] = 'enabled';
+			$posts[$index]['save_status'] = 'enabled';
 
-				$posts[$index]['vote_status'] = 'disabled';
-				$posts[$index]['save_status'] = 'disabled';
-
-			} else {
+			if ($post['author'] != $username) {
 
 				$vote_key = array_search($post['sid'], $vote_ids);
 
@@ -379,19 +377,15 @@ class Post_model extends CI_Model {
 
 					if ($votes[$vote_key]['type'] == 'upvote') {
 
-						$posts[$index]['vote_status'] = 'upvote_disabled';
+						$posts[$index]['vote_status'] = 'upvote-disabled';
 
 					} else {
 
-						$posts[$index]['vote_status'] = 'downvote_disabled';
+						$posts[$index]['vote_status'] = 'downvote-disabled';
 
 					}
 
-				} else {
-
-					$posts[$index]['vote_status'] = 'enabled';
-
-				}
+				} 
 
 				$post_key = array_search($post['sid'], $save_ids);
 
@@ -404,6 +398,11 @@ class Post_model extends CI_Model {
 					$posts[$index]['save_status'] = 'not-saved';
 
 				}
+
+			} else {
+
+				$posts[$index]['vote_status'] = 'asdfasdf';
+				$posts[$index]['save_status'] = 'asdfasdf';
 
 			}
 

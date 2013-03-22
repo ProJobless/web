@@ -893,6 +893,7 @@ input, textarea, select {
 #blog-content-container .posts-container .outer-post-container .post-body-container {
 	min-height:0px;
 	padding-bottom:0px;
+	position:relative;
 }
 
 .outer-post-container .inner-post-container .author {
@@ -1164,8 +1165,10 @@ input, textarea, select {
 }
 
 .outer-post-container .inner-post-container .control-buttons {
-	margin-top:5px;
-	float:right;
+	position:absolute;
+	top:5px;
+	right:5px;
+
 }
 
 .outer-post-container .inner-post-container .control-buttons img {
@@ -1204,7 +1207,7 @@ input, textarea, select {
 .outer-post-container .post-container .expand-link {
 	display:none;
 	position:absolute;
-	right:3px;
+	right:5px;
 	bottom:3px;
 	cursor:pointer;
 	z-index:5;
@@ -1877,17 +1880,16 @@ padding-left:10px;
 }
 
 .user-container .pic {
-	height:60px;
-	width:60px;
+	height:58px;
+	width:58px;
 	float:left;
+	margin:1px 5px 0px 0px;
 }
 
 .user-container .pic img {
-	height:50px;
-	width:50px;
-	-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	border:5px solid rgba(0,0,0,0.2);
+	height:48px;
+	width:48px;
 }
 
 .user-container .info {
@@ -2793,6 +2795,11 @@ padding-left:10px;
 	height:16px;
 }
 
+#blog-content-container .control-buttons img {
+	width:18px;
+	height:18px;
+}
+
 .posts-container .expanded {
 	margin:5px 0px;
 	border-top:1px solid #AAA;
@@ -2941,6 +2948,7 @@ padding-left:10px;
 
 #tag-content-container .posts-container .outer-post-container .post-container .inner-post-container .post-body-container {
 	padding:0px;
+	position:relative;
 }
 
 #tag-content-container .posts-container .expanded {
@@ -2970,10 +2978,6 @@ padding-left:10px;
 
 #tag-content-container .posts-container .outer-post-container .post-container .vote-picture-container .comment-rating{
 	padding-top:10px;
-}
-
-#tag-content-container .control-buttons {
-	margin-right:5px;
 }
 
 #tag-content-container .control-buttons img {
