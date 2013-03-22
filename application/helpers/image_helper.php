@@ -37,19 +37,17 @@ if ( ! function_exists('crop_image')) {
 
 
 		// Resize and crop
-		imagecopyresampled($thumb,
-		                   $image,
-		                   0,
-		                   0,
-		                   $coords[0], $coords[1],
+		imagecopyresampled($thumb, $image,
+		                   0, 0,
+		                   (int)$coords[0], (int)$coords[1],
 		                   THUMBNAIL_X, THUMBNAIL_Y,
-		                   $coords[2], $coords[3]);
+		                   (int)$coords[2], (int)$coords[3]);
 
 		switch($type){
 			case 'bmp': imagewbmp($thumb, $filename, 80); break;
-			case 'gif': imagegif($thumb, $filename, 80); break;
-			case 'jpg': imagejpeg($thumb, $filename, 80); break;
-			case 'png': imagepng($thumb, $filename, 80); break;
+			case 'gif': imagegif($thumb, $filename); break;
+			case 'jpg': imagejpeg($thumb, $filename, 100); break;
+			case 'png': imagepng($thumb, $filename, 9); break;
 			default : return "Unsupported picture type!";
 		}
 

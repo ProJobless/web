@@ -556,7 +556,7 @@ $(document).ready(function() {
 				crop_coords.w  = c.w;
 				crop_coords.h  = c.h;
 			},
-            bgColor:     'black',
+            bgColor:     'transparent',
             bgOpacity:   .4,
             setSelect:   [ 0, 0, 100, 100 ],
             aspectRatio: 1,
@@ -601,11 +601,14 @@ $(document).ready(function() {
 		var crop_start_x = (crop_coords.x / new_width) * img.width;
 		var crop_start_y = (crop_coords.y / new_height) * img.height;
 
-		var crop_end_x =  (crop_coords.x2 / new_width) * img.width;
-		var crop_end_y =  (crop_coords.y2 / new_height) * img.height;
+		var crop_end_x = (crop_coords.x2 / new_width) * img.width;
+		var crop_end_y = (crop_coords.y2 / new_height) * img.height;
+
+		var crop_width  = crop_end_x - crop_start_x;
+		var crop_height = crop_end_y - crop_start_y;
 
 
-		$("#hidden-thumbnail-coords").val(crop_start_x + "," + crop_start_y + "," + crop_end_x + "," + crop_end_y);
+		$("#hidden-thumbnail-coords").val(crop_start_x + "," + crop_start_y + "," + crop_width + "," + crop_height);
 
 		$("#crop-image-wrapper img").css({
 			"opacity": "1",
