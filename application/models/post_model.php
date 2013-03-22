@@ -401,8 +401,8 @@ class Post_model extends CI_Model {
 
 			} else {
 
-				$posts[$index]['vote_status'] = 'asdfasdf';
-				$posts[$index]['save_status'] = 'asdfasdf';
+				$posts[$index]['vote_status'] = 'disabled';
+				$posts[$index]['save_status'] = 'disabled';
 
 			}
 
