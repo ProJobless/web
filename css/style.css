@@ -56,6 +56,7 @@ body {
 
 #comment-container #no-comments-yet {
 	padding: 0px 0px 20px 10px;
+	margin-bottom:0px;
 }
 
 #profile_avatar {
