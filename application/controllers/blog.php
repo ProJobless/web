@@ -13,17 +13,11 @@ class Blog extends CI_Controller {
 		if($u = Current_User::user()) {
 
 			$posts = $this->Post_model->get(array('author' => $u['username'], 'published' => 'true'));
-
-			$post_ids = array();
-
-			foreach ($posts as $post) {
-				$post_ids[] = $post['sid'];
-			}
 		
-			$data = array('main_content' => 'blog',
-						         'posts' => $posts,
-								  'type' => 'self',
-						   'author_info' => $u);
+			$data  = array('main_content' => 'blog',
+						          'posts' => $posts,
+								   'type' => 'self',
+						    'author_info' => $u);
 
 			$this->load->view('includes/template', $data);
 			
@@ -51,13 +45,14 @@ class Blog extends CI_Controller {
 
 			$votes = $this->Vote_model->get_by_username($u['username'], $post_ids);
 			$saves = $this->Save_model->get_saves($u['username'], $post_ids);
-			$posts = $this->Post_model->attach_votes_saves($posts, $votes, $saves);
+			$posts = $this->Post_model->attach_votes_saves($u['username'], $posts, $votes, $saves);
 		
 			if ($u) {
 				$data = array('main_content' => 'blog',
 							         'posts' => $posts,
 							          'type' => 'other',
 							   'author_info' => $u);
+
 				$this->load->view('includes/template', $data);	
 			} else {
 				redirect('/');

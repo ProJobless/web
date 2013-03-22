@@ -350,7 +350,7 @@ class Post_model extends CI_Model {
 
 	/*********************** Votes and Saves stuff ************************/
 
-	public function attach_votes_saves($posts, $votes, $saves) {
+	public function attach_votes_saves($username, $posts, $votes, $saves) {
 
 		$vote_ids = array();
 		$save_ids = array();
@@ -366,29 +366,48 @@ class Post_model extends CI_Model {
 
 		foreach($posts as $post) {
 
-			$vote_key = array_search($post['sid'], $vote_ids);
+			if ($post['author'] == $username) {
 
-			if ($vote_key !== false) {
-
-				$posts[$index]['vote_status'] = $votes[$vote_key]['type'];
-
-			} else {
-
-				$posts[$index]['vote_status'] = false;
-
-			}
-
-			$post_key = array_search($post['sid'], $save_ids);
-
-			if ($post_key !== false) {
-
-				$posts[$index]['save_status'] = true;
+				$posts[$index]['vote_status'] = 'disabled';
+				$posts[$index]['save_status'] = 'disabled';
 
 			} else {
 
-				$posts[$index]['save_status'] = false;
+				$vote_key = array_search($post['sid'], $vote_ids);
+
+				if ($vote_key !== false) {
+
+					if ($votes[$vote_key]['type'] == 'upvote') {
+
+						$posts[$index]['vote_status'] = 'upvote_disabled';
+
+					} else {
+
+						$posts[$index]['vote_status'] = 'downvote_disabled';
+
+					}
+
+				} else {
+
+					$posts[$index]['vote_status'] = 'enabled';
+
+				}
+
+				$post_key = array_search($post['sid'], $save_ids);
+
+				if ($post_key !== false) {
+
+					$posts[$index]['save_status'] = 'saved';
+
+				} else {
+
+					$posts[$index]['save_status'] = 'not-saved';
+
+				}
 
 			}
+
+			
 
 			$index++;
 

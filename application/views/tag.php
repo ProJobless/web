@@ -52,9 +52,27 @@
 									<div class="vote-picture-container">
 										<div class='comment-rating'>
 											
-											<div class='disabled_upvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_up.png'; ?>" /></div>
-											<div class="influence_gain"><?php echo $post['influence_gain'];?></div>
-											<div class='disabled_downvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_down.png'; ?>" /></div>
+											<?php if ($post['vote_status']): ?>
+
+												<?php if($post['vote_status'] == "disabled"): ?>
+													<div class='disabled_upvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_up.png'; ?>" /></div>
+													<div class="influence_gain"><?php echo $post['influence_gain'];?></div>
+													<div class='disabled_downvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_down.png'; ?>" /></div>
+												<?php elseif($post['vote_status'] == "enabled"): ?>
+													<div class='upvote'><img src="<?php echo base_url() . 'assets/arrow_up.png'; ?>" /></div>
+													<div class='influence_gain'><?php echo $post['influence_gain'];?></div>
+													<div class='downvote'><img src="<?php echo base_url() . 'assets/arrow_down.png'; ?>" /></div>
+												<?php elseif($post['vote_status'] == "downvote-disabled"): ?>
+													<div class='upvote'><img src="<?php echo base_url() . 'assets/arrow_up.png'; ?>" /></div>
+													<div class='influence_gain'><?php echo $post['influence_gain'];?></div>
+													<div class='clicked_downvote'><img src="<?php echo base_url() . 'assets/clicked_arrow_down.png'; ?>" /></div>
+												<?php elseif($post['vote_status'] == "upvote-disabled"): ?>
+													<div class='clicked_upvote'><img src="<?php echo base_url() . 'assets/clicked_arrow_up.png'; ?>" /></div>
+													<div class='influence_gain'><?php echo $post['influence_gain'];?></div>
+													<div class='downvote'><img src="<?php echo base_url() . 'assets/arrow_down.png'; ?>" /></div>
+												<?php endif; ?>
+
+											<?php endif; ?>
 											
 										</div>
 										<div class="picture">
@@ -86,14 +104,17 @@
 													<?php echo $post['quote_author']; ?>
 												<?php endif; ?>
 											</div>
-											<div class="control-buttons">
-												<img class="share-post" src="<?php echo base_url() . 'assets/new_share.png';?>" />
-												<?php if (!$post['save_status']): ?>
+
+											<div class="control-buttons">	
+												<?php if($post['save_status'] == 'not-saved'): ?>
+													<img class="share-post" src="<?php echo base_url() . 'assets/new_share.png';?>" />
 													<img class="save-post unclicked" src="<?php echo base_url() . 'assets/star_fav_empty.png'; ?>" />
-												<?php else: ?>
+												<?php elseif($post['save_status'] == 'saved'): ?>
+													<img class="share-post" src="<?php echo base_url() . 'assets/new_share.png';?>" />
 													<img class="save-post clicked" src="<?php echo base_url() . 'assets/star_fav_full.png'; ?>" />
 												<?php endif; ?>
 											</div>
+
 											<h2><a href="<?php echo $post['url']; ?>" class="post-title"><?php echo $post['title']; ?></a></h2>
 										</div>
 										<div class="expand-link">

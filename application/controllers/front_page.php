@@ -17,7 +17,7 @@ class Front_page extends CI_Controller {
 			$votes    = $this->Vote_model->get_by_username($u['username'], $post_ids);
 			$saves    = $this->Save_model->get_saves($u['username'], $post_ids);
 		
-			$posts = $this->Post_model->attach_votes_saves($posts, $votes, $saves);
+			$posts = $this->Post_model->attach_votes_saves($u['username'], $posts, $votes, $saves);
 			
 			$data = array('main_content' => 'front_page',
 						         'posts' => $posts);

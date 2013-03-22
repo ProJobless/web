@@ -93,9 +93,33 @@
 									<div class="vote-picture-container">
 										<div class='comment-rating'>
 											
-											<div class='disabled_upvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_up.png'; ?>" /></div>
-											<div class="influence_gain"><?php echo $row['influence_gain'];?></div>
-											<div class='disabled_downvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_down.png'; ?>" /></div>
+											<?php if (isset($row['vote_status']) && $row['vote_status'] && $row['type'] != "self"): ?>
+
+												<?php if($row['vote_status'] == "disabled"): ?>
+													<div class='disabled_upvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_up.png'; ?>" /></div>
+													<div class="influence_gain"><?php echo $row['influence_gain'];?></div>
+													<div class='disabled_downvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_down.png'; ?>" /></div>
+												<?php elseif($row['vote_status'] == "enabled"): ?>
+													<div class='upvote'><img src="<?php echo base_url() . 'assets/arrow_up.png'; ?>" /></div>
+													<div class='influence_gain'><?php echo $row['influence_gain'];?></div>
+													<div class='downvote'><img src="<?php echo base_url() . 'assets/arrow_down.png'; ?>" /></div>
+												<?php elseif($row['vote_status'] == "downvote-disabled"): ?>
+													<div class='upvote'><img src="<?php echo base_url() . 'assets/arrow_up.png'; ?>" /></div>
+													<div class='influence_gain'><?php echo $row['influence_gain'];?></div>
+													<div class='clicked_downvote'><img src="<?php echo base_url() . 'assets/clicked_arrow_down.png'; ?>" /></div>
+												<?php elseif($row['vote_status'] == "upvote-disabled"): ?>
+													<div class='clicked_upvote'><img src="<?php echo base_url() . 'assets/clicked_arrow_up.png'; ?>" /></div>
+													<div class='influence_gain'><?php echo $row['influence_gain'];?></div>
+													<div class='downvote'><img src="<?php echo base_url() . 'assets/arrow_down.png'; ?>" /></div>
+												<?php endif; ?>
+
+											<?php else: ?>
+
+												<div class='disabled_upvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_up.png'; ?>" /></div>
+												<div class="influence_gain"><?php echo $row['influence_gain'];?></div>
+												<div class='disabled_downvote'><img src="<?php echo base_url() . 'assets/disabled_arrow_down.png'; ?>" /></div>
+
+											<?php endif; ?>
 											
 										</div>
 										<div class="picture">
@@ -120,6 +144,20 @@
 													<?php echo $row['quote_author']; ?>
 												<?php endif; ?>
 											</div>
+
+											<?php if ($type != "self"): ?>
+												<div class="control-buttons">
+													<img class="share-post" src="<?php echo base_url() . 'assets/new_share.png';?>" />
+													<?php if ($row['save_status'] == 'disabled'): ?>
+														<img class="save-post-disabled" src="<?php echo base_url() . 'assets/star_fav_empty.png'; ?>" />
+													<?php elseif($row['save_status'] == 'not-saved'): ?>
+														<img class="save-post unclicked" src="<?php echo base_url() . 'assets/star_fav_empty.png'; ?>" />
+													<?php else: ?>
+														<img class="save-post clicked" src="<?php echo base_url() . 'assets/star_fav_full.png'; ?>" />
+													<?php endif; ?>
+												</div>
+											<?php endif;?>
+
 											<?php if ($row['type'] != 'small-post' && $row['type'] != 'quote' && $row['title'] != ''): ?>
 												<h2><a href="<?php echo $row['url']; ?>" class="post-title"><?php echo $row['title']; ?></a></h2>
 											<?php endif;?>
