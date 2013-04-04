@@ -781,13 +781,13 @@ $(document).ready(function() {
 	$(".expand-link").live('click', function(){
 		if ($(this).closest(".outer-post-container").hasClass("expanded")) {
 			$(this).children("img").attr("src", Mashtagg.base_url + "assets/arrow_down_3_50p.png");
-			$(this).closest(".outer-post-container").removeClass("expanded");
+		 	$(this).closest(".outer-post-container").removeClass("expanded");
 			$(".outer-post-container").removeClass("expanded");
 			$(".meta-container").hide();
 		} else {
 			$(".expand-link img").attr("src", Mashtagg.base_url + "assets/arrow_down_3_50p.png");
 			$(this).children("img").attr("src", Mashtagg.base_url + "assets/arrow_up_3_50p.png");
-			$(".outer-post-container").removeClass("expanded");
+		 	$(".outer-post-container").removeClass("expanded");
 			$(this).closest(".outer-post-container").addClass("expanded");
 			$(".meta-container").hide();
 			$(this).siblings(".meta-container").show();

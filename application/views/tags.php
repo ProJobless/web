@@ -28,7 +28,8 @@
 			<div class="tag-column">
 			<?php $count = 0; ?>
 			<?php foreach ($tags as $tag): ?>
-				<?php if ($count == 8 || $count == 16 || $count == 24 || $count == 32): ?>
+
+				<?php if ($count == 7 || $count == 14 || $count == 21 || $count == 28): ?>
 					</div>
 					<div class="tag-column">
 				<?php endif; ?>

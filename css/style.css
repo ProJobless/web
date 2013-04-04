@@ -1972,11 +1972,11 @@ padding-left:10px;
 	float:left;
 }
 
-.tag-outer-container .tag-inner-container {
+.tag-outer-container .tags-inner-container {
 	height:640px;
 }
 
-.tag-outer-container .tag-inner-container .tag-column {
+.tag-outer-container .tags-inner-container .tag-column {
 	float:left;
 	height:640px;
 }
