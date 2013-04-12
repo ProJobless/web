@@ -108,13 +108,13 @@ class Compose extends CI_Controller {
 						$error = array('error' => $this->upload->display_errors());
 						print_r($error);
 					} else {
-						$image_source = $this->Image_model->create($u['username'], $config);
+						$image_data = $this->Image_model->create($u['username'], $config);
 
 						$post_data['author'] = $u['username'];
 						$post_data['title'] = $this->input->post('post_title');
-						$post_data['body'] = "<br /><div class='uploaded-post-image'><img class='post-image' src='" . $image_source . "' /></div><br />" . $this->input->post('post_body');
+						$post_data['body'] = "<br /><div class='uploaded-post-image'><img class='post-image' src='" . $image_data['source'] . "' /></div><br />" . $this->input->post('post_body');
 						$post_data['published'] = 'true';
-						$post_data['thumbnail_image'] = $image_source;
+						$post_data['thumbnail_image'] = $image_data['thumbnail_source'];
 						
 
 						if (!$post_data['title'] == '') {

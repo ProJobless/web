@@ -13,6 +13,15 @@
 <script type="text/javascript" src="<?php echo base_url();?>scripts/mashtagg_globals.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>scripts/mashtagg.js"></script>
 
+<!-- Custom javascript that we might want to include -->
+<?php
+if (isset($javascript_includes)) {
+	foreach ($javascript_includes as $javascript) {
+		echo $javascript;
+	}
+}
+?>
+	
 
 </body>
 

@@ -6,7 +6,111 @@ class MY_Session extends CI_Session {
 	public function __construct() {
 	
 		parent::__construct();
-		
+
+		//flash seems to use this user agent, so we can identify if the request is coming from uploadify
+		if ($this->userdata('user_agent') == "Shockwave Flash") {
+
+			//a custom session variable, if you're already "logged in" on your flash session, than just make sure the session is still valid.
+			if ($this->userdata('logged_in')) {
+
+				//make sure parent is still active
+				if(!$this->userdata('parent_session')) {
+					$this->sess_destroy();
+					return;
+				}
+
+				$this->CI->mongo_db->where(array(
+					'session_id' => $this->userdata('parent_session'),
+					'ip_address' => $this->userdata('ip_address'),
+				));
+				$this->CI->mongo_db->select("last_activity");
+
+				$query = $this->CI->db->get($this->sess_table_name);
+
+				// couldnt find session
+				if ($query->num_rows() == 0) {
+					$this->sess_destroy();
+					return;
+				}
+
+				$row = $query->row();
+				$last_activity = $row->last_activity;
+				//check that the session hasnt expired
+				if (($last_activity + $this->sess_expiration) < $this->now) {
+					$this->sess_destroy();
+					return;
+				}
+
+			//not yet logged in
+			} else {
+
+				$sessdata = $this->CI->input->post('sessdata');
+				if ($sessdata) {
+					//decode the sess data
+					$sessdata = $this->CI->encrypt->decode($sessdata);
+					$sessdata = unserialize($sessdata);
+
+					if (empty($sessdata['session_id']) || empty($sessdata['timestamp'])) {
+						$this->sess_destroy();
+						return;
+					}
+
+					//attempt to clone the session...
+					$parent_session['session_id'] = $sessdata['session_id'];
+					$parent_session['ip_address'] = $this->userdata('ip_address');
+
+					$this->CI->mongo_db->where(array(
+						'session_id' => $parent_session['session_id'],
+						'ip_address' => $parent_session['ip_address']
+					));
+
+					$query = $this->CI->mongo_db->get($this->sess_table_name);
+
+					// couldn't find session
+					if ($query->num_rows() == 0) {
+						$this->sess_destroy();
+						return;
+					}
+
+					//retrieve data
+					$row = $query->row();
+					$parent_session['last_activity'] = $row->last_activity;
+					if (isset($row->user_data) AND $row->user_data != '') {
+						$custom_data = $this->_unserialize($row->user_data);
+
+						if (is_array($custom_data)) {
+							foreach ($custom_data as $key => $val) {
+								$parent_session[$key] = $val;
+							}
+						}
+					}
+
+					//check that the session hasn't expired
+					if (($parent_session['last_activity'] + $this->sess_expiration) < $this->now) {
+						$this->sess_destroy();
+						return;
+					}
+
+					if ($parent_session['logged_in']) {
+
+						//DO STUFF HERE
+						//You want to mimic the values of the parent session. But for better security flash will still maintain its own session id. if you use a logged_in flag and user_id in your session vars to check if a user is signed on and identify them, you'll want to set that up here.
+
+						$this->set_userdata('parent_session', $parent_session['session_id']);
+						$this->set_userdata('logged_in', $parent_session['logged_in']);
+						$this->set_userdata('user_id', $parent_session['user_id']);
+
+					}
+
+				} else {
+					$this->sess_destroy();
+					return;
+				}
+
+			}
+			
+		}
+
 	}
 
 	/** 
@@ -15,8 +119,7 @@ class MY_Session extends CI_Session {
 	 * @access	public
 	 * @return	bool
 	 */
-	function sess_read()
-	{
+	function sess_read() {
 		$this->CI->load->library('Mongo_db');
 		// Fetch the cookie
 		$session = $this->CI->input->cookie($this->sess_cookie_name);
@@ -126,8 +229,7 @@ class MY_Session extends CI_Session {
 		return TRUE;
 	}
 	
-	function sess_write()
-	{
+	function sess_write() {
 		$this->CI->load->library('Mongo_db');
 		// Are we saving custom data to the DB?  If not, all we do is update the cookie
 		if ($this->sess_use_database === FALSE)
@@ -171,8 +273,7 @@ class MY_Session extends CI_Session {
 		$this->_set_cookie($cookie_userdata);
 	}
 	
-	function sess_create()
-	{
+	function sess_create() {
 		$this->CI->load->library('Mongo_db');
 		$sessid = '';
 		while (strlen($sessid) < 32)
@@ -200,8 +301,7 @@ class MY_Session extends CI_Session {
 		$this->_set_cookie();
 	}
 	
-	function sess_update()
-	{
+	function sess_update() {
 		$this->CI->load->library('Mongo_db');
 		// We only update the session every five minutes by default
 		if (($this->userdata['last_activity'] + $this->sess_time_to_update) >= $this->now)
@@ -249,8 +349,7 @@ class MY_Session extends CI_Session {
 		$this->_set_cookie($cookie_data);
 	}
 	
-	function sess_destroy()
-	{
+	function sess_destroy() {
 		$this->CI->load->library('Mongo_db');
 		// Kill the session DB row
 		if ($this->sess_use_database === TRUE AND isset($this->userdata['session_id']))
@@ -270,8 +369,7 @@ class MY_Session extends CI_Session {
 				);
 	}
 	
-	function _sess_gc()
-	{
+	function _sess_gc() {
 		if ($this->sess_use_database != TRUE)
 		{
 			return;
@@ -287,5 +385,17 @@ class MY_Session extends CI_Session {
 			log_message('debug', 'Session garbage collection performed.');
 		}
 	}
+
+	public function get_encrypted_sessdata() {
+
+		$data['session_id'] = $this->userdata('session_id');
+		$data['timestamp'] = time();
+
+		$data = serialize($data);
+		$data = $this->CI->encrypt->encode($data);
+		return $data;
+
+	}
+
 
 }

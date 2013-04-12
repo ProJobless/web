@@ -113,6 +113,14 @@ class Ajax extends CI_Controller {
 
 		}
 	}
+
+	public function big_upload() {
+		if ($u = Current_User::user()) {
+
+			var_dump($_POST);
+
+		}
+	}
 	
 	public function website_scrape() {
 		if($u = Current_User::user()) {

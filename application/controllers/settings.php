@@ -114,7 +114,7 @@ class Settings extends CI_Controller {
 						$u['avatar_thumbnail'] = $thumbnail_path;
 						$this->User_model->change_avatar_thumbnail(
 							$u['username'],
-							crop_image($u['avatar'], $thumbnail_path, $coords)
+							crop_small_thumbnail($u['avatar'], $thumbnail_path, $coords)
 						);
 
 					}	
@@ -153,7 +153,7 @@ class Settings extends CI_Controller {
 								$u['avatar_thumbnail'] = $thumbnail_path;
 								$this->User_model->change_avatar_thumbnail(
 									$u['username'],
-									crop_image($file_path, $thumbnail_path, $coords)
+									crop_small_thumbnail($file_path, $thumbnail_path, $coords)
 								);
 							}
 

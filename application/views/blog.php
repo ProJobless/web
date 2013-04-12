@@ -9,22 +9,31 @@
 
 		<?php if ($type == "self"): ?>
 
-			<div class="posts-button button">
-				<p>Posts</p>
-			</div>
-			<div class="pictures-button button">
-				<p>Pictures</p>
-			</div>
-			<div class="comments-button button">
-				<p>Comments</p>
-			</div>
-			<div class="shares-button button">
-				<p>Shares</p>
-			</div>
-			<div class="starred-button button">
-				<p>Starred</p>
-			</div>
-
+			<a href="<?php echo base_url() . 'posts';?>">
+				<div class="posts-button button">
+					<p>Posts</p>
+				</div>
+			</a>
+			<a href="<?php echo base_url() . 'images';?>">
+				<div class="pictures-button button">
+					<p>Pictures</p>
+				</div>
+			</a>
+			<a href="<?php echo base_url() . 'comments';?>">
+				<div class="comments-button button">
+					<p>Comments</p>
+				</div>
+			</a>
+			<a href="<?php echo base_url() . 'shares';?>">
+				<div class="shares-button button">
+					<p>Shares</p>
+				</div>
+			</a>
+			<a href="<?php echo base_url() . 'starred';?>">
+				<div class="starred-button button">
+					<p>Starred</p>
+				</div>
+			</a>
 		<?php endif; ?>
 	</div>
 

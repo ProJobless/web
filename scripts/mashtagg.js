@@ -9,6 +9,8 @@ function positionPopup(e) {
 	
 }
 
+
+
 function refresh_page() {}
 
 function username_check() {
@@ -975,6 +977,20 @@ $(document).ready(function() {
 
 	$(".navigation-outline").height("800px");
 
+	$(".upload-button").click(function() {
+		window.location.hash = "#upload";
+		$(".upload-images-container").show();
+		$(".modal-screen").show();
+		center_modal($(".upload-images-container"));
+	});
+
+	$(window).on('hashchange', function() {
+		if (window.location.hash === "") {
+			$(".upload-images-container").hide();
+			$(".modal-screen").hide();	
+		}
+	});
+
 });
 
 $(window).load(function(){
@@ -1002,6 +1018,7 @@ function post_fix_heights() {
 	});
 }
 
+window.onload=function(){post_fix_heights();}
 
 //From http://rosskendall.com/blog/web/javascript-function-to-check-an-email-address-conforms-to-rfc822
 function isRFC822ValidEmail(sEmail) {
@@ -1039,4 +1056,14 @@ function readURL(input, id) {
 
         reader.readAsDataURL(input.files[0]);
     }
+}
+
+function center_modal(element) {
+	var height = element.height();
+	var width  = element.width();
+	var window_height = window.outerHeight;
+	var window_width  = window.outerWidth;
+	var center_y = ((window_height / 2) - (height / 2) - 200);
+	var center_x = (window_width / 2) - (width / 2);
+	element.css({"top" : center_y, "left" : center_x});
 }
