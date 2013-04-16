@@ -23,6 +23,16 @@ class Image extends CI_Controller {
 
 	public function get_image_by_id($image_id) {
 
+		if (strlen($image_id) > 24) {
+			$this->load->helper('image_helper');
+			$image_data = array(
+				'big_thumbnail_path' => $this->config->item('temp_image_path') . $image_id,
+				'file_type' => strtolower(substr(strrchr($image_id,"."),1)),
+				'created' => time(),
+			);
+			serve_image($image_data, BIG_THUMBNAIL);
+		}
+
 		if (strlen($image_id) == 24) {
 
 			$this->load->helper('image_helper');

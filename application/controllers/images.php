@@ -55,10 +55,10 @@ class Images extends CI_Controller {
 
 			$type = substr($_FILES['userfile']['name'], -3, 3);
 			$this->load->helper('id_gen_helper');
+			$this->load->helper('image_helper');
 			$config = array();
 			$config['file_name'] = $u['username'] . '_' . get_unique_image_id() . '.' . $type;
-			//$config['upload_path'] = $this->config->item('image_path');
-			$config['upload_path'] = '/Users/johnspar1/image_testing_folder';
+			$config['upload_path'] = $this->config->item('temp_image_path');
 			$config['allowed_types'] = 'gif|jpg|png';
 			$config['overwrite'] = FALSE;
 			$config['file_type'] = $type;
@@ -72,8 +72,8 @@ class Images extends CI_Controller {
 				show_error('doh! what in the world!', 500);
 			} else {
 				$data = $this->upload->data();
-				// do stuff on success
-				echo "yay";
+				echo preview_crop_image($config['file_name'], $config['upload_path']);
+				
 			}
 
 		} else {

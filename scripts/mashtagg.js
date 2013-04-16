@@ -977,16 +977,24 @@ $(document).ready(function() {
 
 	$(".navigation-outline").height("800px");
 
+	//Image upload app events:
+
 	$(".upload-button").click(function() {
 		window.location.hash = "#upload";
-		$(".upload-images-container").show();
+		$(".upload-queue").show();
+		$(".upload-config").show();
 		$(".modal-screen").show();
-		center_modal($(".upload-images-container"));
+	});
+
+	$(".upload-queue .image-container").click(function(){
+		$(".upload-queue .image-container").removeClass("clicked");
+		$(this).addClass("clicked");
 	});
 
 	$(window).on('hashchange', function() {
 		if (window.location.hash === "") {
-			$(".upload-images-container").hide();
+			$(".upload-queue").hide();
+			$(".upload-config").hide();
 			$(".modal-screen").hide();	
 		}
 	});

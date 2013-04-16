@@ -217,3 +217,73 @@ if ( ! function_exists('multi_crop_image')) {
 	}
 
 }
+
+if ( ! function_exists('preview_crop_image') ) {
+
+	function preview_crop_image($filename, $preview_folder) {
+
+		$src = $preview_folder . $filename;
+
+		$type = strtolower(substr(strrchr($src,"."),1));
+		
+		if($type == 'jpeg') $type = 'jpg';
+		switch($type){
+			case 'bmp': $image = imagecreatefromwbmp($src); break;
+			case 'gif': $image = imagecreatefromgif($src); break;
+			case 'jpg': $image = imagecreatefromjpeg($src); break;
+			case 'png': $image = imagecreatefrompng($src); break;
+			default : return "Unsupported picture type!";
+		}
+
+		$CI = get_instance();
+
+		$preview_filename = $preview_folder . 'preview_' . $filename;
+		$width = imagesx($image);
+		$height = imagesy($image);
+
+		//*****Lets first crop the thumbnail*****
+		$thumb = imagecreatetruecolor( LARGE_THUMBNAIL_X, LARGE_THUMBNAIL_Y );
+
+		// preserve transparency
+		if($type == "gif" or $type == "png") {
+			imagecolortransparent($thumb, imagecolorallocatealpha($thumb, 0, 0, 0, 127));
+			imagealphablending($thumb, false);
+			imagesavealpha($thumb, true);
+		}
+
+		//Pixel arithmetic (yay!)
+
+		if ($width == $height) {
+			$thumbnail_width = $height;
+			$crop_start_y = 0;
+			$crop_start_x = 0;
+		} else if ($width > $height) {
+			$thumbnail_width = $height;
+			$crop_start_y = 0;
+			$crop_start_x = ($width - $height) / 2;
+		} else {
+			$thumbnail_width = $width;
+			$crop_start_y = ($height - $width) / 2;
+			$crop_start_x = 0;
+		}
+
+		// Resize and crop
+		imagecopyresampled($thumb, $image,
+		                   0, 0,
+		                   $crop_start_x, $crop_start_y,
+		                   LARGE_THUMBNAIL_X, LARGE_THUMBNAIL_Y,
+		                   $thumbnail_width, $thumbnail_width);
+
+		switch($type){
+			case 'bmp': imagewbmp($thumb, $preview_filename, 80); break;
+			case 'gif': imagegif($thumb, $preview_filename); break;
+			case 'jpg': imagejpeg($thumb, $preview_filename, 100); break;
+			case 'png': imagepng($thumb, $preview_filename, 9); break;
+			default : return "Unsupported picture type!";
+		}
+
+		return base_url() . 'i/preview_' . $filename;
+
+	}
+
+}

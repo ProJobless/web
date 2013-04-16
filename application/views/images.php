@@ -16,7 +16,7 @@
 			</div>
 
 			<div class="upload-button">
-				<p>Upload Images</p>
+				<p>Add Images</p>
 			</div>
 
 		</div>
