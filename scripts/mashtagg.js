@@ -986,7 +986,7 @@ $(document).ready(function() {
 		$(".modal-screen").show();
 	});
 
-	$(".upload-queue .image-container").click(function(){
+	$(".upload-queue .image-container").live('click', function(){
 		$(".upload-queue .image-container").removeClass("clicked");
 		$(this).addClass("clicked");
 	});

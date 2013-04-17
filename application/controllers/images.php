@@ -69,6 +69,7 @@ class Images extends CI_Controller {
 			if ( ! $this->upload->do_upload("userfile")) {
 				$error = $this->upload->display_errors();
 				// do stuff
+				echo $error;
 				show_error('doh! what in the world!', 500);
 			} else {
 				$data = $this->upload->data();
@@ -77,7 +78,9 @@ class Images extends CI_Controller {
 			}
 
 		} else {
+
 			echo "nope";
+
 		}
 
 	}
