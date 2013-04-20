@@ -986,11 +986,6 @@ $(document).ready(function() {
 		$(".modal-screen").show();
 	});
 
-	$(".upload-queue .image-container").live('click', function(){
-		$(".upload-queue .image-container").removeClass("clicked");
-		$(this).addClass("clicked");
-	});
-
 	$(window).on('hashchange', function() {
 		if (window.location.hash === "") {
 			$(".upload-queue").hide();
@@ -999,7 +994,233 @@ $(document).ready(function() {
 		}
 	});
 
+	$("#picture_name").click(function(){
+		$(this).hide();
+		$("#picture_name_input").show();
+		$("#picture_name_input").val($(this).html());
+		$("#picture_name_input").select();
+	});
+	$("#picture_description").click(function(){
+		$(this).hide();
+		$("#picture_description_input").show();
+		$("#picture_description_input").val($(this).html());
+		$("#picture_description_input").select();
+	});
+
+	$("#picture_name_input").blur(function(){
+		$(this).hide();
+		$("#picture_name").show();
+		image_value_relay($(this), $("#picture_name"), ".name");
+	});
+
+	$("#picture_description_input").blur(function(){
+		$(this).hide();
+		$("#picture_description").show();
+		image_value_relay($(this), $("#picture_description"), ".description");
+	});
+
+	$("#picture_name_input").keydown(function(event){
+		if (event.which == 13) {
+			event.preventDefault();
+			$(this).hide();
+			$("#picture_name").show();
+			image_value_relay($(this), $("#picture_name"), ".name");
+		}
+	});
+
+	$("#picture_description_input").keydown(function(event){
+		if (event.which == 13) {
+			event.preventDefault();
+			$(this).hide();
+			$("#picture_description").show();
+			image_value_relay($(this), $("#picture_description"), ".description");
+		}
+	});
+
+	$("#picture_tags_input").keydown(function(event){
+		if (event.which == 13) {
+			event.preventDefault();
+			$(this).hide();
+			$("#picture_tags").show();
+			image_value_relay($(this), $("#picture_tags"), ".tags");
+		}
+	})
+
+	$("#picture_name_input").keyup(function(){
+		var value = $(this).val();
+		var selected_id = '#' + $("#selected_image_id").val();
+		$(selected_id).children(".name").val(value);
+		if (value == "") {
+			$(selected_id).children(".file-name").html('Add a title');
+		} else {
+			$(selected_id).children(".file-name").html(value);
+		}
+		
+	});
+
+	$("#picture_tags").click(function(){
+		$(this).hide();
+		$("#picture_tags_input").show();
+		$("#picture_tags_input").select();
+
+	});
+
+	$("#picture_tags_input").blur(function(){
+		$(this).hide();
+		$("#picture_tags").show();
+		image_value_relay($(this), $("#picture_tags"), ".tags");
+	});
+
+	$(".modal-screen").click(function(){
+		$("#selected_image_id").val("");
+		$("#picture_attributes_placeholder").show();
+		$("#picture_name").hide();
+		$("#picture_name").html("");
+		$("#picture_description").hide();
+		$("#picture_description").html("");
+		$(".tags-container").hide();
+		$(".upload-queue .image-container").removeClass("clicked");
+	});
+
+	$(".upload-url-button").click(function(){
+		url = $("#image_url").val();
+		if (url != "") {
+			if (validateUrl(url)) {
+				var image_id = "CURLUpload_" + ($("#upload-queue").children(".internet-upload").length + 1);
+				$("#upload-queue").append("<div id='" + image_id + "' class='image-container internet-upload'><input class='fileID' type='hidden' name='ids[]' value='" + image_id + "' /><input class='name' type='hidden' name='names[]' value='' /><input class='description' type='hidden' name='descriptions[]' value='' /><input class='tags' type='hidden' name='tags[]' value='' /><input class='file_type' type='hidden' name='file_types[]' value='' /><input class='filename' type='hidden' name='file_names[]' value='' /><input class='thumbnail_name' type='hidden' name='thumbnail_names[]' value='' /><div class='cancel-internet-upload'></div><div class='thumbnail-container'><img class='placeholder' src='" + Mashtagg.base_url + "assets/new_picture.png' /></div><p class='file-name'>Add a title</p> <div class='progress-bar'><div class='progress'></div></div></div>")
+				postData = {"url" : url};
+				$("#image_url").val("");
+				if (!$(".post-upload-container").is(":visible")) {
+	        		$(".post-upload-container").show();
+	        	}
+				$.ajax({
+					type: "POST",
+					url: Mashtagg.base_url + "ajax/curl_image",
+					data: postData,
+					success: function(data) {
+						image_data = JSON.parse(data);
+						image_container = $("#" + image_id);
+						image_container.children(".filename").val(image_data.image_file_name);
+						image_container.children(".thumbnail_name").val(image_data.thumbnail_file_name);
+						image_container.children(".file_type").val(image_data.file_type);
+						image_container.children(".thumbnail-container").children(".placeholder").attr("src", image_data.image_source);
+						image_container.children(".thumbnail-container").children(".placeholder").removeClass("placeholder");
+						image_container.children(".progress-bar").children(".progress").css({"width" : "170px"})
+
+					}
+				});
+			} else {
+				alert("Not a valid url!");
+				$("#image_url").val("");
+			}
+		}
+		
+		
+	});
+
+
 });
+
+function image_value_relay(element, text_element, hidden_element) {
+	var value = element.val();
+	var selected_id = '#' + $("#selected_image_id").val();
+	if (value == "") {
+		if (hidden_element == ".name") {
+			text_element.html("Add a title");	
+		} else if (hidden_element == ".description") {
+			text_element.html("Add a description");
+		} else if (hidden_element == ".tags") {
+			text_element.html("Tags");
+		}
+	} else {
+		text_element.html(value);
+	}
+	if (value != "Add a description" && value != "Add a title" && value != "Tags") {
+		$(selected_id).children(hidden_element).val(value);	
+	}
+	
+}
+
+$(document).on('mouseenter','.upload-queue .image-container', function(){
+    $(this).children(".cancel-upload").show();
+    $(this).children(".cancel-internet-upload").show();
+}).on('mouseleave','.upload-queue .image-container', function(){
+	$(this).children(".cancel-upload").hide();
+	$(this).children(".cancel-internet-upload").hide();
+}).on('click', '.upload-queue .image-container', function(){
+	//We first check and see if its actually a destroy event, we don't want to select it if its a destroy mouse click.
+	if (!$(this).hasClass("dirty")) {
+		$(".upload-queue .image-container").removeClass("clicked");
+		$("#selected_image_id").val($(this).attr("id"));
+		$(this).addClass("clicked");
+		$("#picture_attributes_placeholder").hide();
+		var image_name = $(this).children(".name").val();
+		$("#picture_name").show();
+		if(image_name != "") {
+			$("#picture_name").html(image_name);
+		} else {
+			$("#picture_name").html("Add a title");
+		}
+		
+		var image_description = $(this).children(".description").val();
+		$("#picture_description").show();
+		if (image_description != "") {
+			$("#picture_description").html(image_description);
+		} else {
+			$("#picture_description").html("Add a description");
+		}
+		var image_tags = $(this).children(".tags").val();
+		$(".tags-container").show();
+		if (image_tags != "") {
+			$("#picture_tags").html(image_tags);
+		} else {
+			$("#picture_tags").html("Tags");
+		}
+	}
+}).on('click', '.cancel-upload', function(){
+	var file_id = $(this).parent().attr("id");
+	$(this).parent().addClass("dirty");
+	if ($(this).parent().hasClass("clicked")) {
+		$("#selected_image_id").val("");
+		$("#picture_attributes_placeholder").show();
+		$("#picture_name").hide();
+		$("#picture_name").html("");
+		$("#picture_description").hide();
+		$("#picture_description").html("");
+		$(".tags-container").hide();
+	}
+	$('#upload_btn').uploadify('cancel', file_id);
+	$(this).parent().remove();
+	var upload_count = $("#upload-queue").children(".image-container").length;
+	if(upload_count === 0) {
+		$(".post-upload-container").hide();
+	} else if(upload_count === 1) {
+		$(".confirm-upload").val("Upload 1 File");
+	} else if (upload_count > 1) {
+		$(".confirm-upload").val("Upload " + upload_count + " Files");
+	}
+}).on('click', '.cancel-internet-upload', function(){
+	var file_id = $(this).parent().attr("id");
+	$(this).parent().addClass("dirty");
+	if ($(this).parent().hasClass("clicked")) {
+		$("#selected_image_id").val("");
+		$("#picture_attributes_placeholder").show();
+		$("#picture_name").hide();
+		$("#picture_name").html("");
+		$("#picture_description").hide();
+		$("#picture_description").html("");
+		$(".tags-container").hide();
+	}
+	$(this).parent().remove();
+	var upload_count = $("#upload-queue").children(".image-container").length;
+	if(upload_count === 0) {
+		$(".post-upload-container").hide();
+	} else if(upload_count === 1) {
+		$(".confirm-upload").val("Upload 1 File");
+	} else if (upload_count > 1) {
+		$(".confirm-upload").val("Upload " + upload_count + " Files");
+	}
+});;
 
 $(window).load(function(){
 	if ($("#post_container .outer-post-container").length) {
@@ -1074,4 +1295,8 @@ function center_modal(element) {
 	var center_y = ((window_height / 2) - (height / 2) - 200);
 	var center_x = (window_width / 2) - (width / 2);
 	element.css({"top" : center_y, "left" : center_x});
+}
+
+function validateUrl(value){
+    return /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value);
 }

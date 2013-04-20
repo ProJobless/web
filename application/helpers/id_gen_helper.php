@@ -32,7 +32,7 @@ if ( ! function_exists('get_unique_id')) {
 
 }
 
-if ( ! function_exists('get_unique_image_id')) {
+if ( ! function_exists('get_unique_email_id')) {
 	
 	function get_unique_email_id() {
 		
@@ -53,12 +53,12 @@ if ( ! function_exists('get_unique_image_id')) {
 
 	function get_unique_image_id() {
 
-		$index = 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-_';
+		$index = 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ-';
 		$id = '';
 		srand(make_seed());
 		
 		for($i = 1;$i <= 32; $i++) {
-			$id = $id . $index[rand(0,63)];
+			$id = $id . $index[rand(0,62)];
 		}
 		
 		return $id;

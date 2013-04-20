@@ -13,9 +13,9 @@
 			'width' : 288,
 			'multi'   : true,
 			'auto'   : true,
-			'queueID' : 'hidden-queue',
+			'queueID' : 'upload-queue',
 
-			'overrideEvents' : ['onUploadProgress, onSelect, onUploadStart', 'onUploadComplete'],
+			'overrideEvents' : ['onUploadProgress, onSelect, onUploadStart', 'onUploadComplete', 'onSelectError'],
 
 			'fileTypeExts' : '*.png; *.jpg; *.gif',
 			'fileTypeDesc' : 'Image Files',
@@ -28,33 +28,57 @@
 			'simUploadLimit': 1,
 			'fileSizeLimit'  : '10MB',
 
-			'onSelect' : function(file) {
-				$(".upload-queue").append("<div id='" + file.id + "mt' class='image-container'><div class='thumbnail-container'><img class='placeholder' src=\'<?php echo base_url() . 'assets/new_picture.png'; ?>\' /></div><p class='file-name'>" + file.name + "</p> <div class='progress-bar'><div class='progress'></div></div> </div>");
-			},
+			'itemTemplate' : "<div id='${fileID}' class='image-container'><input class='fileID' type='hidden' name='ids[]' value='${fileID}' /><input class='name' type='hidden' name='names[]' value='${fileName}' /><input class='description' type='hidden' name='descriptions[]' value='' /><input class='tags' type='hidden' name='tags[]' value='' /><input class='file_type' type='hidden' name='file_types[]' value='' /><input class='filename' type='hidden' name='file_names[]' value='' /><input class='thumbnail_name' type='hidden' name='thumbnail_names[]' value='' /><div class='cancel-upload'></div><div class='thumbnail-container'><img class='placeholder' src=\'<?php echo base_url() . 'assets/new_picture.png'; ?>\' /></div><p class='file-name'>${fileName}</p> <div class='progress-bar'><div class='progress'></div></div></div>",
 
 			'onUploadProgress' : function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
 
 				if (bytesUploaded != 0) {
 					var percentage = bytesUploaded / bytesTotal;
 					var progress_width = percentage * 170;
-					var file_id = '#' + file.id + 'mt';
+					var file_id = '#' + file.id;
 					$(file_id).children(".progress-bar").children(".progress").css({"width" : progress_width + "px"});
 				}
 
 				
 			},
 
-			'onUploadStart' : function(file) {
-	            
-	        },
-
 	        'onUploadSuccess' : function(file, data, response) {
 
-	        	var file_id = '#' + file.id + 'mt';
+	        	var response = JSON.parse(data);
+	        	console.log(response);
 
-	        	$(file_id).children(".thumbnail-container").children("img").attr("src", data);
+	        	var file_id = '#' + file.id;
+	        	$(file_id).children(".thumbnail-container").children("img").attr("src", response.image_source);
 	        	$(file_id).children(".thumbnail-container").children("img").removeClass("placeholder");
+	        	$(file_id).children(".filename").val(response.image_file_name);
+	        	$(file_id).children(".thumbnail_name").val(response.thumbnail_file_name);
+	        	$(file_id).children(".file_type").val(response.file_type);
 
+	        },
+
+	        'onQueueComplete' : function(queueData) {
+
+	        	var upload_count = $("#upload-queue").children(".image-container").length;
+	        	if(upload_count === 1) {
+	        		$(".confirm-upload").val("Upload 1 File");
+	        	} else if (upload_count > 1) {
+	        		$(".confirm-upload").val("Upload " + upload_count + " Files");
+	        	}
+
+	        },
+
+	        'onSelectError' : function(file, errorCode, errorMsg) {
+
+	        	console.log(file);
+	        	console.log(errorCode);
+	        	console.log(errorMsg);
+
+	        },
+
+	        'onSelect' : function(file) {
+	        	if (!$(".post-upload-container").is(":visible")) {
+	        		$(".post-upload-container").show();
+	        	}
 	        }
 
 

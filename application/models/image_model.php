@@ -12,24 +12,62 @@ class Image_model extends CI_Model {
 		$this->load->helper("id_gen_helper");
 		$this->load->helper("image_helper");
 		$image_id = get_unique_id();
+		$upload_folder = $this->config->item('image_path');
+
+		if (isset($image_details['title'])) {
+			$title = $image_details['title'];
+		} else {
+			$title = "";
+		}
+
+		if (isset($image_details['description'])) {
+			$description = $image_details['description'];
+		} else {
+			$description = "";
+		}
+
+
+		if (isset($image_details['tags'])) {
+			$tags = explode(' ', strtolower($image_details['tags']));
+			foreach ($tags as $tag) {
+				if (strlen($tag) > 0) {
+					$tag_data = array("name" => $tag, "sid" => $image_id);
+					$this->Tag_model->add($tag_data);
+				}
+			}
+		} else {
+			$tags = array();
+		}
+
 
 		$image_data = array(
 			"image_id" => $image_id,
-			"source" => base_url() . 'i/' . $image_id . '.' . $image_details['file_type'],
-			"path" => $image_details['upload_path'] . $image_details['file_name'],
-			"thumbnail_path" => $image_details['upload_path'] . 'thumbnail_' . $image_id . '.' . $image_details['file_type'],
-			"big_thumbnail_path" => $image_details['upload_path'] . 'big_thumbnail_' . $image_id . '.' . $image_details['file_type'],
-			"thumbnail_source" => base_url() . 'i/thumbnail_' . $image_id . '.' . $image_details['file_type'],
-			"big_thumbnail_source" => base_url() . 'i/big_thumbnail_' . $image_id . '.' . $image_details['file_type'],
+			"file_type" => $image_details['file_type'],
+			"url" => base_url() . 'i/' . $image_id . '.' . $image_details['file_type'],
+			"filename" => $image_details['file_name'],
+			"path" => $upload_folder . $image_details['file_name'],
+			"thumbnail_url" => base_url() . 'i/thumbnail_' . $image_id . '.' . $image_details['file_type'],
+			"thumbnail_filename" => 'thumbnail~' . $image_details['file_name'],
+			"thumbnail_path" => $upload_folder . 'thumbnail~' . $image_details['file_name'],
+			"big_thumbnail_url" => base_url() . 'i/bigthumbnail_' . $image_id . '.' . $image_details['file_type'],
+			"big_thumbnail_filename" => 'bigthumbnail~' . $image_details['file_name'],
+			"big_thumbnail_path" => $upload_folder . 'bigthumbnail~' . $image_details['file_name'],
+			"title" => $title,
+			"description" => $description,
+			"tags" => $tags,
 			"created" => time(),
 			"views" => 0,
 			"upvotes" => 0,
 			"downvotes" => 0,
-			"file_name" => $image_details['file_name'],
-			"file_type" => $image_details['file_type'],
 		);
 
-		multi_crop_image($image_data['path'], $image_id . '.' .$image_details['file_type']);
+		if (isset($image_details['multi_upload'])) {
+			thumbnail_crop($image_details['file_name'], $upload_folder);
+
+		} else {
+			thumbnail_crop($image_details['file_name'], $upload_folder);
+			big_thumbnail_crop($image_details['file_name'], $upload_folder);
+		}
 
 		$this->mongo_db->insert('images', $image_data);
 
@@ -40,10 +78,6 @@ class Image_model extends CI_Model {
 
 		$this->mongo_db->insert('user_images', $user_image_data);
 		return $image_data;
-
-	}
-
-	public function get_source($image_id) {
 
 	}
 

@@ -42,7 +42,7 @@
 
 			<div class="image-container">
 
-				<img src="<?php echo $image['big_thumbnail_source'];?>" />
+				<img src="<?php echo $image['big_thumbnail_url'];?>" />
 
 			</div>
 

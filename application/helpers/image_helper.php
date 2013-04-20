@@ -106,123 +106,11 @@ if ( ! function_exists('serve_image')) {
 
 }
 
-if ( ! function_exists('multi_crop_image')) {
+if ( ! function_exists('big_thumbnail_crop') ) {
 
-	function multi_crop_image($src, $filename) {
+	function big_thumbnail_crop($filename, $path) {
 
-		if(!list($w, $h) = getimagesize($src)) return "Unsupported picture type!";
-
-  		$type = strtolower(substr(strrchr($src,"."),1));
-		
-		if($type == 'jpeg') $type = 'jpg';
-		switch($type){
-			case 'bmp': $image = imagecreatefromwbmp($src); break;
-			case 'gif': $image = imagecreatefromgif($src); break;
-			case 'jpg': $image = imagecreatefromjpeg($src); break;
-			case 'png': $image = imagecreatefrompng($src); break;
-			default : return "Unsupported picture type!";
-		}
-
-		$CI = get_instance();
-		$file_folder = $CI->config->item('image_path');
-
-		$thumb_filename = $file_folder . 'thumbnail_' . $filename;
-		$width = imagesx($image);
-		$height = imagesy($image);
-
-		//*****Lets first crop the thumbnail*****
-		$thumb = imagecreatetruecolor( THUMBNAIL_X, THUMBNAIL_Y );
-
-		// preserve transparency
-		if($type == "gif" or $type == "png") {
-			imagecolortransparent($thumb, imagecolorallocatealpha($thumb, 0, 0, 0, 127));
-			imagealphablending($thumb, false);
-			imagesavealpha($thumb, true);
-		}
-
-		//Pixel arithmetic (yay!)
-
-		if ($width == $height) {
-			$thumbnail_width = $height;
-			$crop_start_y = 0;
-			$crop_start_x = 0;
-		} else if ($width > $height) {
-			$thumbnail_width = $height;
-			$crop_start_y = 0;
-			$crop_start_x = ($width - $height) / 2;
-		} else {
-			$thumbnail_width = $width;
-			$crop_start_y = ($height - $width) / 2;
-			$crop_start_x = 0;
-		}
-
-		// Resize and crop
-		imagecopyresampled($thumb, $image,
-		                   0, 0,
-		                   $crop_start_x, $crop_start_y,
-		                   THUMBNAIL_X, THUMBNAIL_Y,
-		                   $thumbnail_width, $thumbnail_width);
-
-		switch($type){
-			case 'bmp': imagewbmp($thumb, $thumb_filename, 80); break;
-			case 'gif': imagegif($thumb, $thumb_filename); break;
-			case 'jpg': imagejpeg($thumb, $thumb_filename, 100); break;
-			case 'png': imagepng($thumb, $thumb_filename, 9); break;
-			default : return "Unsupported picture type!";
-		}
-
-		//*****Now lets make the big thumbnail*****
-		$big_thumb_filename = $file_folder . 'big_thumbnail_' . $filename;
-		$big_thumb = imagecreatetruecolor( LARGE_THUMBNAIL_X, LARGE_THUMBNAIL_Y );
-
-		// preserve transparency
-		if($type == "gif" or $type == "png") {
-			imagecolortransparent($thumb, imagecolorallocatealpha($thumb, 0, 0, 0, 127));
-			imagealphablending($thumb, false);
-			imagesavealpha($thumb, true);
-		}
-
-		//Pixel arithmetic (yay!)
-		if ($width == $height) {
-			$thumbnail_width = $height;
-			$crop_start_y = 0;
-			$crop_start_x = 0;
-		} else if ($width > $height) {
-			$thumbnail_width = $height;
-			$crop_start_y = 0;
-			$crop_start_x = ($width - $height) / 2;
-		} else {
-			$thumbnail_width = $width;
-			$crop_start_y = ($height - $width) / 2;
-			$crop_start_x = 0;
-		}
-
-		// Resize and crop
-		imagecopyresampled(
-			$big_thumb, $image,
-		    0, 0,
-            $crop_start_x, $crop_start_y,
-            LARGE_THUMBNAIL_X, LARGE_THUMBNAIL_Y,
-            $thumbnail_width, $thumbnail_width
-        );
-
-		switch($type){
-			case 'bmp': imagewbmp($big_thumb, $big_thumb_filename, 80); break;
-			case 'gif': imagegif($big_thumb, $big_thumb_filename); break;
-			case 'jpg': imagejpeg($big_thumb, $big_thumb_filename, 100); break;
-			case 'png': imagepng($big_thumb, $big_thumb_filename, 9); break;
-			default : return "Unsupported picture type!";
-		}
-
-	}
-
-}
-
-if ( ! function_exists('preview_crop_image') ) {
-
-	function preview_crop_image($filename, $preview_folder) {
-
-		$src = $preview_folder . $filename;
+		$src = $path . $filename;
 
 		$type = strtolower(substr(strrchr($src,"."),1));
 		
@@ -237,7 +125,7 @@ if ( ! function_exists('preview_crop_image') ) {
 
 		$CI = get_instance();
 
-		$preview_filename = $preview_folder . 'preview_' . $filename;
+		$preview_filename = $path . 'bigthumbnail~' . $filename;
 		$width = imagesx($image);
 		$height = imagesy($image);
 
@@ -282,7 +170,76 @@ if ( ! function_exists('preview_crop_image') ) {
 			default : return "Unsupported picture type!";
 		}
 
-		return base_url() . 'i/preview_' . $filename;
+	}
+
+}
+
+if ( ! function_exists('thumbnail_crop') ) {
+
+	function thumbnail_crop($filename, $path) {
+
+		$src = $path . $filename;
+
+		if(!list($w, $h) = getimagesize($src)) return "Unsupported picture type!";
+
+  		$type = strtolower(substr(strrchr($src,"."),1));
+		
+		if($type == 'jpeg') $type = 'jpg';
+		switch($type){
+			case 'bmp': $image = imagecreatefromwbmp($src); break;
+			case 'gif': $image = imagecreatefromgif($src); break;
+			case 'jpg': $image = imagecreatefromjpeg($src); break;
+			case 'png': $image = imagecreatefrompng($src); break;
+			default : return "Unsupported picture type!";
+		}
+
+		$CI = get_instance();
+
+
+		$thumb_filename = $path . 'thumbnail~' . $filename;
+		$width = imagesx($image);
+		$height = imagesy($image);
+
+		//*****Lets first crop the thumbnail*****
+		$thumb = imagecreatetruecolor( THUMBNAIL_X, THUMBNAIL_Y );
+
+		// preserve transparency
+		if($type == "gif" or $type == "png") {
+			imagecolortransparent($thumb, imagecolorallocatealpha($thumb, 0, 0, 0, 127));
+			imagealphablending($thumb, false);
+			imagesavealpha($thumb, true);
+		}
+
+		//Pixel arithmetic (yay!)
+
+		if ($width == $height) {
+			$thumbnail_width = $height;
+			$crop_start_y = 0;
+			$crop_start_x = 0;
+		} else if ($width > $height) {
+			$thumbnail_width = $height;
+			$crop_start_y = 0;
+			$crop_start_x = ($width - $height) / 2;
+		} else {
+			$thumbnail_width = $width;
+			$crop_start_y = ($height - $width) / 2;
+			$crop_start_x = 0;
+		}
+
+		// Resize and crop
+		imagecopyresampled($thumb, $image,
+		                   0, 0,
+		                   $crop_start_x, $crop_start_y,
+		                   THUMBNAIL_X, THUMBNAIL_Y,
+		                   $thumbnail_width, $thumbnail_width);
+
+		switch($type){
+			case 'bmp': imagewbmp($thumb, $thumb_filename, 80); break;
+			case 'gif': imagegif($thumb, $thumb_filename); break;
+			case 'jpg': imagejpeg($thumb, $thumb_filename, 100); break;
+			case 'png': imagepng($thumb, $thumb_filename, 9); break;
+			default : return "Unsupported picture type!";
+		}
 
 	}
 

@@ -94,7 +94,7 @@ class Compose extends CI_Controller {
 					$type = substr($_FILES['userfile']['name'], -3, 3);
 					$this->load->helper('id_gen_helper');
 					$config = array();
-					$config['file_name'] = $u['username'] . '_' . get_unique_image_id() . '.' . $type;
+					$config['file_name'] = $u['username'] . '~' . get_unique_image_id() . '.' . $type;
 					$config['upload_path'] = $this->config->item('image_path');
 					$config['allowed_types'] = 'gif|jpg|png';
 					$config['overwrite'] = TRUE;
@@ -112,10 +112,9 @@ class Compose extends CI_Controller {
 
 						$post_data['author'] = $u['username'];
 						$post_data['title'] = $this->input->post('post_title');
-						$post_data['body'] = "<br /><div class='uploaded-post-image'><img class='post-image' src='" . $image_data['source'] . "' /></div><br />" . $this->input->post('post_body');
+						$post_data['body'] = "<br /><div class='uploaded-post-image'><img class='post-image' src='" . $image_data['url'] . "' /></div><br />" . $this->input->post('post_body');
 						$post_data['published'] = 'true';
-						$post_data['thumbnail_image'] = $image_data['thumbnail_source'];
-						
+						$post_data['thumbnail_image'] = $image_data['thumbnail_url'];
 
 						if (!$post_data['title'] == '') {
 							$post_data['type'] = "post";
@@ -124,13 +123,13 @@ class Compose extends CI_Controller {
 						}
 						
 						$this->Post_model->create($post_data);
-						redirect('blog');					
+						redirect('blog');
 						
 					}
 
 				}
 
-				
+
 
 			} else {
 

@@ -121,6 +121,72 @@ class Ajax extends CI_Controller {
 
 		}
 	}
+
+	public function curl_image() {
+
+		if($u = Current_User::user()) {
+
+			$url = $this->input->post('url');
+
+			$url = str_replace("https", "http", $url, $temp = 1);
+			
+			if  ( preg_match( '/^http:\/\//', $url) == 0) {
+			
+				$url = "http://" . $url;
+			
+			}
+
+			preg_match('/^http:\/\/[a-zA-Z0-9\-\.]+\//', $url, $matches);
+
+			if (isset($matches[0])) {
+
+				$ch = curl_init();
+				$timeout = 5;
+		  		curl_setopt($ch,CURLOPT_URL,$url);
+				curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+				curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+				curl_setopt($ch, CURLOPT_HEADER, 1);
+				$data = curl_exec($ch);
+				$curl_info = curl_getinfo($ch);
+
+				if ($curl_info['content_type'] == 'image/jpeg' ||
+					$curl_info['content_type'] == 'image/jpg' ||
+					$curl_info['content_type'] == 'image/png' ||
+					$curl_info['content_type'] == 'image/gif') {
+					switch($curl_info['content_type']) {
+						case 'image/jpeg':
+						case  'image/jpg': $extension = 'jpg';
+							break;
+						case  'image/png': $extension = 'png';
+							break;
+						case  'image/gif': $extension = 'gif';
+							break;
+					}
+					$header_size = curl_getinfo($ch,CURLINFO_HEADER_SIZE);
+		        	$image = substr( $data, $header_size );
+		        	$http_code = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+
+		        	$this->load->helper("id_gen_helper");
+		        	$this->load->helper("image_helper");
+		        	$filename = $u['username'] . '~' . get_unique_image_id() . '.' . $extension; 
+		        	file_put_contents($this->config->item('temp_image_path') . $filename, $image);
+		        	big_thumbnail_crop($filename, $this->config->item('temp_image_path'));
+		        	echo json_encode(array(
+						"image_source" => base_url() . 'i/bigthumbnail~' . $filename,
+						"image_file_name" => $filename,
+						"thumbnail_file_name" => 'bigthumbnail~' . $filename,
+						"file_type" => $extension,
+					));
+
+				}
+
+			} else {
+				
+
+			}
+
+		}
+	}
 	
 	public function website_scrape() {
 		if($u = Current_User::user()) {
