@@ -42,7 +42,20 @@
 
 			<div class="image-container">
 
+				<div class="inspect-image">
+					<a href="<?php echo base_url() . 'i/' . $image['image_id'];?>">
+						<img src="<?php echo base_url() . 'assets/inspect_image.png';?>" />
+					</a>
+				</div>
+
 				<img src="<?php echo $image['big_thumbnail_url'];?>" />
+				<input type="hidden" class="image-url" value="<?=$image['url']?>"/>
+				<input type="hidden" class="image-title" value="<?=$image['title']?>"/>
+				<input type="hidden" class="image-description" value="<?=$image['description']?>"/>
+				<input type="hidden" class="image-height" value="<?=$image['height']?>"/>
+				<input type="hidden" class="image-width" value="<?=$image['width']?>"/>
+
+				
 
 			</div>
 
@@ -55,5 +68,26 @@
 	</div>
 
 </div>
+
+<div class="image-modal">
+	<div class="inspect-image">
+		<a href="<?php echo base_url() . 'i/' . $image['image_id'];?>">
+			<img src="<?php echo base_url() . 'assets/inspect_image.png';?>" />
+		</a>
+	</div>
+	<div class="close-modal">
+		<img src="<?php echo base_url() . 'assets/uploadify-cancel.png';?>" />
+	</div>
+	<div class="next-image">
+		<img src="<?php echo base_url() . 'assets/next_image.png';?>" />
+	</div>
+	<div class="prev-image">
+		<img src="<?php echo base_url() . 'assets/prev_image.png';?>" />
+	</div>
+	<div class="image-wrapper">
+		<img src="" />
+	</div>
+</div>
+<div class="image-modal-screen"></div>
 
 <?$this->load->view("upload_images"); ?>

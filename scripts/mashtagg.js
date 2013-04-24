@@ -1118,6 +1118,94 @@ $(document).ready(function() {
 		
 	});
 
+	$(".image-modal .image-wrapper img").click(function(){
+		var images = $(".images-container .image-container");
+		var source = $(this).attr("src");
+		var max_height = parseInt($(window).height()) - 50;
+		console.log(max_height);
+		$(".image-modal .image-wrapper img").css({"max-height" : max_height});
+		for(var i = 0; i < images.length; i++) {
+			if ( source == $(images[i]).children(".image-url").val()) {
+				if (i != images.length - 1) {
+					var next_image = $(images[i + 1]);
+					
+				} else {
+					var next_image = $(images[0]);
+				}
+				var temp_image = new Image();
+				temp_image.onload = function() {
+					center_modal($(".image-modal"), next_image.children(".image-height").val(), next_image.children(".image-width").val());
+					var arrow_position = ($(".image-modal").height() / 2) - 24;
+					$(".prev-image").css({"top" : arrow_position});
+					$(".next-image").css({"top" : arrow_position});
+				}
+				temp_image.src = next_image.children(".image-url").val();
+				$(this).attr("src", temp_image.src);
+				
+			}
+		}
+	});
+
+	$(".next-image").click(function(){
+		var images = $(".images-container .image-container");
+		var source = $(this).siblings(".image-wrapper").children("img").attr("src");
+		for(var i = 0; i < images.length; i++) {
+			if ( source == $(images[i]).children(".image-url").val()) {
+				if (i != images.length - 1) {
+					var next_image = $(images[i + 1]);
+					
+				} else {
+					var next_image = $(images[0]);
+				}
+				var temp_image = new Image();
+				temp_image.onload = function() {
+					center_modal($(".image-modal"), next_image.children(".image-height").val(), next_image.children(".image-width").val());
+					var arrow_position = ($(".image-modal").height() / 2) - 24;
+					$(".prev-image").css({"top" : arrow_position});
+					$(".next-image").css({"top" : arrow_position});
+				}
+				temp_image.src = next_image.children(".image-url").val();
+				$(this).siblings(".image-wrapper").children("img").attr("src", temp_image.src);
+				
+			}
+		}
+	});
+
+	$(".prev-image").click(function(){
+		var images = $(".images-container .image-container");
+		var source = $(this).siblings(".image-wrapper").children("img").attr("src");
+		for(var i = 0; i < images.length; i++) {
+			if ( source == $(images[i]).children(".image-url").val()) {
+				if (i != 0) {
+					var next_image = $(images[i - 1]);
+					
+				} else {
+					var next_image = $(images[images.length - 1]);
+				}
+				var temp_image = new Image();
+				temp_image.onload = function() {
+					center_modal($(".image-modal"), next_image.children(".image-height").val(), next_image.children(".image-width").val());
+					var arrow_position = ($(".image-modal").height() / 2) - 24;
+					$(".prev-image").css({"top" : arrow_position});
+					$(".next-image").css({"top" : arrow_position});
+				}
+				temp_image.src = next_image.children(".image-url").val();
+				$(this).siblings(".image-wrapper").children("img").attr("src", temp_image.src);
+				
+			}
+		}
+	});
+
+	$(".image-modal .close-modal").click(function(){
+		$(".image-modal").hide();
+		$(".image-modal-screen").hide();
+	});
+
+	$(".image-modal-screen").click(function(){
+		$(".image-modal").hide();
+		$(".image-modal-screen").hide();
+	});
+
 
 });
 
@@ -1141,7 +1229,34 @@ function image_value_relay(element, text_element, hidden_element) {
 	
 }
 
-$(document).on('mouseenter','.upload-queue .image-container', function(){
+$(document).on('mouseenter','.image-modal', function(){
+    $(this).children(".inspect-image").show();
+    $(this).children(".prev-image").show();
+    $(this).children(".next-image").show();
+}).on('mouseleave','.image-modal', function(){
+	$(this).children(".inspect-image").hide();
+	$(this).children(".prev-image").hide();
+    $(this).children(".next-image").hide();
+}).on('click','.image-row .image-container', function(){
+	var url = $(this).children(".image-url").val();
+    $(".image-modal").children(".image-wrapper").children("img").attr("src", url);
+    $(".image-modal").show();
+    $(".image-modal-screen").show();
+    var height = parseInt($(this).children(".image-height").val()) + 10;
+    var width = parseInt($(this).children(".image-width").val()) + 10;
+    var temp_image = new Image();
+	temp_image.onload = function() {
+    	center_modal($(".image-modal"), height, width);
+    	var arrow_position = ($(".image-modal").height() / 2) - 24;
+		$(".prev-image").css({"top" : arrow_position});
+		$(".next-image").css({"top" : arrow_position});
+	}
+	temp_image.src = url;
+}).on('mouseenter','.image-row .image-container', function(){
+    $(this).children(".inspect-image").show();
+}).on('mouseleave','.image-row .image-container', function(){
+	$(this).children(".inspect-image").hide();
+}).on('mouseenter','.upload-queue .image-container', function(){
     $(this).children(".cancel-upload").show();
     $(this).children(".cancel-internet-upload").show();
 }).on('mouseleave','.upload-queue .image-container', function(){
@@ -1287,13 +1402,29 @@ function readURL(input, id) {
     }
 }
 
-function center_modal(element) {
-	var height = element.height();
-	var width  = element.width();
-	var window_height = window.outerHeight;
-	var window_width  = window.outerWidth;
-	var center_y = ((window_height / 2) - (height / 2) - 200);
+function center_modal(element, height, width) {
+	var window_width  = $(window).width();
+	var window_height = $(window).height();
+	if (width > 800) {
+		var aspect_ratio = (width / height);
+		width = 800;
+		height = (aspect_ratio * height);
+	}
 	var center_x = (window_width / 2) - (width / 2);
+	if (height > (window_height - 50)) {
+		var center_y = 25;
+		var aspect_ratio = (width / height);
+		height = window_height - 50;
+		width = (height / aspect_ratio);
+	} else {
+		var center_y = (window_height / 2) - (height / 2);
+	}
+	console.log({
+		"window_width" : window_width,
+		"window_height" : window_height,
+		"center_x" : center_x,
+		"center_y" : center_y,
+	});
 	element.css({"top" : center_y, "left" : center_x});
 }
 

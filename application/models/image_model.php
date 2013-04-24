@@ -61,6 +61,10 @@ class Image_model extends CI_Model {
 			"downvotes" => 0,
 		);
 
+		$dimensions = getimagesize ( $image_data['path'] );
+		$image_data['height'] = $dimensions[1];
+		$image_data['width'] = $dimensions[0];
+
 		if (isset($image_details['multi_upload'])) {
 			thumbnail_crop($image_details['file_name'], $upload_folder);
 

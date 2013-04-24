@@ -3135,6 +3135,70 @@ padding-left:10px;
 #images_outer_container .images-container .image-row .image-container {
 	float:left;
 	height:300px;
+	position:relative;
+}
+
+#images_outer_container .images-container .image-row .image-container .inspect-image {
+	position:absolute;
+	top:5px;
+	left:5px;
+	display:none;
+}
+
+.image-modal {
+	position:absolute;
+	top:5px;
+	left:5px;
+	padding:5px;
+	background:rgba(0,0,0,0.2);
+	z-index:100;
+	display:none;
+}
+
+.image-modal .image-wrapper img {
+	max-width:800px;
+	display:block;
+}
+
+.image-modal .inspect-image {
+	position:absolute;
+	top:10px;
+	left:10px;
+	display:none;
+}
+
+.image-modal-screen {
+	position: fixed;
+	top: 0;
+	right: 0;
+	height:100%;
+	width:100%;
+	background: rgba(0,0,0,0.50);
+	z-index: 99;
+	display:none;
+}
+
+.image-modal .close-modal {
+	position:absolute;
+	top:10px;
+	right:10px;
+	cursor:pointer;
+}
+
+.image-modal .next-image {
+	position:absolute;
+	top:10px;
+	right:10px;
+	cursor:pointer;
+	display:none;
+}
+
+.image-modal .prev-image {
+	position:absolute;
+	top:10px;
+	left:10px;
+	cursor:pointer;
+	display:none;
 }
 
 /******************* UPLOAD-MODAL **********************/
